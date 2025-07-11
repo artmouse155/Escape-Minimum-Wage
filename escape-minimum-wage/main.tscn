@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://dbhm0gfhvg7t7"]
+[gd_scene load_steps=3 format=3 uid="uid://dbhm0gfhvg7t7"]
 
-[node name="Main" type="Node2D"]
+[ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cw712jj3h78q6" path="res://Game/game.tscn" id="1_ig7tw"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_0xm2m")
+
+[node name="Game" parent="." instance=ExtResource("1_ig7tw")]
+layout_mode = 1

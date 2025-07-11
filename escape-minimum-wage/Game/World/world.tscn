@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://b25h3roe75kgy"]
+
+[ext_resource type="Script" uid="uid://ckkjnd206unei" path="res://Game/World/player.gd" id="1_eof05"]
+[ext_resource type="Texture2D" uid="uid://dsswp2x7dcaed" path="res://icon.svg" id="1_v7yag"]
+[ext_resource type="Script" uid="uid://c3v2io5647yh3" path="res://Game/World/enemy_spawner.gd" id="1_yyydc"]
+[ext_resource type="PackedScene" uid="uid://ywfs1lsjairk" path="res://Game/World/Enemy/enemy.tscn" id="2_cx28n"]
+
+[sub_resource type="Curve2D" id="Curve2D_v7yag"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -743, -506, 0, 0, 0, 0, 791, -500, 0, 0, 0, 0, 783, 397, 0, 0, 0, 0, -747, 392, 0, 0, 0, 0, -743, -506)
+}
+point_count = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yyydc"]
+size = Vector2(128, 128)
+
+[node name="World" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(291, -214)
+rotation = -0.537181
+texture = ExtResource("1_v7yag")
+
+[node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("SpawnPath", "Follow", "player")]
+script = ExtResource("1_yyydc")
+SpawnPath = NodePath("../Player/SpawnPath")
+Follow = NodePath("../Player/SpawnPath/Follow")
+EnemyScene = ExtResource("2_cx28n")
+player = NodePath("../Player")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_eof05")
+
+[node name="Sprite" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_v7yag")
+
+[node name="Camera" type="Camera2D" parent="Player"]
+zoom = Vector2(0.5, 0.5)
+
+[node name="SpawnPath" type="Path2D" parent="Player"]
+curve = SubResource("Curve2D_v7yag")
+
+[node name="Follow" type="PathFollow2D" parent="Player/SpawnPath"]
+position = Vector2(-743, -506)
+rotation = -1.56634
+progress = 4859.06
+
+[node name="Collision" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_yyydc")
