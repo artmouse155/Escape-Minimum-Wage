@@ -1,16 +1,16 @@
 class_name Enemy extends RigidBody2D
 
-var player: Player
+var PlayerNode: Player
 
 @export var HealthBar: ProgressBar
 
-const ROT_SPEED := 100.0
-const MAX_SPEED := 200.0 # Pixels per Second
-const ACCEL := 200.0 # Pixels per second squared
+const ACCEL := 2000.0 # Pixels per second squared
 
-const PLAYER_BOUNCE_BACK := 500
+const PLAYER_BOUNCE_BACK := 10000
 
 var init_health := 300.0
+
+var touching_player = false
 
 var health := init_health:
 	get:
@@ -24,7 +24,7 @@ var health := init_health:
 
 func init(_position: Vector2, _player: Player) -> void:
 	global_position = _position
-	player = _player
+	PlayerNode = _player
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,15 +34,15 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# Absolute direction vector
-	var dir_vector: Vector2 = global_position.direction_to(player.global_position)
-	state.apply_central_force(ACCEL * dir_vector)
-	#if (new_velocity.length() < MAX_SPEED and linear_velocity.length() < MAX_SPEED):
-		#linear_velocity = new_velocity
+	var dir_vector: Vector2 = global_position.direction_to(PlayerNode.global_position)
+	if not touching_player:
+		state.apply_central_force(ACCEL * dir_vector)
+	else:
+		state.apply_central_force(PLAYER_BOUNCE_BACK * -dir_vector)
 	health -= 1
 
-func take_damage_from_player(dmg: int = 10) -> void:
-	var dir_vector: Vector2 = global_position.direction_to(player.global_position)
-	apply_impulse(-dir_vector * PLAYER_BOUNCE_BACK, Vector2.ZERO)
+func take_damage_from_player(dmg: int) -> void:
+	health -= dmg
 
 func updateHealthBar():
 	assert(HealthBar, "No Healthbar Found.")
@@ -54,5 +54,10 @@ func die():
 
 func _on_body_entered(body: Node) -> void:
 	if body is Player:
-		print("Collided with", body)
-		take_damage_from_player()
+		touching_player = true
+		take_damage_from_player(50)
+
+
+func _on_body_exited(body: Node) -> void:
+	if body is Player:
+		touching_player = false

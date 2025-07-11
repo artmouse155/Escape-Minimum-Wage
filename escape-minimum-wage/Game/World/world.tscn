@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b25h3roe75kgy"]
+[gd_scene load_steps=8 format=3 uid="uid://b25h3roe75kgy"]
 
+[ext_resource type="Script" uid="uid://dkew54sl1666s" path="res://Game/World/world.gd" id="1_daxxa"]
 [ext_resource type="Script" uid="uid://ckkjnd206unei" path="res://Game/World/player.gd" id="1_eof05"]
 [ext_resource type="Texture2D" uid="uid://dsswp2x7dcaed" path="res://icon.svg" id="1_v7yag"]
 [ext_resource type="Script" uid="uid://c3v2io5647yh3" path="res://Game/World/enemy_spawner.gd" id="1_yyydc"]
@@ -7,14 +8,19 @@
 
 [sub_resource type="Curve2D" id="Curve2D_v7yag"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -743, -506, 0, 0, 0, 0, 791, -500, 0, 0, 0, 0, 783, 397, 0, 0, 0, 0, -747, 392, 0, 0, 0, 0, -743, -506)
+"points": PackedVector2Array(0, 0, 0, 0, -1622, -1124, 0, 0, 0, 0, 1627, -1138, 0, 0, 0, 0, 1642, 1089, 0, 0, 0, 0, -1614, 1030, 0, 0, 0, 0, -1622, -1124)
 }
 point_count = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yyydc"]
 size = Vector2(128, 128)
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("PlayerNode", "EnemySpawnerNode", "Camera")]
+y_sort_enabled = true
+script = ExtResource("1_daxxa")
+PlayerNode = NodePath("Player")
+EnemySpawnerNode = NodePath("EnemySpawner")
+Camera = NodePath("Player/Camera")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(291, -214)
@@ -22,14 +28,18 @@ rotation = -0.537181
 texture = ExtResource("1_v7yag")
 
 [node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("SpawnPath", "Follow", "player")]
+y_sort_enabled = true
 script = ExtResource("1_yyydc")
 SpawnPath = NodePath("../Player/SpawnPath")
 Follow = NodePath("../Player/SpawnPath/Follow")
 EnemyScene = ExtResource("2_cx28n")
 player = NodePath("../Player")
 
-[node name="Player" type="CharacterBody2D" parent="."]
-motion_mode = 1
+[node name="Player" type="RigidBody2D" parent="."]
+mass = 10.0
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 10.0
 script = ExtResource("1_eof05")
 
 [node name="Sprite" type="Sprite2D" parent="Player"]
@@ -42,8 +52,8 @@ zoom = Vector2(0.5, 0.5)
 curve = SubResource("Curve2D_v7yag")
 
 [node name="Follow" type="PathFollow2D" parent="Player/SpawnPath"]
-position = Vector2(-743, -506)
-rotation = -1.56634
+position = Vector2(1637.84, 471.991)
+rotation = 1.56406
 progress = 4859.06
 
 [node name="Collision" type="CollisionShape2D" parent="Player"]

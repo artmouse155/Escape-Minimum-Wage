@@ -1,4 +1,4 @@
-extends Node2D
+class_name EnemySpawner extends Node2D
 
 @export var SpawnPath: Path2D
 @export var Follow: PathFollow2D
@@ -13,13 +13,13 @@ const SPAWN_RATE = 0.1 # Enemies to spawn per second
 var time_counter := 0.0
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	spawn_enemies(5)
+#func _ready() -> void:
+	#spawn_enemies(1)
 
 func spawn_enemies(num: int) -> void:
 	assert(SpawnPath and Follow, "No SpawnPath and/or Follow")
 	for i in range(num):
-		if (get_enemy_count() > MAX_ENEMIES):
+		if (get_enemy_count() >= MAX_ENEMIES):
 			push_error("Max enemy count reached")
 			break
 		Follow.progress_ratio = randf()
@@ -42,3 +42,9 @@ func _process(delta: float) -> void:
 
 func get_enemy_count() -> int:
 	return get_tree().get_nodes_in_group("Enemy").size()
+
+func kill_all_enemies():
+	var enemies : Array[Node] = get_tree().get_nodes_in_group("Enemy")
+	for enemy in enemies:
+		if enemy is Enemy:
+			enemy.die()
