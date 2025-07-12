@@ -49,6 +49,8 @@ signal playerdata_updated(_playerdata: PlayerResource)
 
 # For the UI
 var xp_progress := 0.0
+var visual_xp_progress := 0.0
+var VISUAL_LERP := 0.1
 
 var current_level_data : Dictionary = PlayerResource.levels[PlayerResource.INITIAL_LEVEL - 1]
 var next_level_data : Dictionary = PlayerResource.levels[PlayerResource.INITIAL_LEVEL]
@@ -92,6 +94,10 @@ func _process(delta: float) -> void:
 		# Give our player the money they worked so hard for!
 		playerdata.money += (playerdata.salary * HOURS_PER_SECOND * delta)
 		update_playerdata(playerdata)
+		
+		#update the XPBar visuals
+		visual_xp_progress = lerp(visual_xp_progress, xp_progress, VISUAL_LERP)
+		XPBar.value = visual_xp_progress
 
 func update_playerdata(_playerdata: PlayerResource):
 	playerdata = _playerdata
@@ -113,7 +119,6 @@ func update_playerdata(_playerdata: PlayerResource):
 			next_level()
 	else:
 		XPBarLabel.text = "$%0.2f / $%0.2f" % [playerdata.salary, next_wage_threshold]
-		XPBar.value = (playerdata.salary - current_wage_threshold) / raise_needed
 		playerdata_updated.emit(playerdata)
 
 func next_level():

@@ -13,6 +13,8 @@ var is_fighting_boss = false
 var work_history : Dictionary[String,int] = {}
 
 @export var speed : int = 50000
+@export var dash_force: int = 30 * speed
+@export var dash_cooldown: float = 0.3
 
 # Resumes
 @export var resume_spawn_rate : float = 0.2 # per second
