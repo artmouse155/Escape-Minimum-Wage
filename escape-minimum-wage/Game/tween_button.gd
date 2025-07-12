@@ -12,10 +12,11 @@ func _ready() -> void:
 	mouse_exited.connect(_on_mouse_exited)
 
 func _on_mouse_entered() -> void:
-	if tween:
-		tween.kill()
-	tween = create_tween()
-	tween.tween_property(Parent, "scale", MAX_SCALE * Vector2.ONE, TWEEN_TIME).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	if not disabled:
+		if tween:
+			tween.kill()
+		tween = create_tween()
+		tween.tween_property(Parent, "scale", MAX_SCALE * Vector2.ONE, TWEEN_TIME).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 
 func _on_mouse_exited() -> void:

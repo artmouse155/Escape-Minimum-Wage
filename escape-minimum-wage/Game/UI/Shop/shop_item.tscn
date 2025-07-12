@@ -1,0 +1,167 @@
+[gd_scene load_steps=17 format=3 uid="uid://c388ghwwv6oqs"]
+
+[ext_resource type="Script" uid="uid://dmp4vljyvkm72" path="res://Game/UI/Shop/shop_item.gd" id="1_4u8yg"]
+[ext_resource type="FontFile" uid="uid://dwau8uf8y3odg" path="res://Resources/Roboto/static/Roboto-Italic.ttf" id="2_4u8yg"]
+[ext_resource type="Texture2D" uid="uid://fi2d3dc08g5e" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/napkin.png" id="2_w5fjr"]
+[ext_resource type="FontFile" uid="uid://dm1564gx0yygd" path="res://Resources/Roboto/static/Roboto-Bold.ttf" id="3_w5fjr"]
+[ext_resource type="Script" uid="uid://bdmgwks0kuafh" path="res://Game/tween_button.gd" id="4_ww67w"]
+[ext_resource type="FontFile" uid="uid://blyvam7ls03v6" path="res://Resources/STIX_Two_Text/static/STIXTwoText-Bold.ttf" id="5_384kv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6cfr3"]
+bg_color = Color(0.219608, 0.168627, 0.0509804, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_bspv7"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_xcdi2"]
+font = ExtResource("2_4u8yg")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4gvj"]
+bg_color = Color(0.187176, 0.187176, 0.187176, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.114897, 0.114897, 0.114897, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_tdcg1"]
+font = ExtResource("3_w5fjr")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3irui"]
+bg_color = Color(0.147672, 0.147672, 0.147672, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bspv7"]
+bg_color = Color(0.239216, 0.498039, 0.2, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcdi2"]
+bg_color = Color(0.148907, 0.325628, 0.122138, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f8tfh"]
+bg_color = Color(0.239216, 0.498039, 0.2, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_gdyvl"]
+font = ExtResource("5_384kv")
+font_size = 24
+
+[node name="ShopItem" type="MarginContainer" node_paths=PackedStringArray("Icon", "UpgradeNameNode", "CurrentNode", "CostNode", "BuyButton", "BuyLabel")]
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_4u8yg")
+Icon = NodePath("HBoxContainer/PanelContainer/MarginContainer/Icon")
+UpgradeNameNode = NodePath("HBoxContainer/VBoxContainer/UpgradeName")
+CurrentNode = NodePath("HBoxContainer/VBoxContainer/Current")
+CostNode = NodePath("HBoxContainer/VBoxContainer2/PanelContainer/Cost")
+BuyButton = NodePath("HBoxContainer/Control/BuyButton")
+BuyLabel = NodePath("HBoxContainer/Control/BuyButton/Label")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6cfr3")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_w5fjr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UpgradeName" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume Tier"
+label_settings = SubResource("LabelSettings_bspv7")
+
+[node name="Current" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Napkin"
+label_settings = SubResource("LabelSettings_xcdi2")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Next" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Napkin → Paper"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_v4gvj")
+
+[node name="Cost" type="Label" parent="HBoxContainer/VBoxContainer2/PanelContainer"]
+layout_mode = 2
+text = "$43.00"
+label_settings = SubResource("LabelSettings_tdcg1")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="BuyButton" type="Button" parent="HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(50, 31)
+focus_mode = 0
+theme_override_styles/disabled = SubResource("StyleBoxFlat_3irui")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bspv7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xcdi2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_f8tfh")
+script = ExtResource("4_ww67w")
+metadata/_custom_type_script = "uid://bdmgwks0kuafh"
+
+[node name="Label" type="Label" parent="HBoxContainer/Control/BuyButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Buy"
+label_settings = SubResource("LabelSettings_gdyvl")
+horizontal_alignment = 1
+vertical_alignment = 1

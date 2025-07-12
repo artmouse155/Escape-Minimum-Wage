@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UpgradeList" load_steps=3 format=3 uid="uid://ch6p1mtjx3tyx"]
+
+[ext_resource type="Script" uid="uid://cnq0rt0uj1ssv" path="res://Game/UI/Shop/Resources/UpgradeList.gd" id="1_31u5c"]
+[ext_resource type="Script" uid="uid://dqx3ejmxj4yoj" path="res://Game/UI/Shop/Resources/upgrade.gd" id="2_uove2"]
+
+[resource]
+resource_name = "Networking"
+script = ExtResource("1_31u5c")
+name = "Upgrade Name"
+upgrades = Array[ExtResource("2_uove2")]([null, null, null, null, null])
+metadata/_custom_type_script = "uid://cnq0rt0uj1ssv"

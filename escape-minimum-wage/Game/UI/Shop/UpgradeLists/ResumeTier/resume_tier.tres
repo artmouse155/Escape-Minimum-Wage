@@ -1,0 +1,120 @@
+[gd_resource type="Resource" script_class="UpgradeList" load_steps=14 format=3 uid="uid://pcreq443v0eu"]
+
+[ext_resource type="Script" uid="uid://cnq0rt0uj1ssv" path="res://Game/UI/Shop/Resources/UpgradeList.gd" id="1_ac3ac"]
+[ext_resource type="Script" uid="uid://dqx3ejmxj4yoj" path="res://Game/UI/Shop/Resources/upgrade.gd" id="2_2fmcl"]
+[ext_resource type="Texture2D" uid="uid://fi2d3dc08g5e" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/napkin.png" id="3_2fmcl"]
+
+[sub_resource type="Resource" id="Resource_t68pf"]
+resource_name = "Napkin"
+script = ExtResource("2_2fmcl")
+icon = ExtResource("3_2fmcl")
+name = "Napkin"
+cost = 0.0
+values = Dictionary[String, String]({
+"impact": "10"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_cfa3w"]
+resource_name = "Paper"
+script = ExtResource("2_2fmcl")
+icon = ExtResource("3_2fmcl")
+name = "Paper"
+cost = 0.0
+values = Dictionary[String, String]({
+"impact": "15"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_x7lgm"]
+resource_name = "Scented Paper"
+script = ExtResource("2_2fmcl")
+icon = ExtResource("3_2fmcl")
+name = "Scented Paper"
+cost = 0.0
+values = Dictionary[String, String]({
+"impact": "25"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_kiy1u"]
+resource_name = "Textured Paper"
+script = ExtResource("2_2fmcl")
+icon = ExtResource("3_2fmcl")
+name = "Textured Paper"
+cost = 0.0
+values = Dictionary[String, String]({
+"impact": "40"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_umt4m"]
+resource_name = "Cardstock"
+script = ExtResource("2_2fmcl")
+icon = ExtResource("3_2fmcl")
+name = "Cardstock"
+cost = 0.0
+values = Dictionary[String, String]({
+"impact": "75"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_thyr4"]
+resource_name = "Laminated Cardstock"
+script = ExtResource("2_2fmcl")
+icon = ExtResource("3_2fmcl")
+name = "Laminated Cardstock"
+cost = 0.0
+values = Dictionary[String, String]({
+"Impact": "100"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_vg78x"]
+resource_name = "Bronze"
+script = ExtResource("2_2fmcl")
+icon = ExtResource("3_2fmcl")
+name = "Bronze"
+cost = 0.0
+values = Dictionary[String, String]({
+"impact": "200"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_qfa1y"]
+resource_name = "Silver"
+script = ExtResource("2_2fmcl")
+icon = ExtResource("3_2fmcl")
+name = "Silver"
+cost = 0.0
+values = Dictionary[String, String]({
+"impact": "350"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_v27yt"]
+resource_name = "Gold"
+script = ExtResource("2_2fmcl")
+icon = ExtResource("3_2fmcl")
+name = "Gold"
+cost = 0.0
+values = Dictionary[String, String]({
+"impact": "500"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_q71a1"]
+resource_name = "Diamond"
+script = ExtResource("2_2fmcl")
+icon = ExtResource("3_2fmcl")
+name = "Diamond"
+cost = 0.0
+values = Dictionary[String, String]({})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[resource]
+resource_name = "Resume Tier"
+script = ExtResource("1_ac3ac")
+name = "Resume Tier"
+upgrades = Array[ExtResource("2_2fmcl")]([SubResource("Resource_t68pf"), SubResource("Resource_cfa3w"), SubResource("Resource_x7lgm"), SubResource("Resource_kiy1u"), SubResource("Resource_umt4m"), SubResource("Resource_thyr4"), SubResource("Resource_vg78x"), SubResource("Resource_qfa1y"), SubResource("Resource_v27yt"), SubResource("Resource_q71a1")])
+metadata/_custom_type_script = "uid://cnq0rt0uj1ssv"
