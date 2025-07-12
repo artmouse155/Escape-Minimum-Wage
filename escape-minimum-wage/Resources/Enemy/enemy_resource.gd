@@ -16,4 +16,4 @@ func _init(_level: int, _type: Type, _raise_amt: float, _health: float, _title: 
 	title = _title
 
 func get_name_label():
-	return "Lv %d %s" % [level, title]
+	return title if (self is BossResource) else "Lv %d %s" % [level, title]

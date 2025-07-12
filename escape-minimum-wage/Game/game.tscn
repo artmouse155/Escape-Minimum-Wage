@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cw712jj3h78q6"]
+[gd_scene load_steps=25 format=3 uid="uid://cw712jj3h78q6"]
 
 [ext_resource type="Shader" uid="uid://dh5ck4i2ivrue" path="res://Game/tiles.gdshader" id="1_1r4le"]
 [ext_resource type="PackedScene" uid="uid://b25h3roe75kgy" path="res://Game/World/world.tscn" id="1_bk3v5"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dcv2jvrbq7jux" path="res://Game/UI/skull.png" id="8_fsxsm"]
 [ext_resource type="FontFile" uid="uid://dm1564gx0yygd" path="res://Resources/Roboto/static/Roboto-Bold.ttf" id="9_72g0p"]
 [ext_resource type="Script" uid="uid://3qwp5parw6tj" path="res://Game/title.gd" id="10_7gi1t"]
+[ext_resource type="Script" uid="uid://bdmgwks0kuafh" path="res://Game/tween_button.gd" id="13_4lqr4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7raqb"]
 shader = ExtResource("1_1r4le")
@@ -89,11 +90,11 @@ xp_green = Color(0.239216, 0.498039, 0.2, 1)
 xp_red = Color(0.71, 0.1633, 0.1633, 1)
 label_white = Color(1, 1, 1, 1)
 label_yellow = Color(0.76, 0.658667, 0, 1)
-Pause = NodePath("PauseAndSettings/Pause")
-Settings = NodePath("PauseAndSettings/Settings")
+Pause = NodePath("PauseAndSettings/PauseControl/Pause")
+Settings = NodePath("PauseAndSettings/SettingsControl/Settings")
 PauseScreen = NodePath("PauseScreen")
-TitleLabel = NodePath("MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Position")
-SalaryLabel = NodePath("MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Salary")
+TitleLabel = NodePath("MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Position")
+SalaryLabel = NodePath("MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Salary")
 MoneyLabel = NodePath("MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer/MoneyLabel")
 RateLabel = NodePath("MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer/RateLabel")
 LevelLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/Control/Control/TextureRect/MarginContainer/VBoxContainer/Level")
@@ -140,63 +141,82 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Resume" type="PanelContainer" parent="MarginContainer/InGameUI"]
-custom_minimum_size = Vector2(300, 0)
+[node name="Control" type="Control" parent="MarginContainer/InGameUI"]
+custom_minimum_size = Vector2(300, 114)
 layout_mode = 2
+
+[node name="Resume" type="PanelContainer" parent="MarginContainer/InGameUI/Control"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -57.0
+offset_right = 150.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(150, 57)
 theme_override_styles/panel = SubResource("StyleBoxFlat_oomkl")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Resume"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Control/Resume"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/Resume/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/Control/Resume/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "RESUME"
 label_settings = SubResource("LabelSettings_buohc")
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kul4i")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Position" type="Label" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Position" type="Label" parent="MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Swig Worker"
 
-[node name="Salary" type="RichTextLabel" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Salary" type="RichTextLabel" parent="MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "$7.25/hr [color=gray][i]($0.73/sec)[/i][/color]"
 fit_content = true
 
-[node name="Click2See" type="RichTextLabel" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer"]
+[node name="Click2See" type="RichTextLabel" parent="MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[color=#896920][i]Click to see upgrades and skills[/i][/color]"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="ResumeButton" type="Button" parent="MarginContainer/InGameUI/Resume"]
+[node name="ResumeButton" type="Button" parent="MarginContainer/InGameUI/Control/Resume" node_paths=PackedStringArray("Parent")]
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
 flat = true
+script = ExtResource("13_4lqr4")
+Parent = NodePath("..")
+metadata/_custom_type_script = "uid://bdmgwks0kuafh"
 
 [node name="Container" type="MarginContainer" parent="MarginContainer/InGameUI"]
 layout_mode = 2
@@ -336,6 +356,34 @@ text = "[color=#34d134][i]+$0.73/sec[/i][/color]"
 fit_content = true
 horizontal_alignment = 2
 
+[node name="Title" type="Path2D" parent="." node_paths=PackedStringArray("Follower", "TitleLabel")]
+process_mode = 1
+curve = SubResource("Curve2D_kul4i")
+script = ExtResource("10_7gi1t")
+Follower = NodePath("PathFollow2D")
+TitleLabel = NodePath("PathFollow2D/RichTextLabel")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Title"]
+position = Vector2(-400, -200)
+rotates = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Title/PathFollow2D"]
+z_index = 1
+custom_minimum_size = Vector2(1000, 500)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_oomkl")
+theme_type_variation = &"TitleBar"
+bbcode_enabled = true
+text = "LEVEL UP"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="PauseScreen" type="ColorRect" parent="."]
 visible = false
 z_index = 1
@@ -368,6 +416,7 @@ theme_type_variation = &"TitleLabel"
 text = "PAUSED"
 
 [node name="PauseAndSettings" type="HBoxContainer" parent="."]
+z_index = 1
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -376,44 +425,56 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
-[node name="Pause" type="Button" parent="PauseAndSettings"]
+[node name="PauseControl" type="Control" parent="PauseAndSettings"]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
+
+[node name="Pause" type="Button" parent="PauseAndSettings/PauseControl" node_paths=PackedStringArray("Parent")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(36, 36)
 focus_mode = 0
 mouse_default_cursor_shape = 2
 icon = ExtResource("5_qmv3x")
 flat = true
+script = ExtResource("13_4lqr4")
+Parent = NodePath(".")
+metadata/_custom_type_script = "uid://bdmgwks0kuafh"
 
-[node name="Settings" type="Button" parent="PauseAndSettings"]
+[node name="SettingsControl" type="Control" parent="PauseAndSettings"]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
+
+[node name="Settings" type="Button" parent="PauseAndSettings/SettingsControl" node_paths=PackedStringArray("Parent")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(36, 36)
 focus_mode = 0
 mouse_default_cursor_shape = 2
 icon = ExtResource("6_oomkl")
 flat = true
+script = ExtResource("13_4lqr4")
+Parent = NodePath(".")
+metadata/_custom_type_script = "uid://bdmgwks0kuafh"
 
-[node name="Title" type="Path2D" parent="." node_paths=PackedStringArray("Follower", "TitleLabel")]
-process_mode = 1
-curve = SubResource("Curve2D_kul4i")
-script = ExtResource("10_7gi1t")
-Follower = NodePath("PathFollow2D")
-TitleLabel = NodePath("PathFollow2D/RichTextLabel")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Title"]
-position = Vector2(-400, -200)
-rotates = false
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Title/PathFollow2D"]
-custom_minimum_size = Vector2(1000, 500)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_oomkl")
-theme_type_variation = &"TitleBar"
-bbcode_enabled = true
-text = "LEVEL UP"
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[connection signal="pressed" from="PauseAndSettings/Pause" to="." method="toggle_pause"]
+[connection signal="pressed" from="PauseAndSettings/PauseControl/Pause" to="." method="toggle_pause"]

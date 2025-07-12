@@ -71,7 +71,7 @@ func _ready() -> void:
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("pause"):
 		toggle_pause()
-	if Input.is_action_just_pressed("debug_cheat"):
+	if not get_tree().paused and Input.is_action_just_pressed("debug_cheat"):
 		on_enemy_dead(raise_needed, "DEBUG CHEAT")
 
 func toggle_pause() -> void:
