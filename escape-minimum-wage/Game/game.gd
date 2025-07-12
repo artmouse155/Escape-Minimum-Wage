@@ -2,26 +2,39 @@ class_name Game extends Control
 
 @export var WorldNode: World
 @export var background_tiles: ShaderMaterial
+
+# XP Bar
+@export_group("XP Bar")
 @export var xpbar_circle: ShaderMaterial
-@export_group("Colors")
+@export var XPBar: ProgressBar
+@export var normal_xp_bar_theme: StringName = &"XPBar"
+@export var boss_xp_bar_theme: StringName = &"PerformanceReviewBar"
+@export var normal_xp_bar_font: Font = preload("res://Resources/Roboto/static/Roboto-Bold.ttf")
+@export var boss_xp_bar_font: Font = preload("res://Resources/Alfa_Slab_One/AlfaSlabOne-Regular.ttf")
+@export var normal_xp_bar_font_size: int = 16
+@export var boss_xp_bar_font_size: int = 12
+@export var Skull: TextureRect
+@export_subgroup("Colors")
 @export var xp_green: Color
 @export var xp_red: Color
 @export var label_white: Color
 @export var label_yellow: Color
+@export_subgroup("")
 @export_group("")
 @export var Pause: Button
 @export var Settings: Button
 @export var PauseScreen: ColorRect
 
-# XP Bar
-@export var XPBar: ProgressBar
-@export var Skull: TextureRect
+
+
 
 @export_group("Labels")
 @export var TitleLabel: Label
 @export var SalaryLabel: RichTextLabel
 @export var MoneyLabel: Label
 @export var RateLabel: RichTextLabel
+
+#XP Bar
 @export var LevelLabel: Label
 @export var XPBarLabel: Label
 @export_group("")
@@ -75,9 +88,10 @@ func _process(delta: float) -> void:
 	background_tiles.set_shader_parameter("offset", WorldNode.PlayerNode.position)
 	background_tiles.set_shader_parameter("zoom", WorldNode.Camera.zoom)
 	
-	# Give our player the money they worked so hard for!
-	playerdata.money += (playerdata.salary * HOURS_PER_SECOND * delta)
-	update_playerdata(playerdata)
+	if not get_tree().paused:
+		# Give our player the money they worked so hard for!
+		playerdata.money += (playerdata.salary * HOURS_PER_SECOND * delta)
+		update_playerdata(playerdata)
 
 func update_playerdata(_playerdata: PlayerResource):
 	playerdata = _playerdata
@@ -123,7 +137,11 @@ func summon_boss():
 	playerdata.is_fighting_boss = true
 	playerdata.salary = next_wage_threshold
 	XPBarLabel.label_settings.font_color = label_yellow
+	XPBarLabel.label_settings.font = boss_xp_bar_font
+	XPBarLabel.label_settings.font_size = boss_xp_bar_font_size
 	xpbar_circle.set_shader_parameter("color", xp_red)
+	XPBar.theme_type_variation = boss_xp_bar_theme
+	XPBar.value = 1.0                               
 	XPBarLabel.text = "PERFORMANCE REVIEW"
 	WorldNode.EnemySpawnerNode.summon_boss()
 	
@@ -131,7 +149,10 @@ func summon_boss():
 func on_boss_dead():
 	playerdata.is_fighting_boss = false
 	XPBarLabel.label_settings.font_color = label_white
+	XPBarLabel.label_settings.font = normal_xp_bar_font
+	XPBarLabel.label_settings.font_size = normal_xp_bar_font_size
 	xpbar_circle.set_shader_parameter("color", xp_green)
+	XPBar.theme_type_variation = normal_xp_bar_theme
 	next_level()
 
 func on_enemy_dead(_raise_amt: float, _title: String):

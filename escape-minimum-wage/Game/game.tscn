@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cw712jj3h78q6"]
+[gd_scene load_steps=24 format=3 uid="uid://cw712jj3h78q6"]
 
 [ext_resource type="Shader" uid="uid://dh5ck4i2ivrue" path="res://Game/tiles.gdshader" id="1_1r4le"]
 [ext_resource type="PackedScene" uid="uid://b25h3roe75kgy" path="res://Game/World/world.tscn" id="1_bk3v5"]
@@ -11,6 +11,7 @@
 [ext_resource type="Shader" uid="uid://b7tovnijrw8ri" path="res://Game/circle.gdshader" id="7_glinl"]
 [ext_resource type="Texture2D" uid="uid://bk5bvjwitdb73" path="res://Game/UI/black_circle.png" id="7_kul4i"]
 [ext_resource type="Texture2D" uid="uid://dcv2jvrbq7jux" path="res://Game/UI/skull.png" id="8_fsxsm"]
+[ext_resource type="FontFile" uid="uid://dm1564gx0yygd" path="res://Resources/Roboto/static/Roboto-Bold.ttf" id="9_72g0p"]
 [ext_resource type="Script" uid="uid://3qwp5parw6tj" path="res://Game/title.gd" id="10_7gi1t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7raqb"]
@@ -53,6 +54,7 @@ font_size = 8
 font_size = 28
 
 [sub_resource type="LabelSettings" id="LabelSettings_glinl"]
+font = ExtResource("9_72g0p")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_buohc"]
 bg_color = Color(0.517647, 0.376471, 0.290196, 1)
@@ -68,7 +70,7 @@ _data = {
 }
 point_count = 3
 
-[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "Pause", "Settings", "PauseScreen", "XPBar", "Skull", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel", "TitleNode")]
+[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "XPBar", "Skull", "Pause", "Settings", "PauseScreen", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel", "TitleNode")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -81,6 +83,8 @@ script = ExtResource("1_jcm6v")
 WorldNode = NodePath("GameContainer/SubViewport/World")
 background_tiles = SubResource("ShaderMaterial_7raqb")
 xpbar_circle = SubResource("ShaderMaterial_72g0p")
+XPBar = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer/XPBar")
+Skull = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/Control2/Skull")
 xp_green = Color(0.239216, 0.498039, 0.2, 1)
 xp_red = Color(0.71, 0.1633, 0.1633, 1)
 label_white = Color(1, 1, 1, 1)
@@ -88,15 +92,13 @@ label_yellow = Color(0.76, 0.658667, 0, 1)
 Pause = NodePath("PauseAndSettings/Pause")
 Settings = NodePath("PauseAndSettings/Settings")
 PauseScreen = NodePath("PauseScreen")
-XPBar = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer/XPBar")
-Skull = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/Control2/Skull")
 TitleLabel = NodePath("MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Position")
 SalaryLabel = NodePath("MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Salary")
 MoneyLabel = NodePath("MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer/MoneyLabel")
 RateLabel = NodePath("MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer/RateLabel")
 LevelLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/Control/Control/TextureRect/MarginContainer/VBoxContainer/Level")
 XPBarLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer/Label")
-TitleNode = NodePath("Path2D")
+TitleNode = NodePath("Title")
 
 [node name="BG" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_7raqb")
@@ -256,6 +258,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="XPBar" type="ProgressBar" parent="MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("1_oomkl")
@@ -335,6 +338,7 @@ horizontal_alignment = 2
 
 [node name="PauseScreen" type="ColorRect" parent="."]
 visible = false
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -386,17 +390,18 @@ mouse_default_cursor_shape = 2
 icon = ExtResource("6_oomkl")
 flat = true
 
-[node name="Path2D" type="Path2D" parent="." node_paths=PackedStringArray("Follower", "TitleLabel")]
+[node name="Title" type="Path2D" parent="." node_paths=PackedStringArray("Follower", "TitleLabel")]
+process_mode = 1
 curve = SubResource("Curve2D_kul4i")
 script = ExtResource("10_7gi1t")
 Follower = NodePath("PathFollow2D")
 TitleLabel = NodePath("PathFollow2D/RichTextLabel")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+[node name="PathFollow2D" type="PathFollow2D" parent="Title"]
 position = Vector2(-400, -200)
 rotates = false
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Path2D/PathFollow2D"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Title/PathFollow2D"]
 custom_minimum_size = Vector2(1000, 500)
 anchors_preset = 15
 anchor_right = 1.0
