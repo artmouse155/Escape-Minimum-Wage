@@ -1,5 +1,6 @@
 class_name Game extends Control
 
+#region exports
 @export var WorldNode: World
 @export var background_tiles: ShaderMaterial
 
@@ -26,7 +27,7 @@ class_name Game extends Control
 @export var PauseScreen: ColorRect
 
 
-
+@export var TitleNode: Title
 
 @export_group("Labels")
 @export var TitleLabel: Label
@@ -38,8 +39,8 @@ class_name Game extends Control
 @export var LevelLabel: Label
 @export var XPBarLabel: Label
 @export_group("")
+#endregion
 
-@export var TitleNode: Title
 
 const HOURS_PER_SECOND := .1
 
@@ -49,8 +50,8 @@ signal playerdata_updated(_playerdata: PlayerResource)
 
 # For the UI
 var xp_progress := 0.0
-var visual_xp_progress := 0.0
-var VISUAL_LERP := 0.1
+var visual_salary := 0.0
+var VISUAL_LERP := 0.3
 
 var current_level_data : Dictionary = PlayerResource.levels[PlayerResource.INITIAL_LEVEL - 1]
 var next_level_data : Dictionary = PlayerResource.levels[PlayerResource.INITIAL_LEVEL]
@@ -59,6 +60,7 @@ var next_wage_threshold : float = next_level_data[PlayerResource.LevelDataTypes.
 var raise_needed : float = current_level_data[PlayerResource.LevelDataTypes.RAISE_NEEDED]
 
 var is_boss_level : bool = false
+
 
 func _ready() -> void:
 	assert(background_tiles, "Background Tiles not connected")
@@ -70,11 +72,13 @@ func _ready() -> void:
 	update_playerdata(PlayerResource.new())
 	LevelLabel.text = str(playerdata.level)
 
+
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("pause"):
 		toggle_pause()
 	if not get_tree().paused and Input.is_action_just_pressed("debug_cheat"):
 		on_enemy_dead(raise_needed, "DEBUG CHEAT")
+
 
 func toggle_pause() -> void:
 	get_tree().paused = not get_tree().paused
@@ -86,6 +90,7 @@ func toggle_pause() -> void:
 		Pause.icon = preload("uid://cvy8hb0kkcmuv")
 		Settings.icon = preload("uid://dtvw1irhowm2l")
 
+
 func _process(delta: float) -> void:
 	background_tiles.set_shader_parameter("offset", WorldNode.PlayerNode.position)
 	background_tiles.set_shader_parameter("zoom", WorldNode.Camera.zoom)
@@ -96,15 +101,17 @@ func _process(delta: float) -> void:
 		update_playerdata(playerdata)
 		
 		#update the XPBar visuals
-		visual_xp_progress = lerp(visual_xp_progress, xp_progress, VISUAL_LERP)
-		XPBar.value = visual_xp_progress
+		
+		visual_salary = lerp(visual_salary, playerdata.salary, VISUAL_LERP)
+		XPBar.value = (visual_salary - current_wage_threshold) / raise_needed
+		SalaryLabel.text = "$%0.2f/hr [color=gray][i]($%0.2f/sec)[/i][/color]" % [visual_salary, visual_salary * HOURS_PER_SECOND]
+		RateLabel.text = "[color=#34d134][i]+$%0.2f/sec[/i][/color]" % (visual_salary * HOURS_PER_SECOND)
+
 
 func update_playerdata(_playerdata: PlayerResource):
 	playerdata = _playerdata
 	TitleLabel.text = playerdata.title
-	SalaryLabel.text = "$%0.2f/hr [color=gray][i]($%0.2f/sec)[/i][/color]" % [playerdata.salary, playerdata.salary * HOURS_PER_SECOND]
 	MoneyLabel.text = "$%0.2f" % playerdata.money
-	RateLabel.text = "[color=#34d134][i]+$%0.2f/sec[/i][/color]" % (playerdata.salary * HOURS_PER_SECOND)
 	xp_progress = (playerdata.salary - current_wage_threshold) / raise_needed
 	if xp_progress >= 1.0:
 		if playerdata.level == PlayerResource.MAX_LEVEL:
@@ -118,8 +125,9 @@ func update_playerdata(_playerdata: PlayerResource):
 		else:
 			next_level()
 	else:
-		XPBarLabel.text = "$%0.2f / $%0.2f" % [playerdata.salary, next_wage_threshold]
+		XPBarLabel.text = "$%0.2f / $%0.2f" % [visual_salary, next_wage_threshold]
 		playerdata_updated.emit(playerdata)
+
 
 func next_level():
 	TitleNode.show_title("LEVEL UP")
@@ -136,6 +144,7 @@ func next_level():
 		is_boss_level = current_level_data[PlayerResource.LevelDataTypes.BOSS_LEVEL]
 		Skull.visible = is_boss_level
 	update_playerdata(playerdata)
+
 
 func summon_boss():
 	TitleNode.show_title("PERFORMANCE\nREVIEW")
@@ -159,6 +168,7 @@ func on_boss_dead():
 	xpbar_circle.set_shader_parameter("color", xp_green)
 	XPBar.theme_type_variation = normal_xp_bar_theme
 	next_level()
+
 
 func on_enemy_dead(_raise_amt: float, _title: String):
 	if not playerdata.is_fighting_boss:

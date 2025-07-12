@@ -71,7 +71,7 @@ _data = {
 }
 point_count = 3
 
-[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "XPBar", "Skull", "Pause", "Settings", "PauseScreen", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel", "TitleNode")]
+[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "XPBar", "Skull", "Pause", "Settings", "PauseScreen", "TitleNode", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -93,13 +93,13 @@ label_yellow = Color(0.76, 0.658667, 0, 1)
 Pause = NodePath("PauseAndSettings/PauseControl/Pause")
 Settings = NodePath("PauseAndSettings/SettingsControl/Settings")
 PauseScreen = NodePath("PauseScreen")
+TitleNode = NodePath("Title")
 TitleLabel = NodePath("MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Position")
 SalaryLabel = NodePath("MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Salary")
 MoneyLabel = NodePath("MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer/MoneyLabel")
 RateLabel = NodePath("MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer/RateLabel")
 LevelLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/Control/Control/TextureRect/MarginContainer/VBoxContainer/Level")
 XPBarLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer/Label")
-TitleNode = NodePath("Title")
 
 [node name="BG" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_7raqb")

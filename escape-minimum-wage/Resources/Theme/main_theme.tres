@@ -1,6 +1,9 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://d1gbsuhluo4pk"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://d1gbsuhluo4pk"]
 
 [ext_resource type="FontFile" uid="uid://cnia72dhps7n2" path="res://Resources/Alfa_Slab_One/AlfaSlabOne-Regular.ttf" id="1_itn17"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_itn17"]
+thickness = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_226ie"]
 bg_color = Color(0, 0, 0, 1)
@@ -51,6 +54,7 @@ corner_radius_bottom_left = 5
 DisplayLabel/base_type = &"Label"
 DisplayLabel/font_sizes/font_size = 32
 DisplayLabel/fonts/font = ExtResource("1_itn17")
+HSeparator/styles/separator = SubResource("StyleBoxLine_itn17")
 HealthBar/base_type = &"ProgressBar"
 HealthBar/styles/background = SubResource("StyleBoxFlat_226ie")
 HealthBar/styles/fill = SubResource("StyleBoxFlat_itn17")

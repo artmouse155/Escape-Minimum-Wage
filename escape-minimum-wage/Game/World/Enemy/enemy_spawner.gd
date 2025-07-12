@@ -6,8 +6,8 @@ class_name EnemySpawner extends Node2D
 @export var EnemyScene: PackedScene
 @export var PlayerNode: Player
 
-var max_enemies := 10
-var spawn_rate := .1
+var max_enemies := 5
+var spawn_rate := 1
 
 var level := 1
 
