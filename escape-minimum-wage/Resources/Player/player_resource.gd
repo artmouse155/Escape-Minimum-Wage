@@ -8,7 +8,9 @@ var level : int = INITIAL_LEVEL
 @export var salary : float = levels[INITIAL_LEVEL - 1][LevelDataTypes.WAGE]
 @export var money : float = 0.00
 
-@export var work_history : Dictionary[String,int] = {}
+var is_fighting_boss = false
+
+var work_history : Dictionary[String,int] = {}
 
 @export var speed : int = 50000
 

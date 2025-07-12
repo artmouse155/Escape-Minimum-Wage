@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cw712jj3h78q6"]
+[gd_scene load_steps=23 format=3 uid="uid://cw712jj3h78q6"]
 
 [ext_resource type="Shader" uid="uid://dh5ck4i2ivrue" path="res://Game/tiles.gdshader" id="1_1r4le"]
 [ext_resource type="PackedScene" uid="uid://b25h3roe75kgy" path="res://Game/World/world.tscn" id="1_bk3v5"]
@@ -22,6 +22,10 @@ shader_parameter/scale = 0.216
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/zoom = Vector2(1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_72g0p"]
+shader = ExtResource("7_glinl")
+shader_parameter/color = Color(0.239216, 0.498039, 0.2, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oomkl"]
 bg_color = Color(0.739745, 0.571865, 0.197737, 1)
 corner_radius_top_left = 5
@@ -42,15 +46,13 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_72g0p"]
-shader = ExtResource("7_glinl")
-shader_parameter/color = Color(0.239216, 0.498039, 0.2, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_kul4i"]
 font_size = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_7gi1t"]
 font_size = 28
+
+[sub_resource type="LabelSettings" id="LabelSettings_glinl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_buohc"]
 bg_color = Color(0.517647, 0.376471, 0.290196, 1)
@@ -78,6 +80,11 @@ theme = ExtResource("1_oomkl")
 script = ExtResource("1_jcm6v")
 WorldNode = NodePath("GameContainer/SubViewport/World")
 background_tiles = SubResource("ShaderMaterial_7raqb")
+xpbar_circle = SubResource("ShaderMaterial_72g0p")
+xp_green = Color(0.239216, 0.498039, 0.2, 1)
+xp_red = Color(0.71, 0.1633, 0.1633, 1)
+label_white = Color(1, 1, 1, 1)
+label_yellow = Color(0.76, 0.658667, 0, 1)
 Pause = NodePath("PauseAndSettings/Pause")
 Settings = NodePath("PauseAndSettings/Settings")
 PauseScreen = NodePath("PauseScreen")
@@ -260,6 +267,7 @@ show_percentage = false
 [node name="Label" type="Label" parent="MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "$7.25 / $20.00"
+label_settings = SubResource("LabelSettings_glinl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -389,7 +397,7 @@ position = Vector2(-400, -200)
 rotates = false
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Path2D/PathFollow2D"]
-custom_minimum_size = Vector2(750, 500)
+custom_minimum_size = Vector2(1000, 500)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

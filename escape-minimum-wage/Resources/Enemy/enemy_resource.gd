@@ -1,6 +1,6 @@
 class_name EnemyResource extends Resource
 
-enum Type {COMMON, UNCOMMON, LEGENDARY}
+enum Type {COMMON, UNCOMMON, LEGENDARY, BOSS}
 
 @export var level: int = 1
 @export var type: Type = Type.COMMON

@@ -4,7 +4,6 @@ class_name EnemySpawner extends Node2D
 @export var Follow: PathFollow2D
 
 @export var EnemyScene: PackedScene
-@export var BossScene: PackedScene
 @export var PlayerNode: Player
 
 var max_enemies := 10
@@ -17,7 +16,9 @@ var level_data = PlayerResource.levels
 var time_counter := 0.0
 
 signal enemy_dead(_raise_amt: float, _title: String)
-signal boss_dead()
+signal boss_dead
+
+var disabled = false
 
 func spawn_enemies(num: int) -> void:
 	assert(SpawnPath and Follow, "No SpawnPath and/or Follow")
@@ -41,7 +42,7 @@ func spawn_enemy(pos: Vector2) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	time_counter += delta
-	if time_counter > spawn_rate:
+	if (time_counter > spawn_rate) and not disabled:
 		time_counter = time_counter - spawn_rate
 		spawn_enemies(1)
 	
@@ -52,15 +53,26 @@ func get_enemy_count() -> int:
 func kill_all_enemies():
 	var enemies : Array[Node] = get_tree().get_nodes_in_group("Enemy")
 	for enemy in enemies:
-		if enemy is Enemy:
-			enemy.die()
+		if enemy is Enemy and not enemy.is_in_group("Boss"):
+			enemy.die(false)
 
 func on_playerdata_updated(playerdata : PlayerResource):
 	level = playerdata.level
+	disabled = playerdata.is_fighting_boss
 
 func on_dead(_raise_amt: float, _title: String):
 	enemy_dead.emit(_raise_amt, _title)
 
+func on_boss_dead(_raise_amt: float, _title: String):
+	print("Boss died.")
+	boss_dead.emit()
+
 func summon_boss():
+	print("Summoning Boss")
 	kill_all_enemies()
-	
+	var bossdata = BossResource.new(BossResource.BossType.MEANIE, 500, "Meanie")
+	var boss : Enemy = EnemyScene.instantiate()
+	Follow.progress_ratio = randf()
+	boss.init(bossdata, Follow.global_position, PlayerNode)
+	boss.dead.connect(on_boss_dead)
+	add_child(boss)

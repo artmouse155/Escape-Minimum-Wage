@@ -2,7 +2,13 @@ class_name Game extends Control
 
 @export var WorldNode: World
 @export var background_tiles: ShaderMaterial
-
+@export var xpbar_circle: ShaderMaterial
+@export_group("Colors")
+@export var xp_green: Color
+@export var xp_red: Color
+@export var label_white: Color
+@export var label_yellow: Color
+@export_group("")
 @export var Pause: Button
 @export var Settings: Button
 @export var PauseScreen: ColorRect
@@ -18,6 +24,7 @@ class_name Game extends Control
 @export var RateLabel: RichTextLabel
 @export var LevelLabel: Label
 @export var XPBarLabel: Label
+@export_group("")
 
 @export var TitleNode: Title
 
@@ -35,6 +42,7 @@ var next_level_data : Dictionary = PlayerResource.levels[PlayerResource.INITIAL_
 var current_wage_threshold : float = current_level_data[PlayerResource.LevelDataTypes.WAGE]
 var next_wage_threshold : float = next_level_data[PlayerResource.LevelDataTypes.WAGE]
 var raise_needed : float = current_level_data[PlayerResource.LevelDataTypes.RAISE_NEEDED]
+
 var is_boss_level : bool = false
 
 func _ready() -> void:
@@ -51,8 +59,7 @@ func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("pause"):
 		toggle_pause()
 	if Input.is_action_just_pressed("debug_cheat"):
-		playerdata.salary += raise_needed
-		update_playerdata(playerdata)
+		on_enemy_dead(raise_needed, "DEBUG CHEAT")
 
 func toggle_pause() -> void:
 	get_tree().paused = not get_tree().paused
@@ -85,7 +92,9 @@ func update_playerdata(_playerdata: PlayerResource):
 			XPBar.value = 1.0
 			playerdata_updated.emit(playerdata)
 		elif is_boss_level:
-			summon_boss()
+			if not playerdata.is_fighting_boss:
+				summon_boss()
+			playerdata_updated.emit(playerdata)
 		else:
 			next_level()
 	else:
@@ -111,13 +120,22 @@ func next_level():
 
 func summon_boss():
 	TitleNode.show_title("PERFORMANCE\nREVIEW")
+	playerdata.is_fighting_boss = true
+	playerdata.salary = next_wage_threshold
+	XPBarLabel.label_settings.font_color = label_yellow
+	xpbar_circle.set_shader_parameter("color", xp_red)
+	XPBarLabel.text = "PERFORMANCE REVIEW"
 	WorldNode.EnemySpawnerNode.summon_boss()
-	next_level()
+	
 
 func on_boss_dead():
+	playerdata.is_fighting_boss = false
+	XPBarLabel.label_settings.font_color = label_white
+	xpbar_circle.set_shader_parameter("color", xp_green)
 	next_level()
 
 func on_enemy_dead(_raise_amt: float, _title: String):
-	playerdata.salary += _raise_amt
-	playerdata.title = _title
-	update_playerdata(playerdata)
+	if not playerdata.is_fighting_boss:
+		playerdata.salary += _raise_amt
+		playerdata.title = _title
+		update_playerdata(playerdata)

@@ -22,6 +22,7 @@ project/assembly_name="Escape Minimum Wage"
 [global_group]
 
 Enemy="An Enemy to fight."
+Boss="Boss Enemies."
 
 [gui]
 

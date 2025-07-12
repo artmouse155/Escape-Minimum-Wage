@@ -6,6 +6,8 @@ var PlayerNode: Player
 @export var RaiseLabel: Label
 @export var NameLabel: Label
 
+@export var TopAnchor: Node2D
+
 const ACCEL := 2000.0 # Pixels per second squared
 const PLAYER_BOUNCE_BACK := 10000
 const VISUAL_LERP := 0.5
@@ -26,7 +28,7 @@ var raise_amt := 0.00:
 	get:
 		return raise_amt
 	set(value):
-		RaiseLabel.text = "$%0.2f" % snappedf(value, 0.01)
+		RaiseLabel.text = ("$%0.2f" % value) if value > 0 else ""
 		raise_amt = value
 
 var title := "Enemy"
@@ -46,7 +48,8 @@ func init(data: EnemyResource, _position: Vector2, _player: Player) -> void:
 	NameLabel.text = data.get_name_label()
 	global_position = _position
 	PlayerNode = _player
-
+	if data is BossResource:
+		add_to_group("Boss")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
@@ -68,8 +71,9 @@ func updateHealthBar(progress: float):
 	assert(HealthBar, "No Healthbar Found.")
 	HealthBar.value = progress
 
-func die():
-	dead.emit(raise_amt, title)
+func die(rewards: bool = true):
+	if rewards:
+		dead.emit(raise_amt, title)
 	queue_free()
 
 
