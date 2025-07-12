@@ -7,6 +7,12 @@ class_name Game extends Control
 @export var Settings: Button
 @export var PauseScreen: ColorRect
 
+@export_group("Labels")
+@export var TitleLabel: Label
+@export var SalaryLabel: RichTextLabel
+@export var MoneyLabel: Label
+@export var RateLabel: RichTextLabel
+
 const LevelDataTypes := {
 		LEVEL = "level",
 		WAGE = "wage",
@@ -26,6 +32,7 @@ func _ready() -> void:
 	assert(WorldNode, "No world node found")
 	playerdata_updated.connect(WorldNode.PlayerNode.on_playerdata_updated)
 	playerdata_updated.connect(WorldNode.EnemySpawnerNode.on_playerdata_updated)
+	WorldNode.EnemySpawnerNode.enemy_dead.connect(on_enemy_dead)
 	update_playerdata(PlayerResource.new())
 
 func _input(event: InputEvent) -> void:
@@ -48,4 +55,13 @@ func _process(_delta: float) -> void:
 
 func update_playerdata(_playerdata: PlayerResource):
 	playerdata = _playerdata
+	TitleLabel.text = playerdata.title
+	SalaryLabel.text = "$%0.2f/hr [color=gray][i](%0.2f/sec)[/i][/color]" % [playerdata.salary, playerdata.salary / 10]
+	MoneyLabel.text = "$%0.2f" % playerdata.money
+	RateLabel.text = "[color=#34d134][i]+%0.2f/sec[/i][/color]" % (playerdata.salary / 10)
 	playerdata_updated.emit(playerdata)
+
+func on_enemy_dead(_raise_amt: float, _title: String):
+	playerdata.salary += _raise_amt
+	playerdata.title = _title
+	update_playerdata(playerdata)

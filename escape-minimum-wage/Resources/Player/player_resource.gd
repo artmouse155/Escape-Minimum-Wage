@@ -1,7 +1,8 @@
 class_name PlayerResource extends Resource
 
 @export var level : int = 1
-@export var salary : float = 7.50
+@export var title : String = "Game Developer"
+@export var salary : float = 7.25
 @export var money : float = 0.00
 
 @export var work_history : Dictionary[String,int] = {}

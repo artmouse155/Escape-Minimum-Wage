@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cw712jj3h78q6"]
+[gd_scene load_steps=14 format=3 uid="uid://cw712jj3h78q6"]
 
 [ext_resource type="Shader" uid="uid://dh5ck4i2ivrue" path="res://Game/tiles.gdshader" id="1_1r4le"]
 [ext_resource type="PackedScene" uid="uid://b25h3roe75kgy" path="res://Game/World/world.tscn" id="1_bk3v5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="1_oomkl"]
 [ext_resource type="Texture2D" uid="uid://dvyv6daemehqr" path="res://Game/World/tiles.png" id="2_7raqb"]
 [ext_resource type="Texture2D" uid="uid://cvy8hb0kkcmuv" path="res://Game/UI/pause_black.png" id="5_qmv3x"]
+[ext_resource type="FontFile" uid="uid://blyvam7ls03v6" path="res://Resources/STIX_Two_Text/static/STIXTwoText-Bold.ttf" id="6_buohc"]
 [ext_resource type="Texture2D" uid="uid://dtvw1irhowm2l" path="res://Game/UI/gear_black.png" id="6_oomkl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7raqb"]
@@ -26,6 +27,8 @@ corner_radius_bottom_left = 5
 shadow_size = 13
 
 [sub_resource type="LabelSettings" id="LabelSettings_buohc"]
+font = ExtResource("6_buohc")
+font_size = 24
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kul4i"]
@@ -35,7 +38,15 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "Pause", "Settings", "PauseScreen")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_buohc"]
+bg_color = Color(0.517647, 0.376471, 0.290196, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 13
+
+[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "Pause", "Settings", "PauseScreen", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -50,6 +61,10 @@ background_tiles = SubResource("ShaderMaterial_7raqb")
 Pause = NodePath("PauseAndSettings/Pause")
 Settings = NodePath("PauseAndSettings/Settings")
 PauseScreen = NodePath("PauseScreen")
+TitleLabel = NodePath("MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Position")
+SalaryLabel = NodePath("MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Salary")
+MoneyLabel = NodePath("MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer/Money/MarginContainer/MoneyLabel")
+RateLabel = NodePath("MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer/Money/MarginContainer/RateLabel")
 
 [node name="BG" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_7raqb")
@@ -89,6 +104,7 @@ theme_override_constants/margin_bottom = 30
 
 [node name="InGameUI" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/InGameUI"]
 custom_minimum_size = Vector2(300, 0)
@@ -142,6 +158,55 @@ text = "[color=#896920][i]Click to see upgrades and skills[/i][/color]"
 fit_content = true
 horizontal_alignment = 1
 
+[node name="ResumeButton" type="Button" parent="MarginContainer/InGameUI/PanelContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="Money" type="PanelContainer" parent="MarginContainer/InGameUI"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_buohc")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Money"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/Money/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "WALLET"
+label_settings = SubResource("LabelSettings_buohc")
+horizontal_alignment = 1
+
+[node name="Money" type="PanelContainer" parent="MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer/Money"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MoneyLabel" type="Label" parent="MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer/Money/MarginContainer"]
+layout_mode = 2
+text = "$ 27.95"
+
+[node name="RateLabel" type="RichTextLabel" parent="MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer/Money/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=#34d134][i]+$0.73/sec[/i][/color]"
+fit_content = true
+horizontal_alignment = 2
+
 [node name="PauseScreen" type="ColorRect" parent="."]
 visible = false
 layout_mode = 1
@@ -184,12 +249,14 @@ grow_horizontal = 0
 [node name="Pause" type="Button" parent="PauseAndSettings"]
 layout_mode = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 icon = ExtResource("5_qmv3x")
 flat = true
 
 [node name="Settings" type="Button" parent="PauseAndSettings"]
 layout_mode = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 icon = ExtResource("6_oomkl")
 flat = true
 

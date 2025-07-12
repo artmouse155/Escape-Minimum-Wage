@@ -25,6 +25,7 @@ Enemy="An Enemy to fight."
 
 [gui]
 
+theme/custom_font="uid://uprm52qhtbqp"
 theme/default_font_multichannel_signed_distance_field=true
 
 [input]

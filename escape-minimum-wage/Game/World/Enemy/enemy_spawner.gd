@@ -15,9 +15,7 @@ var level_data = PlayerResource.levels
 
 var time_counter := 0.0
 
-# Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#spawn_enemies(1)
+signal enemy_dead(_raise_amt: float, _title: String)
 
 func spawn_enemies(num: int) -> void:
 	assert(SpawnPath and Follow, "No SpawnPath and/or Follow")
@@ -32,9 +30,9 @@ func spawn_enemy(pos: Vector2) -> void:
 	var min_pay = level_data[level - 1][Game.LevelDataTypes.MIN_PAY]
 	var max_pay = level_data[level - 1][Game.LevelDataTypes.MAX_PAY]
 	var enemydata = EnemyResource.new(level, EnemyResource.Type.COMMON, randf_range(min_pay, max_pay), 300, "Sewage Worker",)
-	
 	var enemy : Enemy = EnemyScene.instantiate()
 	enemy.init(enemydata, pos, PlayerNode)
+	enemy.dead.connect(on_dead)
 	add_child(enemy)
 
 
@@ -57,3 +55,6 @@ func kill_all_enemies():
 
 func on_playerdata_updated(playerdata : PlayerResource):
 	level = playerdata.level
+
+func on_dead(_raise_amt: float, _title: String):
+	enemy_dead.emit(_raise_amt, _title)
