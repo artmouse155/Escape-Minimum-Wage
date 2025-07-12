@@ -3,32 +3,48 @@ class_name Enemy extends RigidBody2D
 var PlayerNode: Player
 
 @export var HealthBar: ProgressBar
+@export var RaiseLabel: Label
+@export var NameLabel: Label
 
 const ACCEL := 2000.0 # Pixels per second squared
-
 const PLAYER_BOUNCE_BACK := 10000
-
-var init_health := 300.0
+const VISUAL_LERP := 0.5
 
 var touching_player = false
 
-var health := init_health:
+var init_health := 1.0
+var health := 0.0:
 	get:
 		return health
 	set(value):
 		health = value
-		if (health > 0):
-			updateHealthBar()
-		else:
+		if (health <= 0):
 			die()
+var visual_health := 0.0
 
-func init(_position: Vector2, _player: Player) -> void:
+var raise_amt := 0.00:
+	get:
+		return raise_amt
+	set(value):
+		RaiseLabel.text = "$%0.2f" % snappedf(value, 0.01)
+
+var title := "Enemy"
+
+var level := 1
+var rarity : EnemyResource.Type = EnemyResource.Type.COMMON
+
+signal dead(_raise_amt: float, _title: String)
+
+func init(data: EnemyResource, _position: Vector2, _player: Player) -> void:
+	init_health = data.health
+	health = data.health
+	visual_health = data.health
+	raise_amt = data.raise_amt
+	level = data.level
+	title = data.title
+	NameLabel.text = data.get_name_label()
 	global_position = _position
 	PlayerNode = _player
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,14 +56,19 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	else:
 		state.apply_central_force(PLAYER_BOUNCE_BACK * -dir_vector)
 
+func _process(delta: float) -> void:
+	visual_health = lerp(visual_health, health, VISUAL_LERP)
+	updateHealthBar(visual_health / init_health)
+
 func take_damage_from_player(dmg: int) -> void:
 	health -= dmg
 
-func updateHealthBar():
+func updateHealthBar(progress: float):
 	assert(HealthBar, "No Healthbar Found.")
-	HealthBar.value = (health / init_health)
+	HealthBar.value = progress
 
 func die():
+	dead.emit(raise_amt, title)
 	queue_free()
 
 

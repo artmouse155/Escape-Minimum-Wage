@@ -1,0 +1,272 @@
+[
+  {
+    "Level": "1",
+    "wage": "$7.25",
+    "num_raises": "5",
+    "raise_needed": "$0.75",
+    "amt_per_raise": "$0.15",
+    "min_pay": "$0.11",
+    "max_pay": "$0.20"
+  },
+  {
+    "Level": "2",
+    "wage": "$8.00",
+    "num_raises": "6",
+    "raise_needed": "$1.00",
+    "amt_per_raise": "$0.17",
+    "min_pay": "$0.12",
+    "max_pay": "$0.22"
+  },
+  {
+    "Level": "3",
+    "wage": "$9.00",
+    "num_raises": "6",
+    "raise_needed": "$1.50",
+    "amt_per_raise": "$0.25",
+    "min_pay": "$0.18",
+    "max_pay": "$0.33"
+  },
+  {
+    "Level": "4",
+    "wage": "$10.50",
+    "num_raises": "7",
+    "raise_needed": "$2.50",
+    "amt_per_raise": "$0.36",
+    "min_pay": "$0.25",
+    "max_pay": "$0.46"
+  },
+  {
+    "Level": "5",
+    "wage": "$13.00",
+    "num_raises": "7",
+    "raise_needed": "$4.00",
+    "amt_per_raise": "$0.57",
+    "min_pay": "$0.40",
+    "max_pay": "$0.74"
+  },
+  {
+    "Level": "6",
+    "wage": "$17.00",
+    "num_raises": "8",
+    "raise_needed": "$8.00",
+    "amt_per_raise": "$1.00",
+    "min_pay": "$0.70",
+    "max_pay": "$1.30"
+  },
+  {
+    "Level": "7",
+    "wage": "$25.00",
+    "num_raises": "9",
+    "raise_needed": "$10.00",
+    "amt_per_raise": "$1.11",
+    "min_pay": "$0.78",
+    "max_pay": "$1.44"
+  },
+  {
+    "Level": "8",
+    "wage": "$35.00",
+    "num_raises": "10",
+    "raise_needed": "$15.00",
+    "amt_per_raise": "$1.50",
+    "min_pay": "$1.05",
+    "max_pay": "$1.95"
+  },
+  {
+    "Level": "9",
+    "wage": "$50.00",
+    "num_raises": "11",
+    "raise_needed": "$30.00",
+    "amt_per_raise": "$2.73",
+    "min_pay": "$1.91",
+    "max_pay": "$3.55"
+  },
+  {
+    "Level": "10",
+    "wage": "$80.00",
+    "num_raises": "13",
+    "raise_needed": "$40.00",
+    "amt_per_raise": "$3.08",
+    "min_pay": "$2.15",
+    "max_pay": "$4.00"
+  },
+  {
+    "Level": "11",
+    "wage": "$120.00",
+    "num_raises": "15",
+    "raise_needed": "$80.00",
+    "amt_per_raise": "$5.33",
+    "min_pay": "$3.73",
+    "max_pay": "$6.93"
+  },
+  {
+    "Level": "12",
+    "wage": "$200.00",
+    "num_raises": "18",
+    "raise_needed": "$125.00",
+    "amt_per_raise": "$6.94",
+    "min_pay": "$4.86",
+    "max_pay": "$9.03"
+  },
+  {
+    "Level": "13",
+    "wage": "$325.00",
+    "num_raises": "22",
+    "raise_needed": "$175.00",
+    "amt_per_raise": "$7.95",
+    "min_pay": "$5.57",
+    "max_pay": "$10.34"
+  },
+  {
+    "Level": "14",
+    "wage": "$500.00",
+    "num_raises": "27",
+    "raise_needed": "$300.00",
+    "amt_per_raise": "$11.11",
+    "min_pay": "$7.78",
+    "max_pay": "$14.44"
+  },
+  {
+    "Level": "15",
+    "wage": "$800.00",
+    "num_raises": "33",
+    "raise_needed": "$400.00",
+    "amt_per_raise": "$12.12",
+    "min_pay": "$8.48",
+    "max_pay": "$15.76"
+  },
+  {
+    "Level": "16",
+    "wage": "$1,200.00",
+    "num_raises": "40",
+    "raise_needed": "$800.00",
+    "amt_per_raise": "$20.00",
+    "min_pay": "$14.00",
+    "max_pay": "$26.00"
+  },
+  {
+    "Level": "17",
+    "wage": "$2,000.00",
+    "num_raises": "50",
+    "raise_needed": "$1,200.00",
+    "amt_per_raise": "$24.00",
+    "min_pay": "$16.80",
+    "max_pay": "$31.20"
+  },
+  {
+    "Level": "18",
+    "wage": "$3,200.00",
+    "num_raises": "62",
+    "raise_needed": "$2,000.00",
+    "amt_per_raise": "$32.26",
+    "min_pay": "$22.58",
+    "max_pay": "$41.94"
+  },
+  {
+    "Level": "19",
+    "wage": "$5,200.00",
+    "num_raises": "77",
+    "raise_needed": "$3,300.00",
+    "amt_per_raise": "$42.86",
+    "min_pay": "$30.00",
+    "max_pay": "$55.71"
+  },
+  {
+    "Level": "20",
+    "wage": "$8,500.00",
+    "num_raises": "97",
+    "raise_needed": "$5,500.00",
+    "amt_per_raise": "$56.70",
+    "min_pay": "$39.69",
+    "max_pay": "$73.71"
+  },
+  {
+    "Level": "21",
+    "wage": "$14,000.00",
+    "num_raises": "121",
+    "raise_needed": "$8,000.00",
+    "amt_per_raise": "$66.12",
+    "min_pay": "$46.28",
+    "max_pay": "$85.95"
+  },
+  {
+    "Level": "22",
+    "wage": "$22,000.00",
+    "num_raises": "153",
+    "raise_needed": "$13,000.00",
+    "amt_per_raise": "$84.97",
+    "min_pay": "$59.48",
+    "max_pay": "$110.46"
+  },
+  {
+    "Level": "23",
+    "wage": "$35,000.00",
+    "num_raises": "193",
+    "raise_needed": "$23,000.00",
+    "amt_per_raise": "$119.17",
+    "min_pay": "$83.42",
+    "max_pay": "$154.92"
+  },
+  {
+    "Level": "24",
+    "wage": "$58,000.00",
+    "num_raises": "243",
+    "raise_needed": "$42,000.00",
+    "amt_per_raise": "$172.84",
+    "min_pay": "$120.99",
+    "max_pay": "$224.69"
+  },
+  {
+    "Level": "25",
+    "wage": "$100,000.00",
+    "num_raises": "307",
+    "raise_needed": "$50,000.00",
+    "amt_per_raise": "$162.87",
+    "min_pay": "$114.01",
+    "max_pay": "$211.73"
+  },
+  {
+    "Level": "26",
+    "wage": "$150,000.00",
+    "num_raises": "389",
+    "raise_needed": "$90,000.00",
+    "amt_per_raise": "$231.36",
+    "min_pay": "$161.95",
+    "max_pay": "$300.77"
+  },
+  {
+    "Level": "27",
+    "wage": "$240,000.00",
+    "num_raises": "492",
+    "raise_needed": "$140,000.00",
+    "amt_per_raise": "$284.55",
+    "min_pay": "$199.19",
+    "max_pay": "$369.92"
+  },
+  {
+    "Level": "28",
+    "wage": "$380,000.00",
+    "num_raises": "623",
+    "raise_needed": "$240,000.00",
+    "amt_per_raise": "$385.23",
+    "min_pay": "$269.66",
+    "max_pay": "$500.80"
+  },
+  {
+    "Level": "29",
+    "wage": "$620,000.00",
+    "num_raises": "790",
+    "raise_needed": "$380,000.00",
+    "amt_per_raise": "$481.01",
+    "min_pay": "$336.71",
+    "max_pay": "$625.32"
+  },
+  {
+    "Level": "30",
+    "wage": "$1,000,000.00",
+    "num_raises": "1000",
+    "raise_needed": "$0.00",
+    "amt_per_raise": "0",
+    "min_pay": "$0.00",
+    "max_pay": "$0.00"
+  }
+]

@@ -1,10 +1,11 @@
-extends Node2D
+class_name ResumeSpawner extends Node2D
 
 @export var ResumeScene : PackedScene
 
-const SPAWN_RATE := 0.1 # Enemies to spawn per second
-const RESUME_SPEED := 1200.0
-const RESUME_DAMAGE := 100
+# We get this from the incoming playerData
+var resume_spawn_rate := 0.0 # Resumes to throw per second
+var resume_speed := 0.0
+var resume_damage := 0.0
 
 var time_counter := 0.0
 
@@ -19,11 +20,16 @@ func spawn_resumes(num : int):
 func spawn_resume(direction: Vector2):
 	assert(ResumeScene, "No ResumeScene")
 	var resume: Resume = ResumeScene.instantiate()
-	resume.init(direction, RESUME_SPEED, RESUME_DAMAGE)
+	resume.init(direction, resume_speed, resume_damage)
 	add_child(resume)
 
 func _process(delta: float) -> void:
 	time_counter += delta
-	if time_counter > SPAWN_RATE:
-		time_counter = time_counter - SPAWN_RATE
+	if time_counter > resume_spawn_rate:
+		time_counter = time_counter - resume_spawn_rate
 		spawn_resumes(1)
+
+func on_playerdata_updated(playerdata : PlayerResource):
+	resume_spawn_rate = playerdata.resume_spawn_rate
+	resume_speed = playerdata.resume_speed
+	resume_damage = playerdata.resume_damage

@@ -50,3 +50,8 @@ size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="World" parent="GameContainer/SubViewport" instance=ExtResource("1_bk3v5")]
+
+[node name="Pause" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0

@@ -10,7 +10,7 @@ size = Vector2(101, 308)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jce6x"]
 size = Vector2(128, 129)
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("HealthBar") groups=["Enemy"]]
+[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("HealthBar", "RaiseLabel", "NameLabel") groups=["Enemy"]]
 collision_layer = 3
 gravity_scale = 0.0
 lock_rotation = true
@@ -20,6 +20,8 @@ max_contacts_reported = 10
 linear_damp = 10.0
 script = ExtResource("1_pahu6")
 HealthBar = NodePath("HealthBarAnchor/HealthBar")
+RaiseLabel = NodePath("HealthBarAnchor/RaiseLabelAnchor/RaiseLabel")
+NameLabel = NodePath("NameLabelAnchor/NameLabel")
 metadata/_custom_type_script = "uid://dbywu1202nv8d"
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -61,6 +63,50 @@ theme_type_variation = &"HealthBar"
 max_value = 1.0
 value = 1.0
 show_percentage = false
+
+[node name="RaiseLabelAnchor" type="Node2D" parent="HealthBarAnchor"]
+position = Vector2(0, -40)
+
+[node name="RaiseLabel" type="Label" parent="HealthBarAnchor/RaiseLabelAnchor"]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_3va78")
+theme_type_variation = &"RaiseLabel"
+text = "$12.00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NameLabelAnchor" type="Node2D" parent="."]
+position = Vector2(0, 100)
+
+[node name="NameLabel" type="Label" parent="NameLabelAnchor"]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_3va78")
+theme_type_variation = &"DisplayLabel"
+text = "Lv 1 Graphic Designer"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

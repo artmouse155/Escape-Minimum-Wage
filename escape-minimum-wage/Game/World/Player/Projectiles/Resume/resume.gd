@@ -18,7 +18,6 @@ func _physics_process(delta: float) -> void:
 		if body is Enemy:
 			body.take_damage_from_player(damage)
 			impact()
-		print("Bam!")
 		
 func impact() -> void:
 	queue_free()
