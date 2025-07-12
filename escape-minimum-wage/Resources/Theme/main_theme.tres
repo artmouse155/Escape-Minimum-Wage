@@ -17,3 +17,5 @@ HealthBar/styles/background = SubResource("StyleBoxFlat_226ie")
 HealthBar/styles/fill = SubResource("StyleBoxFlat_itn17")
 RaiseLabel/base_type = &"DisplayLabel"
 RaiseLabel/colors/font_color = Color(0.813143, 0.959172, 0.499433, 1)
+TitleLabel/base_type = &"Label"
+TitleLabel/font_sizes/font_size = 96

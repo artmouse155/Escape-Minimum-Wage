@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cw712jj3h78q6"]
+[gd_scene load_steps=12 format=3 uid="uid://cw712jj3h78q6"]
 
 [ext_resource type="Shader" uid="uid://dh5ck4i2ivrue" path="res://Game/tiles.gdshader" id="1_1r4le"]
 [ext_resource type="PackedScene" uid="uid://b25h3roe75kgy" path="res://Game/World/world.tscn" id="1_bk3v5"]
 [ext_resource type="Script" uid="uid://ds56e5tnki5hi" path="res://Game/game.gd" id="1_jcm6v"]
+[ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="1_oomkl"]
 [ext_resource type="Texture2D" uid="uid://dvyv6daemehqr" path="res://Game/World/tiles.png" id="2_7raqb"]
+[ext_resource type="Texture2D" uid="uid://cvy8hb0kkcmuv" path="res://Game/UI/pause_black.png" id="5_qmv3x"]
+[ext_resource type="Texture2D" uid="uid://dtvw1irhowm2l" path="res://Game/UI/gear_black.png" id="6_oomkl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7raqb"]
 shader = ExtResource("1_1r4le")
@@ -14,16 +17,39 @@ shader_parameter/scale = 0.216
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/zoom = Vector2(1, 1)
 
-[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oomkl"]
+bg_color = Color(0.739745, 0.571865, 0.197737, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 13
+
+[sub_resource type="LabelSettings" id="LabelSettings_buohc"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kul4i"]
+bg_color = Color(0.122252, 0.122252, 0.122252, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "Pause", "Settings", "PauseScreen")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_oomkl")
 script = ExtResource("1_jcm6v")
 WorldNode = NodePath("GameContainer/SubViewport/World")
 background_tiles = SubResource("ShaderMaterial_7raqb")
+Pause = NodePath("PauseAndSettings/Pause")
+Settings = NodePath("PauseAndSettings/Settings")
+PauseScreen = NodePath("PauseScreen")
 
 [node name="BG" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_7raqb")
@@ -35,6 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="GameContainer" type="SubViewportContainer" parent="."]
+process_mode = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,7 +78,119 @@ render_target_update_mode = 4
 
 [node name="World" parent="GameContainer/SubViewport" instance=ExtResource("1_bk3v5")]
 
-[node name="Pause" type="Button" parent="."]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_right = 21.0
+offset_bottom = 69.0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="InGameUI" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/InGameUI"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oomkl")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "RESUME"
+label_settings = SubResource("LabelSettings_buohc")
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kul4i")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Position" type="Label" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Swig Worker"
+
+[node name="Salary" type="RichTextLabel" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "$7.25/hr [color=gray][i]($0.73/sec)[/i][/color]"
+fit_content = true
+
+[node name="Click2See" type="RichTextLabel" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=#896920][i]Click to see upgrades and skills[/i][/color]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="PauseScreen" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.466667)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PauseScreen/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "PAUSED"
+
+[node name="PauseAndSettings" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Pause" type="Button" parent="PauseAndSettings"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("5_qmv3x")
+flat = true
+
+[node name="Settings" type="Button" parent="PauseAndSettings"]
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("6_oomkl")
+flat = true
+
+[connection signal="pressed" from="PauseAndSettings/Pause" to="." method="toggle_pause"]
