@@ -8,6 +8,7 @@
 size = Vector2(128, 129)
 
 [node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("HealthBar") groups=["Enemy"]]
+collision_mask = 3
 gravity_scale = 0.0
 lock_rotation = true
 contact_monitor = true

@@ -39,7 +39,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		state.apply_central_force(ACCEL * dir_vector)
 	else:
 		state.apply_central_force(PLAYER_BOUNCE_BACK * -dir_vector)
-	health -= 1
 
 func take_damage_from_player(dmg: int) -> void:
 	health -= dmg
@@ -53,9 +52,15 @@ func die():
 
 
 func _on_body_entered(body: Node) -> void:
-	if body is Player:
-		touching_player = true
-		take_damage_from_player(50)
+	match body:
+		Player:
+			touching_player = true
+			take_damage_from_player(20)
+		Resume:
+			take_damage_from_player(body.damage)
+			body.impact()
+			print("Ouch!")
+	print(body)
 
 
 func _on_body_exited(body: Node) -> void:

@@ -4,7 +4,7 @@ extends Control
 
 @export var background_tiles: ShaderMaterial
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	assert(background_tiles, "Background Tiles not connected")
 	assert(WorldNode, "No world node found")
 	background_tiles.set_shader_parameter("offset", WorldNode.PlayerNode.position)

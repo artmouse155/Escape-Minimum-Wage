@@ -4,11 +4,11 @@ class_name EnemySpawner extends Node2D
 @export var Follow: PathFollow2D
 
 @export var EnemyScene: PackedScene
-@export var player: Player
+@export var PlayerNode: Player
 
-const MAX_ENEMIES = 100
+const MAX_ENEMIES = 10
 
-const SPAWN_RATE = 0.1 # Enemies to spawn per second
+const SPAWN_RATE = .5 # Enemies to spawn per second
 
 var time_counter := 0.0
 
@@ -28,7 +28,7 @@ func spawn_enemies(num: int) -> void:
 func spawn_enemy(pos: Vector2) -> void:
 	assert(EnemyScene, "No EnemyScene")
 	var enemy : Enemy = EnemyScene.instantiate()
-	enemy.init(pos, player)
+	enemy.init(pos, PlayerNode)
 	add_child(enemy)
 
 

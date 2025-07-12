@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://b25h3roe75kgy"]
+[gd_scene load_steps=10 format=3 uid="uid://b25h3roe75kgy"]
 
 [ext_resource type="Script" uid="uid://dkew54sl1666s" path="res://Game/World/world.gd" id="1_daxxa"]
 [ext_resource type="Script" uid="uid://ckkjnd206unei" path="res://Game/World/player.gd" id="1_eof05"]
 [ext_resource type="Texture2D" uid="uid://dsswp2x7dcaed" path="res://icon.svg" id="1_v7yag"]
-[ext_resource type="Script" uid="uid://c3v2io5647yh3" path="res://Game/World/enemy_spawner.gd" id="1_yyydc"]
+[ext_resource type="Script" uid="uid://c3v2io5647yh3" path="res://Game/World/Enemy/enemy_spawner.gd" id="1_yyydc"]
 [ext_resource type="PackedScene" uid="uid://ywfs1lsjairk" path="res://Game/World/Enemy/enemy.tscn" id="2_cx28n"]
+[ext_resource type="Script" uid="uid://bvdcfn0q13bj1" path="res://Game/World/Player/resume_spawner.gd" id="6_ltd38"]
+[ext_resource type="PackedScene" uid="uid://detvmwgrdvv5y" path="res://Game/World/Player/Projectiles/Resume/resume.tscn" id="7_i842q"]
 
 [sub_resource type="Curve2D" id="Curve2D_v7yag"]
 _data = {
@@ -23,17 +25,15 @@ EnemySpawnerNode = NodePath("EnemySpawner")
 Camera = NodePath("Player/Camera")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(291, -214)
-rotation = -0.537181
 texture = ExtResource("1_v7yag")
 
-[node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("SpawnPath", "Follow", "player")]
+[node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("SpawnPath", "Follow", "PlayerNode")]
 y_sort_enabled = true
 script = ExtResource("1_yyydc")
 SpawnPath = NodePath("../Player/SpawnPath")
 Follow = NodePath("../Player/SpawnPath/Follow")
 EnemyScene = ExtResource("2_cx28n")
-player = NodePath("../Player")
+PlayerNode = NodePath("../Player")
 
 [node name="Player" type="RigidBody2D" parent="."]
 mass = 10.0
@@ -43,6 +43,21 @@ linear_damp = 10.0
 script = ExtResource("1_eof05")
 
 [node name="Sprite" type="Sprite2D" parent="Player"]
+visible = false
+texture = ExtResource("1_v7yag")
+
+[node name="ColorRect" type="ColorRect" parent="Player"]
+offset_left = -49.0
+offset_top = -265.0
+offset_right = 52.0
+offset_bottom = 46.0
+color = Color(0.94, 0.94, 0.94, 1)
+
+[node name="ResumeSpawner" type="Node2D" parent="Player"]
+script = ExtResource("6_ltd38")
+ResumeScene = ExtResource("7_i842q")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/ResumeSpawner"]
 texture = ExtResource("1_v7yag")
 
 [node name="Camera" type="Camera2D" parent="Player"]
