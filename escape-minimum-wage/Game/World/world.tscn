@@ -57,9 +57,6 @@ color = Color(0.94, 0.94, 0.94, 1)
 script = ExtResource("6_ltd38")
 ResumeScene = ExtResource("7_i842q")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player/ResumeSpawner"]
-texture = ExtResource("1_v7yag")
-
 [node name="Camera" type="Camera2D" parent="Player"]
 zoom = Vector2(0.5, 0.5)
 

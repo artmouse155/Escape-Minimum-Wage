@@ -52,15 +52,14 @@ func die():
 
 
 func _on_body_entered(body: Node) -> void:
-	match body:
+	match body.get_script(): # Weird workaround
 		Player:
 			touching_player = true
 			take_damage_from_player(20)
-		Resume:
-			take_damage_from_player(body.damage)
-			body.impact()
-			print("Ouch!")
-	print(body)
+		#Resume:
+			#take_damage_from_player(body.damage)
+			#body.impact()
+			#print("Ouch!")
 
 
 func _on_body_exited(body: Node) -> void:

@@ -1,21 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://ywfs1lsjairk"]
+[gd_scene load_steps=6 format=3 uid="uid://ywfs1lsjairk"]
 
 [ext_resource type="Script" uid="uid://dbywu1202nv8d" path="res://Game/World/Enemy/enemy.gd" id="1_pahu6"]
 [ext_resource type="Texture2D" uid="uid://dsswp2x7dcaed" path="res://icon.svg" id="2_3va78"]
 [ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="3_3va78"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3va78"]
+size = Vector2(101, 308)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jce6x"]
 size = Vector2(128, 129)
 
 [node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("HealthBar") groups=["Enemy"]]
-collision_mask = 3
+collision_layer = 3
 gravity_scale = 0.0
 lock_rotation = true
+continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 10
 linear_damp = 10.0
 script = ExtResource("1_pahu6")
 HealthBar = NodePath("HealthBarAnchor/HealthBar")
+metadata/_custom_type_script = "uid://dbywu1202nv8d"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -49.0
@@ -28,7 +33,11 @@ color = Color(0.963068, 0.355186, 0, 1)
 visible = false
 texture = ExtResource("2_3va78")
 
-[node name="Collision" type="CollisionShape2D" parent="."]
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -109)
+shape = SubResource("RectangleShape2D_3va78")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_jce6x")
 
@@ -50,7 +59,7 @@ grow_vertical = 2
 theme = ExtResource("3_3va78")
 theme_type_variation = &"HealthBar"
 max_value = 1.0
-value = 0.26
+value = 1.0
 show_percentage = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
