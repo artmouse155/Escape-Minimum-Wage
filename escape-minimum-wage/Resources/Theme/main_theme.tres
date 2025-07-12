@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://d1gbsuhluo4pk"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://d1gbsuhluo4pk"]
 
 [ext_resource type="FontFile" uid="uid://cnia72dhps7n2" path="res://Resources/Alfa_Slab_One/AlfaSlabOne-Regular.ttf" id="1_itn17"]
 
@@ -7,6 +7,32 @@ bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_itn17"]
 bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4b44"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.180005, 0.180005, 0.180005, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpyym"]
+bg_color = Color(0.239913, 0.497511, 0.20061, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.239913, 0.497511, 0.20061, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [resource]
 DisplayLabel/base_type = &"Label"
@@ -17,5 +43,16 @@ HealthBar/styles/background = SubResource("StyleBoxFlat_226ie")
 HealthBar/styles/fill = SubResource("StyleBoxFlat_itn17")
 RaiseLabel/base_type = &"DisplayLabel"
 RaiseLabel/colors/font_color = Color(0.813143, 0.959172, 0.499433, 1)
+TitleBar/base_type = &"RichTextLabel"
+TitleBar/colors/font_shadow_color = Color(0.71, 0, 0, 1)
+TitleBar/constants/outline_size = 40
+TitleBar/constants/shadow_offset_x = 5
+TitleBar/constants/shadow_offset_y = 5
+TitleBar/constants/shadow_outline_size = 40
+TitleBar/font_sizes/normal_font_size = 100
+TitleBar/fonts/normal_font = ExtResource("1_itn17")
 TitleLabel/base_type = &"Label"
 TitleLabel/font_sizes/font_size = 96
+XPBar/base_type = &"ProgressBar"
+XPBar/styles/background = SubResource("StyleBoxFlat_j4b44")
+XPBar/styles/fill = SubResource("StyleBoxFlat_qpyym")

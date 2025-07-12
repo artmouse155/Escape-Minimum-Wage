@@ -27,6 +27,7 @@ var raise_amt := 0.00:
 		return raise_amt
 	set(value):
 		RaiseLabel.text = "$%0.2f" % snappedf(value, 0.01)
+		raise_amt = value
 
 var title := "Enemy"
 
@@ -56,7 +57,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	else:
 		state.apply_central_force(PLAYER_BOUNCE_BACK * -dir_vector)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	visual_health = lerp(visual_health, health, VISUAL_LERP)
 	updateHealthBar(visual_health / init_health)
 
@@ -77,10 +78,6 @@ func _on_body_entered(body: Node) -> void:
 		Player:
 			touching_player = true
 			take_damage_from_player(20)
-		#Resume:
-			#take_damage_from_player(body.damage)
-			#body.impact()
-			#print("Ouch!")
 
 
 func _on_body_exited(body: Node) -> void:

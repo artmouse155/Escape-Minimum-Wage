@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cw712jj3h78q6"]
+[gd_scene load_steps=22 format=3 uid="uid://cw712jj3h78q6"]
 
 [ext_resource type="Shader" uid="uid://dh5ck4i2ivrue" path="res://Game/tiles.gdshader" id="1_1r4le"]
 [ext_resource type="PackedScene" uid="uid://b25h3roe75kgy" path="res://Game/World/world.tscn" id="1_bk3v5"]
@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://cvy8hb0kkcmuv" path="res://Game/UI/pause_black.png" id="5_qmv3x"]
 [ext_resource type="FontFile" uid="uid://blyvam7ls03v6" path="res://Resources/STIX_Two_Text/static/STIXTwoText-Bold.ttf" id="6_buohc"]
 [ext_resource type="Texture2D" uid="uid://dtvw1irhowm2l" path="res://Game/UI/gear_black.png" id="6_oomkl"]
+[ext_resource type="Shader" uid="uid://b7tovnijrw8ri" path="res://Game/circle.gdshader" id="7_glinl"]
+[ext_resource type="Texture2D" uid="uid://bk5bvjwitdb73" path="res://Game/UI/black_circle.png" id="7_kul4i"]
+[ext_resource type="Texture2D" uid="uid://dcv2jvrbq7jux" path="res://Game/UI/skull.png" id="8_fsxsm"]
+[ext_resource type="Script" uid="uid://3qwp5parw6tj" path="res://Game/title.gd" id="10_7gi1t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7raqb"]
 shader = ExtResource("1_1r4le")
@@ -38,6 +42,16 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_72g0p"]
+shader = ExtResource("7_glinl")
+shader_parameter/color = Color(0.239216, 0.498039, 0.2, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kul4i"]
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_7gi1t"]
+font_size = 28
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_buohc"]
 bg_color = Color(0.517647, 0.376471, 0.290196, 1)
 corner_radius_top_left = 5
@@ -46,7 +60,13 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 shadow_size = 13
 
-[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "Pause", "Settings", "PauseScreen", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel")]
+[sub_resource type="Curve2D" id="Curve2D_kul4i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -400, -200, -500, 0, 500, 0, 576, 324, 0, 0, 0, 0, 1552, -200)
+}
+point_count = 3
+
+[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "Pause", "Settings", "PauseScreen", "XPBar", "Skull", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel", "TitleNode")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -61,10 +81,15 @@ background_tiles = SubResource("ShaderMaterial_7raqb")
 Pause = NodePath("PauseAndSettings/Pause")
 Settings = NodePath("PauseAndSettings/Settings")
 PauseScreen = NodePath("PauseScreen")
-TitleLabel = NodePath("MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Position")
-SalaryLabel = NodePath("MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Salary")
-MoneyLabel = NodePath("MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer/Money/MarginContainer/MoneyLabel")
-RateLabel = NodePath("MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer/Money/MarginContainer/RateLabel")
+XPBar = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer/XPBar")
+Skull = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/Control2/Skull")
+TitleLabel = NodePath("MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Position")
+SalaryLabel = NodePath("MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Salary")
+MoneyLabel = NodePath("MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer/MoneyLabel")
+RateLabel = NodePath("MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer/RateLabel")
+LevelLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/Control/Control/TextureRect/MarginContainer/VBoxContainer/Level")
+XPBarLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer/Label")
+TitleNode = NodePath("Path2D")
 
 [node name="BG" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_7raqb")
@@ -106,89 +131,182 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/InGameUI"]
+[node name="Resume" type="PanelContainer" parent="MarginContainer/InGameUI"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_oomkl")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Resume"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/Resume/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "RESUME"
 label_settings = SubResource("LabelSettings_buohc")
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kul4i")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Position" type="Label" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Position" type="Label" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Swig Worker"
 
-[node name="Salary" type="RichTextLabel" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Salary" type="RichTextLabel" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "$7.25/hr [color=gray][i]($0.73/sec)[/i][/color]"
 fit_content = true
 
-[node name="Click2See" type="RichTextLabel" parent="MarginContainer/InGameUI/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Click2See" type="RichTextLabel" parent="MarginContainer/InGameUI/Resume/MarginContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[color=#896920][i]Click to see upgrades and skills[/i][/color]"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="ResumeButton" type="Button" parent="MarginContainer/InGameUI/PanelContainer"]
+[node name="ResumeButton" type="Button" parent="MarginContainer/InGameUI/Resume"]
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
 flat = true
 
-[node name="Money" type="PanelContainer" parent="MarginContainer/InGameUI"]
+[node name="Container" type="MarginContainer" parent="MarginContainer/InGameUI"]
+layout_mode = 2
+theme_override_constants/margin_left = 11
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/InGameUI/Container"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Control" type="CenterContainer" parent="MarginContainer/InGameUI/Container/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/InGameUI/Container/HBoxContainer/Control"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/InGameUI/Container/HBoxContainer/Control/Control"]
+z_index = 1
+material = SubResource("ShaderMaterial_72g0p")
+layout_mode = 2
+offset_left = -26.0
+offset_top = -26.0
+offset_right = 26.0
+offset_bottom = 26.0
+texture = ExtResource("7_kul4i")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Container/HBoxContainer/Control/Control/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/Container/HBoxContainer/Control/Control/TextureRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/InGameUI/Container/HBoxContainer/Control/Control/TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "LEVEL"
+label_settings = SubResource("LabelSettings_kul4i")
+horizontal_alignment = 1
+
+[node name="Level" type="Label" parent="MarginContainer/InGameUI/Container/HBoxContainer/Control/Control/TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "30"
+label_settings = SubResource("LabelSettings_7gi1t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="XPBar" type="ProgressBar" parent="MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("1_oomkl")
+theme_type_variation = &"XPBar"
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="Label" type="Label" parent="MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "$7.25 / $20.00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="MarginContainer/InGameUI/Container/HBoxContainer"]
+layout_mode = 2
+
+[node name="Skull" type="TextureRect" parent="MarginContainer/InGameUI/Container/HBoxContainer/Control2"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_fsxsm")
+
+[node name="Wallet" type="PanelContainer" parent="MarginContainer/InGameUI"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_buohc")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Money"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Wallet"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/Money/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InGameUI/Wallet/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "WALLET"
 label_settings = SubResource("LabelSettings_buohc")
 horizontal_alignment = 1
 
-[node name="Money" type="PanelContainer" parent="MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer"]
+[node name="Money" type="PanelContainer" parent="MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer/Money"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 5
@@ -196,11 +314,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="MoneyLabel" type="Label" parent="MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer/Money/MarginContainer"]
+[node name="MoneyLabel" type="Label" parent="MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer"]
 layout_mode = 2
 text = "$ 27.95"
 
-[node name="RateLabel" type="RichTextLabel" parent="MarginContainer/InGameUI/Money/MarginContainer/VBoxContainer/Money/MarginContainer"]
+[node name="RateLabel" type="RichTextLabel" parent="MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[color=#34d134][i]+$0.73/sec[/i][/color]"
@@ -259,5 +377,30 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 icon = ExtResource("6_oomkl")
 flat = true
+
+[node name="Path2D" type="Path2D" parent="." node_paths=PackedStringArray("Follower", "TitleLabel")]
+curve = SubResource("Curve2D_kul4i")
+script = ExtResource("10_7gi1t")
+Follower = NodePath("PathFollow2D")
+TitleLabel = NodePath("PathFollow2D/RichTextLabel")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-400, -200)
+rotates = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Path2D/PathFollow2D"]
+custom_minimum_size = Vector2(750, 500)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_oomkl")
+theme_type_variation = &"TitleBar"
+bbcode_enabled = true
+text = "LEVEL UP"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="PauseAndSettings/Pause" to="." method="toggle_pause"]
