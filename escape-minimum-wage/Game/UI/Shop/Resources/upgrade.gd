@@ -1,4 +1,3 @@
-@tool
 class_name Upgrade extends Resource
 
 @export var icon: Texture2D = preload("uid://fi2d3dc08g5e")
@@ -11,7 +10,7 @@ class_name Upgrade extends Resource
 @export var cost : float
 @export var values: Dictionary[String, String] = {}
 
-func _init(_icon : Texture2D, _name : String, _cost : float, _values : Dictionary[String, String]):
+func _init(_icon : Texture2D = preload("uid://fi2d3dc08g5e"), _name : String = "Upgrade" , _cost : float = 0.0, _values : Dictionary[String, String] = {}):
 	icon = _icon
 	name = _name
 	cost = _cost
