@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://di5fus4hd3do6"]
+[gd_scene load_steps=11 format=3 uid="uid://di5fus4hd3do6"]
 
 [ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="1_786ea"]
 [ext_resource type="FontFile" uid="uid://blyvam7ls03v6" path="res://Resources/STIX_Two_Text/static/STIXTwoText-Bold.ttf" id="1_y3akm"]
 [ext_resource type="Script" uid="uid://clw54bvd8x7u3" path="res://Game/UI/Shop/shop.gd" id="2_myqds"]
 [ext_resource type="PackedScene" uid="uid://c388ghwwv6oqs" path="res://Game/UI/Shop/shop_item.tscn" id="3_mb8kc"]
+[ext_resource type="PackedScene" uid="uid://d4dg2c6m6i2cv" path="res://tooltip.tscn" id="5_f8tfh"]
 
 [sub_resource type="Curve2D" id="Curve2D_myqds"]
 _data = {
@@ -36,7 +37,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="Shop" type="Control" node_paths=PackedStringArray("shop_item_container", "PathFollow")]
+[node name="Shop" type="Control" node_paths=PackedStringArray("shop_item_container", "PathFollow", "TooltipNode")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -54,6 +55,7 @@ script = ExtResource("2_myqds")
 shop_item_container = NodePath("ScrollPath/PathFollow2D/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Education/ShopItemContainer")
 PackedShopItem = ExtResource("3_mb8kc")
 PathFollow = NodePath("ScrollPath/PathFollow2D")
+TooltipNode = NodePath("Tooltip")
 
 [node name="ScrollPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_myqds")
@@ -134,3 +136,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_rr577")
 
 [node name="ShopItemContainer" type="VBoxContainer" parent="ScrollPath/PathFollow2D/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Education"]
 layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Tooltip" parent="." instance=ExtResource("5_f8tfh")]
+visible = false
+layout_mode = 1
+offset_right = 308.0
+offset_bottom = 224.0

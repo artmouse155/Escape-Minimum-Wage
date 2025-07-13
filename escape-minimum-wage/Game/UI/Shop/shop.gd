@@ -4,6 +4,10 @@ class_name Shop extends Control
 
 @export var PackedShopItem : PackedScene
 
+@export var PathFollow: PathFollow2D
+
+@export var TooltipNode: Tooltip
+
 enum UpgradeTypes {RESUME_TIER, NETWORKING}
 
 const UpgradeLists : Dictionary = {
@@ -15,7 +19,7 @@ enum {SHOP_TOP, SHOP_BOTTOM}
 
 var location: int = SHOP_TOP
 var scroll_tween: Tween
-@export var PathFollow: PathFollow2D
+
 const SCROLL_DURATION = 0.2 # Seconds
 
 signal shop_purchase(type : UpgradeTypes)
@@ -29,6 +33,8 @@ func _ready() -> void:
 			var upgradeList : UpgradeList = UpgradeLists[type]
 			shop_item.init(type, upgradeList, 0)
 			shop_item.purchased.connect(on_purchase)
+			shop_item.open_tooltip.connect(on_open_tooltip)
+			shop_item.close_tooltip.connect(on_close_tooltip)
 			shop_item_container.add_child(shop_item)
 
 func _input(_event: InputEvent) -> void:
@@ -71,3 +77,17 @@ func scroll_up():
 
 func on_purchase(type: UpgradeTypes):
 	shop_purchase.emit(type)
+
+func on_open_tooltip(type: UpgradeTypes, current: int):
+	var current_upgrade = null
+	if (len(UpgradeLists[type].upgrades) - 1) >= current:
+		current_upgrade = UpgradeLists[type].upgrades[current]
+	var next_upgrade = null
+	if (len(UpgradeLists[type].upgrades) - 1) >= current + 1:
+		next_upgrade = UpgradeLists[type].upgrades[current  + 1]
+	TooltipNode.init(current_upgrade, next_upgrade)
+	TooltipNode.show()
+	
+	
+func on_close_tooltip():
+	TooltipNode.hide()

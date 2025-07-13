@@ -112,6 +112,7 @@ func set_pause(_pause_mode : PauseMode = PauseMode.PAUSE_SCREEN) -> void:
 		ShopNode.show()
 		ShopNode.force_shop_top()
 	else:
+		ShopNode.on_close_tooltip()
 		ShopNode.scroll_up()
 	
 	shop_tween.tween_property(ShopFollow, "progress_ratio", 1.0 if (pause_mode == PauseMode.SHOP) else 0.0, PAUSE_ANIM).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)

@@ -132,6 +132,7 @@ vertical_alignment = 2
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_v4gvj")
 
 [node name="Cost" type="Label" parent="HBoxContainer/VBoxContainer2/PanelContainer"]
@@ -172,4 +173,6 @@ label_settings = SubResource("LabelSettings_gdyvl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="HBoxContainer/Control/BuyButton" to="." method="purchase"]

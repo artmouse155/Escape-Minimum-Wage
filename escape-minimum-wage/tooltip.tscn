@@ -1,0 +1,120 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4dg2c6m6i2cv"]
+
+[ext_resource type="Script" uid="uid://dils84eoshev0" path="res://tooltip.gd" id="1_gwequ"]
+[ext_resource type="Texture2D" uid="uid://fi2d3dc08g5e" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/napkin.png" id="2_oxk8h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxk8h"]
+bg_color = Color(0.37, 0.29785, 0.1295, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.22, 0.16918, 0.0506, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abxgm"]
+bg_color = Color(0.219608, 0.168627, 0.0509804, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("CurrentNode", "CurrentLabel", "CurrentValuesLabel", "CurrentIcon", "NextNode", "NextLabel", "NextValuesLabel", "NextIcon")]
+offset_right = 203.0
+offset_bottom = 117.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oxk8h")
+script = ExtResource("1_gwequ")
+CurrentNode = NodePath("MarginContainer/VBoxContainer/HBoxContainer")
+CurrentLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/current")
+CurrentValuesLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/values")
+CurrentIcon = NodePath("MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/icon")
+NextNode = NodePath("MarginContainer/VBoxContainer/HBoxContainer2")
+NextLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/next")
+NextValuesLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/MarginContainer/values")
+NextIcon = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/PanelContainer/icon")
+metadata/_custom_type_script = "uid://dils84eoshev0"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="current" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Current: Beep boop beep boop"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="values" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Val: 2
+Val: 3
+Val: 4"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_abxgm")
+
+[node name="icon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("2_oxk8h")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="next" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Current: Napkin"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="values" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Val: 2
+Val: 3
+Val: 4"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_abxgm")
+
+[node name="icon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("2_oxk8h")
