@@ -41,10 +41,11 @@ class_name Game extends Control
 
 @export var ShopNode: Shop
 @export var ShopFollow: PathFollow2D
+@export var ResumeButton: TweenButton
 
 #endregion
 
-enum PauseMode {PAUSE_BUTTON, SHOP}
+enum PauseMode {NONE, PAUSE_SCREEN, SHOP, SETTINGS}
 
 const HOURS_PER_SECOND := .1
 
@@ -68,6 +69,7 @@ var is_boss_level : bool = false
 # Pausing
 var pause_tween : Tween
 const PAUSE_ANIM : float = 0.25
+var pause_mode : PauseMode
 
 # Shop
 var shop_tween : Tween
@@ -77,39 +79,52 @@ func _ready() -> void:
 	assert(WorldNode, "No world node found")
 	playerdata_updated.connect(WorldNode.PlayerNode.on_playerdata_updated)
 	playerdata_updated.connect(WorldNode.EnemySpawnerNode.on_playerdata_updated)
+	playerdata_updated.connect(ShopNode.on_playerdata_updated)
 	WorldNode.EnemySpawnerNode.enemy_dead.connect(on_enemy_dead)
 	WorldNode.EnemySpawnerNode.boss_dead.connect(on_boss_dead)
+	ResumeButton.pressed.connect(set_pause.bind(PauseMode.SHOP))
+	ShopNode.shop_purchase.connect(on_shop_purchase)
 	update_playerdata(PlayerResource.new())
 	LevelLabel.text = str(playerdata.level)
 
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("pause"):
-		toggle_pause()
+		_on_pause_pressed()
+	if Input.is_action_just_pressed("escape"):
+		_on_pause_pressed()
+	if Input.is_action_just_pressed("shop"):
+		_on_shop_button_pressed()
 	if not get_tree().paused and Input.is_action_just_pressed("debug_cheat"):
 		on_enemy_dead(raise_needed, "DEBUG CHEAT")
 
 
-func toggle_pause(pause_mode : PauseMode = PauseMode.PAUSE_BUTTON, toggle: bool = true, paused: bool = true) -> void:
-	match pause_mode:
-		PauseMode.PAUSE_BUTTON:
-			PauseScreenText.text = "PAUSED"
-		PauseMode.SHOP:
-			PauseScreenText.text = ""
-			if shop_tween:
-				shop_tween.kill()
-			shop_tween = create_tween()
-			shop_tween.tween_property(ShopFollow, "progress_ratio", 1.0 if get_tree().paused else 0.0, PAUSE_ANIM).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-
-	get_tree().paused = not get_tree().paused
+func set_pause(_pause_mode : PauseMode = PauseMode.PAUSE_SCREEN) -> void:
+	pause_mode = _pause_mode
+	get_tree().paused = not(pause_mode == PauseMode.NONE)
+	var paused = get_tree().paused
+	#Pause.visible = (pause_mode == PauseMode.PAUSE_SCREEN or pause_mode == PauseMode.NONE)
+	PauseScreenText.text = "PAUSED" if (pause_mode == PauseMode.PAUSE_SCREEN) else ""
+	if shop_tween:
+		shop_tween.kill()
+	shop_tween = create_tween()
+	if (pause_mode == PauseMode.SHOP):
+		ShopNode.show()
+		ShopNode.force_shop_top()
+	else:
+		ShopNode.scroll_up()
+	
+	shop_tween.tween_property(ShopFollow, "progress_ratio", 1.0 if (pause_mode == PauseMode.SHOP) else 0.0, PAUSE_ANIM).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	shop_tween.tween_callback(ShopNode.show if (pause_mode == PauseMode.SHOP) else ShopNode.hide)
+	
 	if pause_tween:
 		pause_tween.kill()
 	pause_tween = create_tween()
 	#PauseScreen.modulate.a = 0.0 if get_tree().paused else 1.0
 	PauseScreen.show()
-	pause_tween.tween_property(PauseScreen, "modulate:a", 1.0 if get_tree().paused else 0.0, PAUSE_ANIM)
-	pause_tween.tween_callback(PauseScreen.show if get_tree().paused else PauseScreen.hide)
-	if get_tree().paused:
+	pause_tween.tween_property(PauseScreen, "modulate:a", 1.0 if paused else 0.0, PAUSE_ANIM)
+	pause_tween.tween_callback(PauseScreen.show if paused else PauseScreen.hide)
+	if paused:
 		Pause.icon = preload("uid://dvv3o43uodmbs")
 		Settings.icon = preload("uid://cq8ug5bepd84n")
 	else:
@@ -201,3 +216,15 @@ func on_enemy_dead(_raise_amt: float, _title: String):
 		playerdata.salary += _raise_amt
 		playerdata.title = _title
 		update_playerdata(playerdata)
+
+
+func _on_pause_pressed() -> void:
+	set_pause(PauseMode.PAUSE_SCREEN if (pause_mode == PauseMode.NONE) else PauseMode.NONE)
+
+func _on_shop_button_pressed() -> void:
+	set_pause(PauseMode.NONE if (pause_mode == PauseMode.SHOP) else PauseMode.SHOP)
+
+func on_shop_purchase(type: Shop.UpgradeTypes):
+	playerdata.money -= playerdata.get_upgrade(type).cost
+	playerdata.increment_upgrade(type)
+	update_playerdata(playerdata)

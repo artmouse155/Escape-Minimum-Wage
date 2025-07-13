@@ -32,4 +32,8 @@ func _process(delta: float) -> void:
 func on_playerdata_updated(playerdata : PlayerResource):
 	resume_spawn_rate = playerdata.resume_spawn_rate
 	resume_speed = playerdata.resume_speed
-	resume_damage = playerdata.resume_damage
+	var resume_tier := playerdata.get_upgrade(Shop.UpgradeTypes.RESUME_TIER)
+	if resume_tier.values.has("impact"):
+		resume_damage = float(resume_tier.values["impact"])
+	else:
+		resume_damage = 0

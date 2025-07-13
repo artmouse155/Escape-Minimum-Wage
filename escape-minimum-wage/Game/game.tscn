@@ -78,7 +78,7 @@ _data = {
 }
 point_count = 2
 
-[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "XPBar", "Skull", "Pause", "Settings", "PauseScreen", "PauseScreenText", "TitleNode", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel", "ShopNode")]
+[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "XPBar", "Skull", "Pause", "Settings", "PauseScreen", "PauseScreenText", "TitleNode", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel", "ShopNode", "ShopFollow", "ResumeButton")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -109,6 +109,8 @@ RateLabel = NodePath("MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContai
 LevelLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/Control/Control/TextureRect/MarginContainer/VBoxContainer/Level")
 XPBarLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer/Label")
 ShopNode = NodePath("ShopPath/PathFollow2D/Control/Shop")
+ShopFollow = NodePath("ShopPath/PathFollow2D")
+ResumeButton = NodePath("MarginContainer/InGameUI/Control/Resume/ResumeButton")
 
 [node name="BG" type="ColorRect" parent="."]
 z_index = -1
@@ -429,8 +431,38 @@ layout_mode = 2
 theme_type_variation = &"TitleLabel"
 text = "PAUSED"
 
+[node name="ShopPath" type="Path2D" parent="."]
+z_index = 2
+curve = SubResource("Curve2D_qlwvw")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="ShopPath"]
+position = Vector2(576, 1000)
+rotates = false
+
+[node name="Control" type="Control" parent="ShopPath/PathFollow2D"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shop" parent="ShopPath/PathFollow2D/Control" instance=ExtResource("13_qlwvw")]
+visible = false
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
 [node name="PauseAndSettings" type="HBoxContainer" parent="."]
-z_index = 1
+z_index = 2
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -491,32 +523,4 @@ script = ExtResource("13_4lqr4")
 Parent = NodePath(".")
 metadata/_custom_type_script = "uid://bdmgwks0kuafh"
 
-[node name="ShopPath" type="Path2D" parent="."]
-curve = SubResource("Curve2D_qlwvw")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="ShopPath"]
-position = Vector2(576, 1000)
-rotates = false
-
-[node name="Control" type="Control" parent="ShopPath/PathFollow2D"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Shop" parent="ShopPath/PathFollow2D/Control" instance=ExtResource("13_qlwvw")]
-layout_mode = 1
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-
-[connection signal="pressed" from="PauseAndSettings/PauseControl/Pause" to="." method="toggle_pause"]
+[connection signal="pressed" from="PauseAndSettings/PauseControl/Pause" to="." method="_on_pause_pressed"]

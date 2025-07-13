@@ -109,7 +109,9 @@ script = ExtResource("2_2fmcl")
 icon = ExtResource("3_2fmcl")
 name = "Diamond"
 cost = 0.0
-values = Dictionary[String, String]({})
+values = Dictionary[String, String]({
+"impact": "750"
+})
 metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 
 [resource]

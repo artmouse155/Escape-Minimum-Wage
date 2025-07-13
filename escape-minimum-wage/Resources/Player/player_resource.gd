@@ -19,7 +19,21 @@ var work_history : Dictionary[String,int] = {}
 # Resumes
 @export var resume_spawn_rate : float = 0.2 # per second
 @export var resume_speed : float = 2000.0
-@export var resume_damage : float = 25.0
+
+@export var upgrades : Dictionary[Shop.UpgradeTypes, int] = {}
+
+func increment_upgrade(type: Shop.UpgradeTypes) -> void:
+	if not upgrades.has(type):
+		upgrades[type] = 0
+	upgrades[type] += 1
+
+func get_upgrade(type: Shop.UpgradeTypes) -> Upgrade:
+	return Shop.UpgradeLists[type].upgrades[get_upgrade_index(type)]
+
+func get_upgrade_index(type: Shop.UpgradeTypes) -> int:
+	if not upgrades.has(type):
+		upgrades[type] = 0
+	return upgrades[type]
 
 const LevelDataTypes := {
 		LEVEL = "level",

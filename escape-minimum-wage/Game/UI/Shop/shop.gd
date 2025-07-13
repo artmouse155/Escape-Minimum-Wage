@@ -18,6 +18,8 @@ var scroll_tween: Tween
 @export var PathFollow: PathFollow2D
 const SCROLL_DURATION = 0.2 # Seconds
 
+signal shop_purchase(type : UpgradeTypes)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for type in range(len(UpgradeTypes)):
@@ -26,6 +28,7 @@ func _ready() -> void:
 		if shop_item is ShopItem:
 			var upgradeList : UpgradeList = UpgradeLists[type]
 			shop_item.init(type, upgradeList, 0)
+			shop_item.purchased.connect(on_purchase)
 			shop_item_container.add_child(shop_item)
 
 func _input(_event: InputEvent) -> void:
@@ -33,15 +36,20 @@ func _input(_event: InputEvent) -> void:
 		scroll_down()
 	if Input.is_action_just_pressed("scroll_up"):
 		scroll_up()
-		
+
+func force_shop_top():
+	location = SHOP_TOP
+	PathFollow.progress_ratio = 0.0
 
 func on_playerdata_updated(playerdata : PlayerResource):
 	for shop_item in shop_item_container.get_children():
 		if shop_item is ShopItem:
 			var type : UpgradeTypes = shop_item.get_upgrade_type()
-			var current = playerdata.upgrades[type]
-			var cost = UpgradeLists[type].upgrades[current].cost
-			shop_item.set_can_afford(playerdata.money >= cost)
+
+			var current_index := playerdata.get_upgrade_index(type)
+			var current_upgrade := playerdata.get_upgrade(type)
+			var cost = current_upgrade.cost
+			shop_item.init(type, UpgradeLists[type], current_index, playerdata.money >= cost)
 
 func scroll_down():
 	if location == SHOP_BOTTOM:
@@ -60,3 +68,6 @@ func scroll_up():
 		scroll_tween.kill()
 	scroll_tween = create_tween()
 	scroll_tween.tween_property(PathFollow, "progress_ratio", 0.0, SCROLL_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+
+func on_purchase(type: UpgradeTypes):
+	shop_purchase.emit(type)
