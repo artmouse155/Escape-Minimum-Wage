@@ -68,7 +68,9 @@ corner_radius_bottom_left = 10
 font = ExtResource("5_384kv")
 font_size = 24
 
-[node name="ShopItem" type="MarginContainer" node_paths=PackedStringArray("Icon", "UpgradeNameNode", "CurrentNode", "CostNode", "BuyButton", "BuyLabel")]
+[node name="ShopItem" type="MarginContainer" node_paths=PackedStringArray("Icon", "UpgradeNameNode", "CurrentNode", "NextNode", "CostNode", "BuyButton", "BuyLabel")]
+offset_right = 490.0
+offset_bottom = 82.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -77,9 +79,11 @@ script = ExtResource("1_4u8yg")
 Icon = NodePath("HBoxContainer/PanelContainer/MarginContainer/Icon")
 UpgradeNameNode = NodePath("HBoxContainer/VBoxContainer/UpgradeName")
 CurrentNode = NodePath("HBoxContainer/VBoxContainer/Current")
+NextNode = NodePath("HBoxContainer/VBoxContainer2/Next")
 CostNode = NodePath("HBoxContainer/VBoxContainer2/PanelContainer/Cost")
 BuyButton = NodePath("HBoxContainer/Control/BuyButton")
 BuyLabel = NodePath("HBoxContainer/Control/BuyButton/Label")
+metadata/_custom_type_script = "uid://dmp4vljyvkm72"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2

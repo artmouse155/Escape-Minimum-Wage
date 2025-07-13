@@ -2,23 +2,25 @@ class_name Shop extends Control
 
 @export var shop_item_container : Control
 
-enum UpgradeTypes {RESUME_TIER}
+@export var PackedShopItem : PackedScene
 
-const UpgradeLists := {
-	RESUME_TIER = preload("uid://pcreq443v0eu")
+enum UpgradeTypes {RESUME_TIER, NETWORKING}
+
+const UpgradeLists : Dictionary = {
+	UpgradeTypes.RESUME_TIER : preload("uid://pcreq443v0eu"),
+	UpgradeTypes.NETWORKING : preload("uid://ch6p1mtjx3tyx")
 }
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for type in UpgradeTypes:
-		var shop_item = ShopItem.new(type, UpgradeLists[type], 0)
-		shop_item_container.add_child(shop_item)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	for type in range(len(UpgradeTypes)):
+		var shop_item = PackedShopItem.instantiate()
+		print(shop_item.get_class())
+		if shop_item is ShopItem:
+			var upgradeList : UpgradeList = UpgradeLists[type]
+			shop_item.init(type, upgradeList, 0)
+			shop_item_container.add_child(shop_item)
 
 func on_playerdata_updated(playerdata : PlayerResource):
 	for shop_item in shop_item_container.get_children():

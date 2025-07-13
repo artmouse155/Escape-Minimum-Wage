@@ -14,7 +14,8 @@ var maxed := false
 
 signal purchased(_upgrade_name : String)
 
-func _init(upgrade_type : Shop.UpgradeTypes, upgrade_list : UpgradeList, current : int, can_afford : bool = false) -> void:
+func init(_upgrade_type : Shop.UpgradeTypes, upgrade_list : UpgradeList, current : int, can_afford : bool = false) -> void:
+	upgrade_type = _upgrade_type
 	UpgradeNameNode.text = upgrade_list.name
 	var current_upgrade = upgrade_list.upgrades[current]
 	Icon.texture = current_upgrade.icon

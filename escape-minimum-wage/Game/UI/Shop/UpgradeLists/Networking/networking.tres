@@ -62,6 +62,6 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [resource]
 resource_name = "Networking"
 script = ExtResource("1_31u5c")
-name = "Upgrade Name"
+name = "Networking"
 upgrades = Array[ExtResource("2_uove2")]([SubResource("Resource_pybhl"), SubResource("Resource_sv4n4"), SubResource("Resource_8cs21"), SubResource("Resource_y5cai"), SubResource("Resource_2rli3")])
 metadata/_custom_type_script = "uid://cnq0rt0uj1ssv"

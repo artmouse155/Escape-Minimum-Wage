@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cw712jj3h78q6"]
+[gd_scene load_steps=26 format=3 uid="uid://cw712jj3h78q6"]
 
 [ext_resource type="Shader" uid="uid://dh5ck4i2ivrue" path="res://Game/tiles.gdshader" id="1_1r4le"]
 [ext_resource type="PackedScene" uid="uid://b25h3roe75kgy" path="res://Game/World/world.tscn" id="1_bk3v5"]
@@ -14,6 +14,7 @@
 [ext_resource type="FontFile" uid="uid://dm1564gx0yygd" path="res://Resources/Roboto/static/Roboto-Bold.ttf" id="9_72g0p"]
 [ext_resource type="Script" uid="uid://3qwp5parw6tj" path="res://Game/title.gd" id="10_7gi1t"]
 [ext_resource type="Script" uid="uid://bdmgwks0kuafh" path="res://Game/tween_button.gd" id="13_4lqr4"]
+[ext_resource type="PackedScene" uid="uid://di5fus4hd3do6" path="res://Game/UI/Shop/shop.tscn" id="13_qlwvw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7raqb"]
 shader = ExtResource("1_1r4le")
@@ -102,6 +103,7 @@ LevelLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/Control/
 XPBarLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/MarginContainer/Label")
 
 [node name="BG" type="ColorRect" parent="."]
+z_index = -1
 material = SubResource("ShaderMaterial_7raqb")
 layout_mode = 1
 anchors_preset = 15
@@ -129,6 +131,7 @@ render_target_update_mode = 4
 [node name="World" parent="GameContainer/SubViewport" instance=ExtResource("1_bk3v5")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+z_index = -1
 layout_mode = 1
 offset_right = 21.0
 offset_bottom = 69.0
@@ -414,6 +417,10 @@ theme_override_constants/separation = 20
 layout_mode = 2
 theme_type_variation = &"TitleLabel"
 text = "PAUSED"
+
+[node name="Shop" parent="." instance=ExtResource("13_qlwvw")]
+visible = false
+layout_mode = 1
 
 [node name="PauseAndSettings" type="HBoxContainer" parent="."]
 z_index = 1
