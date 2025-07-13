@@ -1,11 +1,67 @@
-[gd_resource type="Resource" script_class="UpgradeList" load_steps=3 format=3 uid="uid://ch6p1mtjx3tyx"]
+[gd_resource type="Resource" script_class="UpgradeList" load_steps=9 format=3 uid="uid://ch6p1mtjx3tyx"]
 
 [ext_resource type="Script" uid="uid://cnq0rt0uj1ssv" path="res://Game/UI/Shop/Resources/UpgradeList.gd" id="1_31u5c"]
 [ext_resource type="Script" uid="uid://dqx3ejmxj4yoj" path="res://Game/UI/Shop/Resources/upgrade.gd" id="2_uove2"]
+[ext_resource type="Texture2D" uid="uid://fi2d3dc08g5e" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/napkin.png" id="3_uove2"]
+
+[sub_resource type="Resource" id="Resource_pybhl"]
+resource_name = "Lone Ranger"
+script = ExtResource("2_uove2")
+icon = ExtResource("3_uove2")
+name = "Lone Ranger"
+cost = 0.0
+values = Dictionary[String, String]({
+"thrown_resumes": "1"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_sv4n4"]
+resource_name = "Side Hustler"
+script = ExtResource("2_uove2")
+icon = ExtResource("3_uove2")
+name = "Side Hustler"
+cost = 0.0
+values = Dictionary[String, String]({
+"thrown_resumes": "2"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_8cs21"]
+resource_name = "Job Juggler"
+script = ExtResource("2_uove2")
+icon = ExtResource("3_uove2")
+name = "Job Juggler"
+cost = 0.0
+values = Dictionary[String, String]({
+"thrown_resumes": "3"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_y5cai"]
+resource_name = "Career Spreader"
+script = ExtResource("2_uove2")
+icon = ExtResource("3_uove2")
+name = "Career Spreader"
+cost = 0.0
+values = Dictionary[String, String]({
+"thrown_resumes": "5"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
+
+[sub_resource type="Resource" id="Resource_2rli3"]
+resource_name = "Manifolder"
+script = ExtResource("2_uove2")
+icon = ExtResource("3_uove2")
+name = "Manifolder"
+cost = 0.0
+values = Dictionary[String, String]({
+"thrown_resumes": "10"
+})
+metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 
 [resource]
 resource_name = "Networking"
 script = ExtResource("1_31u5c")
 name = "Upgrade Name"
-upgrades = Array[ExtResource("2_uove2")]([null, null, null, null, null])
+upgrades = Array[ExtResource("2_uove2")]([SubResource("Resource_pybhl"), SubResource("Resource_sv4n4"), SubResource("Resource_8cs21"), SubResource("Resource_y5cai"), SubResource("Resource_2rli3")])
 metadata/_custom_type_script = "uid://cnq0rt0uj1ssv"
