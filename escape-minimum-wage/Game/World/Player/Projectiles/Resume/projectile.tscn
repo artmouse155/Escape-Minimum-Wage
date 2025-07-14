@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://detvmwgrdvv5y"]
+
+[ext_resource type="Script" uid="uid://xrupqsabptly" path="res://Game/World/Player/Projectiles/Resume/projectile.gd" id="1_lijbd"]
+[ext_resource type="Texture2D" uid="uid://dss2xu5htfmfc" path="res://Game/UI/Shop/UpgradeLists/OTHER/napkin.png" id="2_lijbd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5v2ef"]
+size = Vector2(74, 74)
+
+[node name="Projectile" type="Area2D" node_paths=PackedStringArray("SpriteNode")]
+collision_layer = 0
+input_pickable = false
+linear_damp = 0.0
+angular_damp = 0.0
+script = ExtResource("1_lijbd")
+SpriteNode = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://xrupqsabptly"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.6, 1.6)
+texture = ExtResource("2_lijbd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5v2ef")

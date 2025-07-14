@@ -1,22 +1,27 @@
-[gd_scene load_steps=11 format=3 uid="uid://b25h3roe75kgy"]
+[gd_scene load_steps=14 format=3 uid="uid://b25h3roe75kgy"]
 
 [ext_resource type="Script" uid="uid://dkew54sl1666s" path="res://Game/World/world.gd" id="1_daxxa"]
 [ext_resource type="Script" uid="uid://ckkjnd206unei" path="res://Game/World/player.gd" id="1_eof05"]
-[ext_resource type="Texture2D" uid="uid://dsswp2x7dcaed" path="res://icon.svg" id="1_v7yag"]
 [ext_resource type="Script" uid="uid://c3v2io5647yh3" path="res://Game/World/Enemy/enemy_spawner.gd" id="1_yyydc"]
-[ext_resource type="PackedScene" uid="uid://ywfs1lsjairk" path="res://Game/World/Enemy/enemy.tscn" id="2_cx28n"]
+[ext_resource type="PackedScene" uid="uid://ywfs1lsjairk" path="res://Game/World/Enemy/regular_enemy.tscn" id="4_qcky7"]
+[ext_resource type="PackedScene" uid="uid://dsa77ue62e0hp" path="res://Game/World/Enemy/boss.tscn" id="5_vrgoe"]
 [ext_resource type="Script" uid="uid://bvdcfn0q13bj1" path="res://Game/World/Player/resume_spawner.gd" id="6_ltd38"]
-[ext_resource type="PackedScene" uid="uid://detvmwgrdvv5y" path="res://Game/World/Player/Projectiles/Resume/resume.tscn" id="7_i842q"]
+[ext_resource type="PackedScene" uid="uid://detvmwgrdvv5y" path="res://Game/World/Player/Projectiles/Resume/projectile.tscn" id="7_i842q"]
+[ext_resource type="Texture2D" uid="uid://daggv03oy4sv4" path="res://Game/World/Player/player.png" id="7_jaene"]
 [ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="8_qcky7"]
+[ext_resource type="Script" uid="uid://c1sflh56qncek" path="res://Game/World/hitbox.gd" id="10_jaene"]
 
 [sub_resource type="Curve2D" id="Curve2D_v7yag"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -1622, -1124, 0, 0, 0, 0, 1627, -1138, 0, 0, 0, 0, 1642, 1089, 0, 0, 0, 0, -1614, 1030, 0, 0, 0, 0, -1622, -1124)
+"points": PackedVector2Array(0, 0, 0, 0, -2000, -2000, 0, 0, 0, 0, -2000, 2000, 0, 0, 0, 0, 2000, 2000, 0, 0, 0, 0, 2000, -2000, 0, 0, 0, 0, -2000, -2000)
 }
 point_count = 5
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yyydc"]
-size = Vector2(128, 128)
+[sub_resource type="CircleShape2D" id="CircleShape2D_jaene"]
+radius = 80.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cl42c"]
+size = Vector2(100, 300)
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("PlayerNode", "EnemySpawnerNode", "Camera")]
 y_sort_enabled = true
@@ -25,37 +30,32 @@ PlayerNode = NodePath("Player")
 EnemySpawnerNode = NodePath("EnemySpawner")
 Camera = NodePath("Player/Camera")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_v7yag")
-
 [node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("SpawnPath", "Follow", "PlayerNode")]
 y_sort_enabled = true
 script = ExtResource("1_yyydc")
 SpawnPath = NodePath("../Player/SpawnPath")
 Follow = NodePath("../Player/SpawnPath/Follow")
-EnemyScene = ExtResource("2_cx28n")
+RegularEnemyScene = ExtResource("4_qcky7")
+BossScene = ExtResource("5_vrgoe")
 PlayerNode = NodePath("../Player")
 
-[node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("ResumeSpawnerNode", "HealthBar")]
+[node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("ResumeSpawnerNode", "TopAnchor", "HealthBar", "Sprite", "HitboxArea") groups=["Player"]]
 mass = 10.0
 gravity_scale = 0.0
 lock_rotation = true
 linear_damp = 10.0
 script = ExtResource("1_eof05")
 ResumeSpawnerNode = NodePath("ResumeSpawner")
+TopAnchor = NodePath("TopAnchor")
 HealthBar = NodePath("TopAnchor/HealthBar")
+Sprite = NodePath("Sprite")
+HitboxArea = NodePath("Hitbox")
 metadata/_custom_type_script = "uid://ckkjnd206unei"
 
 [node name="Sprite" type="Sprite2D" parent="Player"]
-visible = false
-texture = ExtResource("1_v7yag")
-
-[node name="ColorRect" type="ColorRect" parent="Player"]
-offset_left = -49.0
-offset_top = -265.0
-offset_right = 52.0
-offset_bottom = 46.0
-color = Color(0.94, 0.94, 0.94, 1)
+texture = ExtResource("7_jaene")
+centered = false
+offset = Vector2(-50, -300)
 
 [node name="ResumeSpawner" type="Node2D" parent="Player"]
 position = Vector2(0, -150)
@@ -63,21 +63,17 @@ script = ExtResource("6_ltd38")
 ResumeScene = ExtResource("7_i842q")
 
 [node name="Camera" type="Camera2D" parent="Player"]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.4, 0.4)
 
 [node name="SpawnPath" type="Path2D" parent="Player"]
 curve = SubResource("Curve2D_v7yag")
 
 [node name="Follow" type="PathFollow2D" parent="Player/SpawnPath"]
-position = Vector2(1637.84, 471.991)
-rotation = 1.56406
+position = Vector2(-1140.94, 2000)
 progress = 4859.06
 
-[node name="Collision" type="CollisionShape2D" parent="Player"]
-shape = SubResource("RectangleShape2D_yyydc")
-
 [node name="TopAnchor" type="Node2D" parent="Player"]
-position = Vector2(0, -300)
+position = Vector2(0, -320)
 
 [node name="HealthBar" type="ProgressBar" parent="Player/TopAnchor"]
 anchors_preset = 8
@@ -96,3 +92,16 @@ theme_type_variation = &"HealthBar"
 max_value = 1.0
 value = 1.0
 show_percentage = false
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 0.5)
+shape = SubResource("CircleShape2D_jaene")
+
+[node name="Hitbox" type="Area2D" parent="Player" node_paths=PackedStringArray("Parent")]
+position = Vector2(0, -150)
+script = ExtResource("10_jaene")
+Parent = NodePath("..")
+metadata/_custom_type_script = "uid://c1sflh56qncek"
+
+[node name="Hitbox" type="CollisionShape2D" parent="Player/Hitbox"]
+shape = SubResource("RectangleShape2D_cl42c")

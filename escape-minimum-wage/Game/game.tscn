@@ -21,7 +21,7 @@ shader = ExtResource("1_1r4le")
 shader_parameter/image_texture = ExtResource("2_7raqb")
 shader_parameter/rect_size = Vector2(1152, 648)
 shader_parameter/tile_size = Vector2(2048, 2048)
-shader_parameter/scale = 0.216
+shader_parameter/scale = 0.1
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/zoom = Vector2(1, 1)
 

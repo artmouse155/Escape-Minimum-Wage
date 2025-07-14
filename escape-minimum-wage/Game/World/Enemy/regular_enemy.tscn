@@ -1,50 +1,54 @@
-[gd_scene load_steps=6 format=3 uid="uid://ywfs1lsjairk"]
+[gd_scene load_steps=8 format=3 uid="uid://ywfs1lsjairk"]
 
-[ext_resource type="Script" uid="uid://dbywu1202nv8d" path="res://Game/World/Enemy/enemy.gd" id="1_pahu6"]
-[ext_resource type="Texture2D" uid="uid://dsswp2x7dcaed" path="res://icon.svg" id="2_3va78"]
-[ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="3_3va78"]
+[ext_resource type="Script" uid="uid://02racc3ut2pn" path="res://Game/World/Enemy/regular_enemy.gd" id="1_kp5df"]
+[ext_resource type="PackedScene" uid="uid://detvmwgrdvv5y" path="res://Game/World/Player/Projectiles/Resume/projectile.tscn" id="2_ngk3y"]
+[ext_resource type="Texture2D" uid="uid://b7vcdssu76l3e" path="res://Game/World/Enemy/enemy.png" id="3_gi8gx"]
+[ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="3_ngk3y"]
+[ext_resource type="Script" uid="uid://c1sflh56qncek" path="res://Game/World/hitbox.gd" id="4_ngk3y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3va78"]
-size = Vector2(101, 308)
+size = Vector2(100, 300)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jce6x"]
-size = Vector2(128, 129)
+[sub_resource type="CircleShape2D" id="CircleShape2D_kp5df"]
+radius = 80.0
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("HealthBar", "RaiseLabel", "NameLabel") groups=["Enemy"]]
-collision_layer = 3
+[node name="RegularEnemy" type="RigidBody2D" node_paths=PackedStringArray("RaiseLabel", "NameLabel", "TopAnchor", "HealthBar", "Sprite", "HitboxArea") groups=["Enemy"]]
 gravity_scale = 0.0
 lock_rotation = true
 continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 10
 linear_damp = 10.0
-script = ExtResource("1_pahu6")
-HealthBar = NodePath("TopAnchor/HealthBar")
+script = ExtResource("1_kp5df")
 RaiseLabel = NodePath("TopAnchor/RaiseLabelAnchor/RaiseLabel")
+ProjectileScene = ExtResource("2_ngk3y")
 NameLabel = NodePath("NameLabelAnchor/NameLabel")
-metadata/_custom_type_script = "uid://dbywu1202nv8d"
-
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -49.0
-offset_top = -265.0
-offset_right = 52.0
-offset_bottom = 46.0
-color = Color(0.963068, 0.355186, 0, 1)
+TopAnchor = NodePath("TopAnchor")
+HealthBar = NodePath("TopAnchor/HealthBar")
+Sprite = NodePath("Sprite")
+HitboxArea = NodePath("Hitbox")
+metadata/_custom_type_script = "uid://02racc3ut2pn"
 
 [node name="Sprite" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("2_3va78")
+texture = ExtResource("3_gi8gx")
+centered = false
+offset = Vector2(-50, -300)
 
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, -109)
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("Parent")]
+position = Vector2(0, -150)
+script = ExtResource("4_ngk3y")
+Parent = NodePath("..")
+metadata/_custom_type_script = "uid://c1sflh56qncek"
+
+[node name="Hitbox" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_3va78")
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_jce6x")
+shape = SubResource("CircleShape2D_kp5df")
 
 [node name="TopAnchor" type="Node2D" parent="."]
-position = Vector2(0, -300)
+position = Vector2(0, -320)
 
 [node name="HealthBar" type="ProgressBar" parent="TopAnchor"]
 anchors_preset = 8
@@ -58,7 +62,7 @@ offset_right = 100.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_3va78")
+theme = ExtResource("3_ngk3y")
 theme_type_variation = &"HealthBar"
 max_value = 1.0
 value = 1.0
@@ -80,14 +84,14 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_3va78")
+theme = ExtResource("3_ngk3y")
 theme_type_variation = &"RaiseLabel"
 text = "$12.00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="NameLabelAnchor" type="Node2D" parent="."]
-position = Vector2(0, 100)
+position = Vector2(0, 50)
 
 [node name="NameLabel" type="Label" parent="NameLabelAnchor"]
 z_index = 1
@@ -102,7 +106,7 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_3va78")
+theme = ExtResource("3_ngk3y")
 theme_type_variation = &"DisplayLabel"
 text = "Lv 1 Graphic Designer"
 horizontal_alignment = 1

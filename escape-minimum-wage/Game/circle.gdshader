@@ -11,4 +11,3 @@ void fragment() {
 	COLOR = color;
 	COLOR.a = 1.0 - circle(UV - vec2(.5,.5), .8, 0.1);
 }
-

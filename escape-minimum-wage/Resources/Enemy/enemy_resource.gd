@@ -1,21 +1,17 @@
 class_name EnemyResource extends Resource
 
-enum Type {COMMON, UNCOMMON, LEGENDARY, BOSS}
+enum Type {REGULAR, BOSS}
 
-@export var level: int = 1
-@export var type: Type = Type.COMMON
-@export var raise_amt: float = 0.00
+@export var move_force := 2000.0
+
+@export var type: Type = Type.REGULAR
+
 @export var health: float = 100.0
 @export var title: String = "Game Developer"
 
 var attack_cycle
 
-func _init(_level: int, _type: Type, _raise_amt: float, _health: float, _title: String) -> void:
-	level = _level
+func _init(_type: Type, _health: float, _title: String) -> void:
 	type = _type
-	raise_amt = _raise_amt
 	health = _health
 	title = _title
-
-func get_name_label():
-	return title if (self is BossResource) else "Lv %d %s" % [level, title]

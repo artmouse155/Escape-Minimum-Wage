@@ -19,10 +19,19 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Escape Minimum Wage"
 
+[file_customization]
+
+folder_colors={
+"res://Game/UI/": "green",
+"res://Game/UI/Shop/": "pink",
+"res://Game/World/": "blue"
+}
+
 [global_group]
 
 Enemy="An Enemy to fight."
 Boss="Boss Enemies."
+Player="The Player."
 
 [gui]
 

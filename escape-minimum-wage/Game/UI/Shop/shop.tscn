@@ -139,4 +139,5 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="Tooltip" parent="." instance=ExtResource("5_f8tfh")]
+visible = false
 layout_mode = 1

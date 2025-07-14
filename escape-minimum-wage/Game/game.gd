@@ -88,7 +88,7 @@ func _ready() -> void:
 	playerdata_updated.connect(WorldNode.PlayerNode.on_playerdata_updated)
 	playerdata_updated.connect(WorldNode.EnemySpawnerNode.on_playerdata_updated)
 	playerdata_updated.connect(ShopNode.on_playerdata_updated)
-	WorldNode.EnemySpawnerNode.enemy_dead.connect(on_enemy_dead)
+	WorldNode.EnemySpawnerNode.regular_enemy_dead.connect(on_regular_enemy_dead)
 	WorldNode.EnemySpawnerNode.boss_dead.connect(on_boss_dead)
 	WorldNode.restart.connect(do_restart)
 	ResumeButton.pressed.connect(set_pause.bind(PauseMode.SHOP))
@@ -106,7 +106,7 @@ func _input(_event: InputEvent) -> void:
 		_on_shop_button_pressed()
 	if not get_tree().paused:
 		if Input.is_action_just_pressed("debug_cheat"):
-			on_enemy_dead(raise_needed, "DEBUG CHEAT")
+			on_regular_enemy_dead(raise_needed, "DEBUG CHEAT")
 		if Input.is_action_just_pressed("reset"):
 			do_restart()
 			
@@ -243,7 +243,7 @@ func on_boss_dead():
 	next_level()
 
 
-func on_enemy_dead(_raise_amt: float, _title: String):
+func on_regular_enemy_dead(_raise_amt: float, _title: String):
 	if not playerdata.is_fighting_boss:
 		playerdata.salary += _raise_amt
 		playerdata.title = _title

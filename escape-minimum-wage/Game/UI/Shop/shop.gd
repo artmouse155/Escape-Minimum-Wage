@@ -28,7 +28,6 @@ signal shop_purchase(type : UpgradeTypes)
 func _ready() -> void:
 	for type in range(len(UpgradeTypes)):
 		var shop_item = PackedShopItem.instantiate()
-		print(shop_item.get_class())
 		if shop_item is ShopItem:
 			var upgradeList : UpgradeList = UpgradeLists[type]
 			shop_item.init(type, upgradeList, 0)

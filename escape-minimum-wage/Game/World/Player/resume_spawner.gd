@@ -27,7 +27,7 @@ func spawn_resumes(num : int):
 func spawn_resume(direction: Vector2):
 	assert(ResumeScene, "No ResumeScene")
 	var resume: Projectile = ResumeScene.instantiate()
-	resume.init(direction, resume_speed, resume_damage, ENEMY_GROUP)
+	resume.init(preload("res://Game/UI/Shop/UpgradeLists/OTHER/napkin.png"), direction, resume_speed, resume_damage, ENEMY_GROUP)
 	add_child(resume)
 
 func _process(delta: float) -> void:

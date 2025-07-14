@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsa77ue62e0hp"]
+
+[ext_resource type="Script" uid="uid://bmdl54tilgxa8" path="res://Game/World/Enemy/boss.gd" id="1_ynynf"]
+[ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="3_u56ul"]
+[ext_resource type="Texture2D" uid="uid://b7vcdssu76l3e" path="res://Game/World/Enemy/enemy.png" id="3_ynynf"]
+[ext_resource type="Script" uid="uid://c1sflh56qncek" path="res://Game/World/hitbox.gd" id="4_ndk53"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ynynf"]
+radius = 80.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_ynynf"]
+font_size = 48
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u56ul"]
+size = Vector2(100, 300)
+
+[node name="Boss" type="RigidBody2D" node_paths=PackedStringArray("NameLabel", "TopAnchor", "HealthBar", "Sprite", "HitboxArea")]
+collision_layer = 3
+gravity_scale = 0.0
+lock_rotation = true
+continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 10
+linear_damp = 10.0
+script = ExtResource("1_ynynf")
+NameLabel = NodePath("NameLabelAnchor/NameLabel")
+TopAnchor = NodePath("TopAnchor")
+HealthBar = NodePath("TopAnchor/HealthBar")
+Sprite = NodePath("Sprite")
+HitboxArea = NodePath("Hitbox")
+metadata/_custom_type_script = "uid://bmdl54tilgxa8"
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("CircleShape2D_ynynf")
+
+[node name="TopAnchor" type="Node2D" parent="."]
+position = Vector2(0, -320)
+
+[node name="HealthBar" type="ProgressBar" parent="TopAnchor"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -10.0
+offset_right = 150.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_u56ul")
+theme_type_variation = &"HealthBar"
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="NameLabelAnchor" type="Node2D" parent="."]
+position = Vector2(0, 50)
+
+[node name="NameLabel" type="Label" parent="NameLabelAnchor"]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_u56ul")
+theme_type_variation = &"DisplayLabel"
+text = "Big Meanie"
+label_settings = SubResource("LabelSettings_ynynf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_ynynf")
+centered = false
+offset = Vector2(-50, -300)
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("Parent")]
+position = Vector2(0, -150)
+script = ExtResource("4_ndk53")
+Parent = NodePath("..")
+metadata/_custom_type_script = "uid://c1sflh56qncek"
+
+[node name="Hitbox" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_u56ul")
