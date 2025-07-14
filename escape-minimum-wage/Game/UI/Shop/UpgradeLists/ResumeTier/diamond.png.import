@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqul82l7vrm1w"
-path="res://.godot/imported/napkin.png-1225df6b9b42512f5e2a836940aaa9d9.ctex"
+uid="uid://ltehcljfy57w"
+path="res://.godot/imported/diamond.png-6852e0980fc34b477c0170f831a1552a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/UI/Shop/UpgradeLists/ResumeTier/napkin.png"
-dest_files=["res://.godot/imported/napkin.png-1225df6b9b42512f5e2a836940aaa9d9.ctex"]
+source_file="res://Game/UI/Shop/UpgradeLists/ResumeTier/diamond.png"
+dest_files=["res://.godot/imported/diamond.png-6852e0980fc34b477c0170f831a1552a.ctex"]
 
 [params]
 

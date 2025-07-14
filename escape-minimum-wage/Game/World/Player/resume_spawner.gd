@@ -2,6 +2,8 @@ class_name ResumeSpawner extends Node2D
 
 @export var ResumeScene : PackedScene
 
+const ENEMY_GROUP = "Enemy"
+
 const SPREAD_RAD := 0.1 # Spread in radians
 
 # We get this from the incoming playerData
@@ -12,10 +14,6 @@ var resume_damage := 0.0
 var thrown_resumes := 1
 
 var time_counter := 0.0
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
 func spawn_resumes(num : int):
 	var direction = global_position.direction_to(get_global_mouse_position())
@@ -28,8 +26,8 @@ func spawn_resumes(num : int):
 
 func spawn_resume(direction: Vector2):
 	assert(ResumeScene, "No ResumeScene")
-	var resume: Resume = ResumeScene.instantiate()
-	resume.init(direction, resume_speed, resume_damage)
+	var resume: Projectile = ResumeScene.instantiate()
+	resume.init(direction, resume_speed, resume_damage, ENEMY_GROUP)
 	add_child(resume)
 
 func _process(delta: float) -> void:

@@ -1,8 +1,17 @@
-[gd_resource type="Resource" script_class="UpgradeList" load_steps=14 format=3 uid="uid://pcreq443v0eu"]
+[gd_resource type="Resource" script_class="UpgradeList" load_steps=23 format=3 uid="uid://pcreq443v0eu"]
 
 [ext_resource type="Script" uid="uid://cnq0rt0uj1ssv" path="res://Game/UI/Shop/Resources/UpgradeList.gd" id="1_ac3ac"]
 [ext_resource type="Script" uid="uid://dqx3ejmxj4yoj" path="res://Game/UI/Shop/Resources/upgrade.gd" id="2_2fmcl"]
-[ext_resource type="Texture2D" uid="uid://fi2d3dc08g5e" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/napkin.png" id="3_2fmcl"]
+[ext_resource type="Texture2D" uid="uid://dqul82l7vrm1w" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/napkin.png" id="3_2fmcl"]
+[ext_resource type="Texture2D" uid="uid://c2kbt64edygv8" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/paper.png" id="4_v27yt"]
+[ext_resource type="Texture2D" uid="uid://dy55kvjov81ss" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/scented_paper.png" id="5_q71a1"]
+[ext_resource type="Texture2D" uid="uid://c6o8tfjb2l26a" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/textured_paper.png" id="6_v1dm5"]
+[ext_resource type="Texture2D" uid="uid://b8qlht07215xf" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/cardstock.png" id="7_ufgeg"]
+[ext_resource type="Texture2D" uid="uid://dcn0vj2yqqaks" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/laminated_cardstock.png" id="8_3cvev"]
+[ext_resource type="Texture2D" uid="uid://dbuewfyng7v5c" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/bronze.png" id="9_ng8ln"]
+[ext_resource type="Texture2D" uid="uid://c33pdlayos6sm" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/silver.png" id="10_fgt8u"]
+[ext_resource type="Texture2D" uid="uid://kstcyhgsbhb8" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/gold.png" id="11_ly7l6"]
+[ext_resource type="Texture2D" uid="uid://ltehcljfy57w" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/diamond.png" id="12_y4po4"]
 
 [sub_resource type="Resource" id="Resource_t68pf"]
 resource_name = "Napkin"
@@ -18,7 +27,7 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_cfa3w"]
 resource_name = "Paper"
 script = ExtResource("2_2fmcl")
-icon = ExtResource("3_2fmcl")
+icon = ExtResource("4_v27yt")
 name = "Paper"
 cost = 0.0
 values = Dictionary[String, String]({
@@ -29,7 +38,7 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_x7lgm"]
 resource_name = "Scented Paper"
 script = ExtResource("2_2fmcl")
-icon = ExtResource("3_2fmcl")
+icon = ExtResource("5_q71a1")
 name = "Scented Paper"
 cost = 0.0
 values = Dictionary[String, String]({
@@ -40,7 +49,7 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_kiy1u"]
 resource_name = "Textured Paper"
 script = ExtResource("2_2fmcl")
-icon = ExtResource("3_2fmcl")
+icon = ExtResource("6_v1dm5")
 name = "Textured Paper"
 cost = 0.0
 values = Dictionary[String, String]({
@@ -51,7 +60,7 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_umt4m"]
 resource_name = "Cardstock"
 script = ExtResource("2_2fmcl")
-icon = ExtResource("3_2fmcl")
+icon = ExtResource("7_ufgeg")
 name = "Cardstock"
 cost = 0.0
 values = Dictionary[String, String]({
@@ -62,7 +71,7 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_thyr4"]
 resource_name = "Laminated Cardstock"
 script = ExtResource("2_2fmcl")
-icon = ExtResource("3_2fmcl")
+icon = ExtResource("8_3cvev")
 name = "Laminated Cardstock"
 cost = 0.0
 values = Dictionary[String, String]({
@@ -73,7 +82,7 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_vg78x"]
 resource_name = "Bronze"
 script = ExtResource("2_2fmcl")
-icon = ExtResource("3_2fmcl")
+icon = ExtResource("9_ng8ln")
 name = "Bronze"
 cost = 0.0
 values = Dictionary[String, String]({
@@ -84,7 +93,7 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_qfa1y"]
 resource_name = "Silver"
 script = ExtResource("2_2fmcl")
-icon = ExtResource("3_2fmcl")
+icon = ExtResource("10_fgt8u")
 name = "Silver"
 cost = 0.0
 values = Dictionary[String, String]({
@@ -95,7 +104,7 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_v27yt"]
 resource_name = "Gold"
 script = ExtResource("2_2fmcl")
-icon = ExtResource("3_2fmcl")
+icon = ExtResource("11_ly7l6")
 name = "Gold"
 cost = 0.0
 values = Dictionary[String, String]({
@@ -106,7 +115,7 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_q71a1"]
 resource_name = "Diamond"
 script = ExtResource("2_2fmcl")
-icon = ExtResource("3_2fmcl")
+icon = ExtResource("12_y4po4")
 name = "Diamond"
 cost = 0.0
 values = Dictionary[String, String]({
