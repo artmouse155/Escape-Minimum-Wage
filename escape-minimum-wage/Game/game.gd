@@ -267,6 +267,9 @@ func do_restart():
 func _on_reapply_pressed() -> void:
 	WorldNode.reset_player_and_enemies()
 	playerdata.money = 0.0
-	playerdata.salary = current_wage_threshold
-	visual_salary = current_wage_threshold
+	if playerdata.is_fighting_boss:
+		summon_boss()
+	else:
+		playerdata.salary = current_wage_threshold
+		visual_salary = current_wage_threshold
 	set_pause(PauseMode.NONE, true)

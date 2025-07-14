@@ -85,7 +85,6 @@ func die(rewards: bool = true):
 		dead.emit(raise_amt, title)
 	queue_free()
 
-
 func _on_body_entered(body: Node) -> void:
 	match body.get_script(): # Weird workaround
 		Player:
