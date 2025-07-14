@@ -5,9 +5,15 @@ class_name World extends Node2D
 
 @export var Camera: Camera2D
 
+signal restart
 
-func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("reset"):
-		PlayerNode.position = Vector2.ZERO
-		PlayerNode.linear_velocity = Vector2.ZERO
-		EnemySpawnerNode.kill_all_enemies()
+func _ready() -> void:
+	PlayerNode.dead.connect(on_player_dead)
+
+func reset_player_and_enemies() -> void:
+	PlayerNode.reset_position_and_health_and_projectiles()
+	EnemySpawnerNode.kill_all_enemies()
+	# DESTROY ALL PROJECTILES
+
+func on_player_dead():
+	restart.emit()

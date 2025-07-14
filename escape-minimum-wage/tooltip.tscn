@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d4dg2c6m6i2cv"]
 
 [ext_resource type="Script" uid="uid://dils84eoshev0" path="res://tooltip.gd" id="1_gwequ"]
-[ext_resource type="Texture2D" uid="uid://fi2d3dc08g5e" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/napkin.png" id="2_oxk8h"]
+[ext_resource type="Texture2D" uid="uid://dqul82l7vrm1w" path="res://Game/UI/Shop/UpgradeLists/ResumeTier/napkin.png" id="2_oxk8h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxk8h"]
 bg_color = Color(0.37, 0.29785, 0.1295, 1)

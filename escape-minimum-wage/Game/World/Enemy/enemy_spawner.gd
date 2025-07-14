@@ -50,6 +50,7 @@ func _process(delta: float) -> void:
 func get_enemy_count() -> int:
 	return get_tree().get_nodes_in_group("Enemy").size()
 
+## Doesn't drop a raise reward
 func kill_all_enemies():
 	var enemies : Array[Node] = get_tree().get_nodes_in_group("Enemy")
 	for enemy in enemies:

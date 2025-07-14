@@ -3,6 +3,11 @@ class_name PlayerResource extends Resource
 const INITIAL_LEVEL : int = 1
 const MAX_LEVEL : int = 30
 
+const INITIAL_HEALTH : float = 100.0
+
+@export var regen_rate := 2.0 # Regen per second
+@export var regen_cooldown := 5.0 # After x seconds of not being hit, start regenning
+
 var level : int = INITIAL_LEVEL
 @export var title : String = "Game Developer"
 @export var salary : float = levels[INITIAL_LEVEL - 1][LevelDataTypes.WAGE]
@@ -14,7 +19,8 @@ var work_history : Dictionary[String,int] = {}
 
 @export var speed : int = 50000
 @export var dash_force: int = 30 * speed
-@export var dash_cooldown: float = 0.3
+@export var dash_cooldown: float = 0.4
+@export var dash_invincible_length: float = 0.3
 
 # Resumes
 @export var resume_spawn_rate : float = 0.2 # per second

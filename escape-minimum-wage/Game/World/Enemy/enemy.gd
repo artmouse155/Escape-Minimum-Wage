@@ -9,8 +9,11 @@ var PlayerNode: Player
 @export var TopAnchor: Node2D
 
 const ACCEL := 2000.0 # Pixels per second squared
-const PLAYER_BOUNCE_BACK := 10000
-const VISUAL_LERP := 0.5
+const PLAYER_BOUNCE_BACK := 30000
+const VISUAL_LERP := 0.2
+
+const ATTACK_COOLDOWN := 2.0 # Seconds
+var attack_timer := 0.0
 
 var touching_player = false
 
@@ -36,6 +39,8 @@ var title := "Enemy"
 var level := 1
 var rarity : EnemyResource.Type = EnemyResource.Type.COMMON
 
+var physical_damage := 10.0
+
 signal dead(_raise_amt: float, _title: String)
 
 func init(data: EnemyResource, _position: Vector2, _player: Player) -> void:
@@ -60,12 +65,16 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	else:
 		state.apply_central_force(PLAYER_BOUNCE_BACK * -dir_vector)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	attack_timer = max(0, attack_timer-delta)
 	visual_health = lerp(visual_health, health, VISUAL_LERP)
 	updateHealthBar(visual_health / init_health)
 
 func take_damage_from_player(dmg: int) -> void:
 	health -= dmg
+	
+func damage_player(dmg: float) -> void:
+	PlayerNode.take_damage(dmg)
 
 func updateHealthBar(progress: float):
 	assert(HealthBar, "No Healthbar Found.")
@@ -81,7 +90,9 @@ func _on_body_entered(body: Node) -> void:
 	match body.get_script(): # Weird workaround
 		Player:
 			touching_player = true
-			take_damage_from_player(20)
+			if (attack_timer <= 0):
+				damage_player(physical_damage)
+				attack_timer = ATTACK_COOLDOWN
 
 
 func _on_body_exited(body: Node) -> void:

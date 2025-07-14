@@ -72,6 +72,7 @@ TitleBar/font_sizes/normal_font_size = 100
 TitleBar/fonts/normal_font = ExtResource("1_itn17")
 TitleLabel/base_type = &"Label"
 TitleLabel/font_sizes/font_size = 96
+TweenButton/base_type = &"Button"
 XPBar/base_type = &"ProgressBar"
 XPBar/styles/background = SubResource("StyleBoxFlat_j4b44")
 XPBar/styles/fill = SubResource("StyleBoxFlat_qpyym")

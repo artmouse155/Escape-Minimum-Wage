@@ -78,7 +78,7 @@ _data = {
 }
 point_count = 2
 
-[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "XPBar", "Skull", "Pause", "Settings", "PauseScreen", "PauseScreenText", "TitleNode", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel", "ShopNode", "ShopFollow", "ResumeButton")]
+[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "XPBar", "Skull", "Pause", "Settings", "PauseScreen", "PauseScreenText", "TitleNode", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel", "ShopNode", "ShopFollow", "ResumeButton", "YouDied")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -100,7 +100,7 @@ label_yellow = Color(0.76, 0.658667, 0, 1)
 Pause = NodePath("PauseAndSettings/PauseControl/Pause")
 Settings = NodePath("PauseAndSettings/SettingsControl/Settings")
 PauseScreen = NodePath("PauseScreen")
-PauseScreenText = NodePath("PauseScreen/VBoxContainer/Label")
+PauseScreenText = NodePath("PausedLabel")
 TitleNode = NodePath("Title")
 TitleLabel = NodePath("MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Position")
 SalaryLabel = NodePath("MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Salary")
@@ -111,6 +111,7 @@ XPBarLabel = NodePath("MarginContainer/InGameUI/Container/HBoxContainer/MarginCo
 ShopNode = NodePath("ShopPath/PathFollow2D/Control/Shop")
 ShopFollow = NodePath("ShopPath/PathFollow2D")
 ResumeButton = NodePath("MarginContainer/InGameUI/Control/Resume/ResumeButton")
+YouDied = NodePath("YouDiedScreen")
 
 [node name="BG" type="ColorRect" parent="."]
 z_index = -1
@@ -399,6 +400,25 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PausedLabel" type="RichTextLabel" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+z_index = 4
+custom_minimum_size = Vector2(1200, 150)
+layout_mode = 0
+offset_left = -24.0
+offset_top = 233.5
+offset_right = 1176.0
+offset_bottom = 383.5
+mouse_filter = 2
+theme = ExtResource("1_oomkl")
+theme_type_variation = &"TitleBar"
+bbcode_enabled = true
+text = "Paused"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="PauseScreen" type="ColorRect" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0)
@@ -410,26 +430,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.466667)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseScreen"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="PauseScreen/VBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"TitleLabel"
-text = "PAUSED"
 
 [node name="ShopPath" type="Path2D" parent="."]
 z_index = 2
@@ -460,6 +460,73 @@ offset_left = 0.0
 offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
+
+[node name="YouDiedScreen" type="Control" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+z_index = 4
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="YouDiedScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -90.5
+offset_right = 500.0
+offset_bottom = 90.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="YouDiedLabel" type="RichTextLabel" parent="YouDiedScreen/VBoxContainer"]
+z_index = 1
+custom_minimum_size = Vector2(1200, 150)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_oomkl")
+theme_type_variation = &"TitleBar"
+bbcode_enabled = true
+text = "CONFIDENCE LOST"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="YouDiedScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Reapply" type="Button" parent="YouDiedScreen/VBoxContainer/Control"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -40.0
+offset_right = 100.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 40)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_oomkl")
+theme_override_fonts/font = ExtResource("9_72g0p")
+theme_override_font_sizes/font_size = 42
+text = "Reapply"
+script = ExtResource("13_4lqr4")
+metadata/_custom_type_script = "uid://bdmgwks0kuafh"
 
 [node name="PauseAndSettings" type="HBoxContainer" parent="."]
 z_index = 2
@@ -523,4 +590,5 @@ script = ExtResource("13_4lqr4")
 Parent = NodePath(".")
 metadata/_custom_type_script = "uid://bdmgwks0kuafh"
 
+[connection signal="pressed" from="YouDiedScreen/VBoxContainer/Control/Reapply" to="." method="_on_reapply_pressed"]
 [connection signal="pressed" from="PauseAndSettings/PauseControl/Pause" to="." method="_on_pause_pressed"]

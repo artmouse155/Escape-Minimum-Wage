@@ -50,3 +50,7 @@ func on_playerdata_updated(playerdata : PlayerResource):
 		thrown_resumes = int(networking.values["thrown_resumes"])
 	else:
 		thrown_resumes = 0
+
+func destroy_projectiles():
+	for child in get_children():
+		child.queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b25h3roe75kgy"]
+[gd_scene load_steps=11 format=3 uid="uid://b25h3roe75kgy"]
 
 [ext_resource type="Script" uid="uid://dkew54sl1666s" path="res://Game/World/world.gd" id="1_daxxa"]
 [ext_resource type="Script" uid="uid://ckkjnd206unei" path="res://Game/World/player.gd" id="1_eof05"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ywfs1lsjairk" path="res://Game/World/Enemy/enemy.tscn" id="2_cx28n"]
 [ext_resource type="Script" uid="uid://bvdcfn0q13bj1" path="res://Game/World/Player/resume_spawner.gd" id="6_ltd38"]
 [ext_resource type="PackedScene" uid="uid://detvmwgrdvv5y" path="res://Game/World/Player/Projectiles/Resume/resume.tscn" id="7_i842q"]
+[ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="8_qcky7"]
 
 [sub_resource type="Curve2D" id="Curve2D_v7yag"]
 _data = {
@@ -35,13 +36,14 @@ Follow = NodePath("../Player/SpawnPath/Follow")
 EnemyScene = ExtResource("2_cx28n")
 PlayerNode = NodePath("../Player")
 
-[node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("ResumeSpawnerNode")]
+[node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("ResumeSpawnerNode", "HealthBar")]
 mass = 10.0
 gravity_scale = 0.0
 lock_rotation = true
 linear_damp = 10.0
 script = ExtResource("1_eof05")
 ResumeSpawnerNode = NodePath("ResumeSpawner")
+HealthBar = NodePath("TopAnchor/HealthBar")
 metadata/_custom_type_script = "uid://ckkjnd206unei"
 
 [node name="Sprite" type="Sprite2D" parent="Player"]
@@ -73,3 +75,24 @@ progress = 4859.06
 
 [node name="Collision" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_yyydc")
+
+[node name="TopAnchor" type="Node2D" parent="Player"]
+position = Vector2(0, -300)
+
+[node name="HealthBar" type="ProgressBar" parent="Player/TopAnchor"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_qcky7")
+theme_type_variation = &"HealthBar"
+max_value = 1.0
+value = 1.0
+show_percentage = false
