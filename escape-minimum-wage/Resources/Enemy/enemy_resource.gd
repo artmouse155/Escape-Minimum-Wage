@@ -8,6 +8,8 @@ enum Type {COMMON, UNCOMMON, LEGENDARY, BOSS}
 @export var health: float = 100.0
 @export var title: String = "Game Developer"
 
+var attack_cycle
+
 func _init(_level: int, _type: Type, _raise_amt: float, _health: float, _title: String) -> void:
 	level = _level
 	type = _type

@@ -85,7 +85,7 @@ func updateHealthBar(progress: float):
 	assert(HealthBar, "No Healthbar Found.")
 	HealthBar.value = progress
 
-func take_damage(dmg: int) -> void:
+func take_damage(dmg: float) -> void:
 	if dash_invincibility:
 		return
 	regen_timer = regen_cooldown

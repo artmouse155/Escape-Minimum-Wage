@@ -51,10 +51,10 @@ func get_enemy_count() -> int:
 	return get_tree().get_nodes_in_group("Enemy").size()
 
 ## Doesn't drop a raise reward
-func kill_all_enemies():
+func kill_all_enemies(kill_boss : bool = false):
 	var enemies : Array[Node] = get_tree().get_nodes_in_group("Enemy")
 	for enemy in enemies:
-		if enemy is Enemy and not enemy.is_in_group("Boss"):
+		if enemy is Enemy and (kill_boss or not enemy.is_in_group("Boss")):
 			enemy.die(false)
 
 func on_playerdata_updated(playerdata : PlayerResource):
@@ -71,7 +71,7 @@ func on_boss_dead(_raise_amt: float, _title: String):
 func summon_boss():
 	print("Summoning Boss")
 	kill_all_enemies()
-	var bossdata = BossResource.new(BossResource.BossType.MEANIE, 500, "Meanie")
+	var bossdata = BossResource.new(BossResource.BossType.BASIC)
 	var boss : Enemy = EnemyScene.instantiate()
 	Follow.progress_ratio = randf()
 	boss.init(bossdata, Follow.global_position, PlayerNode)

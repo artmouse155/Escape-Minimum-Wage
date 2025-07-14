@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func reset_player_and_enemies() -> void:
 	PlayerNode.reset_position_and_health_and_projectiles()
-	EnemySpawnerNode.kill_all_enemies()
+	EnemySpawnerNode.kill_all_enemies(true)
 	# DESTROY ALL PROJECTILES
 
 func on_player_dead():

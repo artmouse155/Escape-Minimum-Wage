@@ -127,5 +127,7 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 resource_name = "Resume Tier"
 script = ExtResource("1_ac3ac")
 name = "Resume Tier"
+fake_desc = "Fancier resumes leave a greater impact on employers."
+real_desc = "Increases impact left by your resume"
 upgrades = Array[ExtResource("2_2fmcl")]([SubResource("Resource_t68pf"), SubResource("Resource_cfa3w"), SubResource("Resource_x7lgm"), SubResource("Resource_kiy1u"), SubResource("Resource_umt4m"), SubResource("Resource_thyr4"), SubResource("Resource_vg78x"), SubResource("Resource_qfa1y"), SubResource("Resource_v27yt"), SubResource("Resource_q71a1")])
 metadata/_custom_type_script = "uid://cnq0rt0uj1ssv"
