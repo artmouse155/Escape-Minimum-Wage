@@ -58,7 +58,7 @@ texture = ExtResource("6_jaene")
 offset = Vector2(0, -210)
 
 [node name="ResumeSpawner" type="Node2D" parent="Player"]
-position = Vector2(0, -150)
+position = Vector2(0, -250)
 script = ExtResource("6_ltd38")
 ResumeScene = ExtResource("7_i842q")
 

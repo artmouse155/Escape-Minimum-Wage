@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dsa77ue62e0hp"]
+[gd_scene load_steps=42 format=3 uid="uid://dsa77ue62e0hp"]
 
 [ext_resource type="Script" uid="uid://bmdl54tilgxa8" path="res://Game/World/Enemy/boss.gd" id="1_ynynf"]
 [ext_resource type="PackedScene" uid="uid://detvmwgrdvv5y" path="res://Game/World/Player/Projectiles/Resume/projectile.tscn" id="2_1smju"]
@@ -21,6 +21,17 @@
 [ext_resource type="Texture2D" uid="uid://d22ibm3iopab1" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-7.png" id="18_sact8"]
 [ext_resource type="Texture2D" uid="uid://bis6t7ygl5qr5" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-8.png" id="19_i14pp"]
 [ext_resource type="Texture2D" uid="uid://2ca3xwoxrjmb" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-9.png" id="20_v5vim"]
+[ext_resource type="Texture2D" uid="uid://4iekhl2p36tx" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-2.png" id="22_a3ddq"]
+[ext_resource type="Texture2D" uid="uid://deibmcfmnl35d" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-3.png" id="23_o8w13"]
+[ext_resource type="Texture2D" uid="uid://bcxq8ovri4gk3" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-4.png" id="24_0n6h7"]
+[ext_resource type="Texture2D" uid="uid://bo6rtxe1jpx8p" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-5.png" id="25_fgsfe"]
+[ext_resource type="Texture2D" uid="uid://blkgfrfp13nmd" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-6.png" id="26_hwo0p"]
+[ext_resource type="Texture2D" uid="uid://w70k6dstk0em" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-7.png" id="27_3y6bt"]
+[ext_resource type="Texture2D" uid="uid://dv8rhu4xyss7y" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-8.png" id="28_2wyj7"]
+[ext_resource type="Texture2D" uid="uid://bgtey3n0xmv0d" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-9.png" id="29_mnq62"]
+[ext_resource type="Texture2D" uid="uid://b0wr30colu1wf" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-10.png" id="30_tjnnp"]
+[ext_resource type="Texture2D" uid="uid://ch38udle8u0jw" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-11.png" id="31_yf781"]
+[ext_resource type="Texture2D" uid="uid://bclxbqe2b17tg" path="res://Game/World/Enemy/Bosses/Movie Star/sprites/superstar-1.png" id="32_bogge"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5rnit"]
 shader = ExtResource("3_n0awn")
@@ -98,10 +109,28 @@ tracks/0/keys = {
 "values": [ExtResource("13_nd28w"), ExtResource("14_1pwa0"), ExtResource("15_n0awn"), ExtResource("16_5rnit"), ExtResource("17_0rw7n"), ExtResource("18_sact8"), ExtResource("19_i14pp"), ExtResource("20_v5vim"), ExtResource("13_nd28w")]
 }
 
+[sub_resource type="Animation" id="Animation_078r2"]
+resource_name = "MOVIE_STAR"
+length = 1.5
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.416667, 0.833333, 0.916667, 1.04167, 1.08333, 1.20833, 1.25, 1.33333, 1.41667, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("22_a3ddq"), ExtResource("23_o8w13"), ExtResource("24_0n6h7"), ExtResource("25_fgsfe"), ExtResource("26_hwo0p"), ExtResource("27_3y6bt"), ExtResource("28_2wyj7"), ExtResource("29_mnq62"), ExtResource("30_tjnnp"), ExtResource("31_yf781"), ExtResource("32_bogge")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1pwa0"]
 _data = {
 &"BASIC": SubResource("Animation_h5133"),
 &"BURGER": SubResource("Animation_o87ps"),
+&"MOVIE_STAR": SubResource("Animation_078r2"),
 &"RESET": SubResource("Animation_bs3l2")
 }
 
@@ -145,7 +174,7 @@ color = Color(0.540789, 0.558844, 0.26204, 1)
 shape = SubResource("CircleShape2D_ynynf")
 
 [node name="TopAnchor" type="Node2D" parent="."]
-position = Vector2(0, -570)
+position = Vector2(0, -550)
 
 [node name="HealthBar" type="ProgressBar" parent="TopAnchor"]
 anchors_preset = 8

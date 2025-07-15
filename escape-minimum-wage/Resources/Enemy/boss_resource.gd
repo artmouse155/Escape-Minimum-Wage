@@ -17,7 +17,7 @@ const BossDict : Dictionary[BossType, Dictionary] = {
 		move_force = 5000,
 		offset = Vector2(0,-240),
 		rect_size = Vector2(320,460),
-		anchor_y = -2000,
+		anchor_y = -550,
 		attack_damage = 45
 	},
 	BossType.BURGER : {
@@ -36,7 +36,7 @@ const BossDict : Dictionary[BossType, Dictionary] = {
 		title = "Director",
 		texture = preload("uid://bclxbqe2b17tg"),
 		health = 500000.0,
-		move_force = 4000,
+		move_force = 5000,
 		offset = Vector2(0,-270),
 		rect_size = Vector2(280,520),
 		anchor_y = -570,

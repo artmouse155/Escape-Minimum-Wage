@@ -4,7 +4,7 @@ class_name Boss extends Enemy
 @export var AnimPlayer : AnimationPlayer
 @export var AreaEffectShader : ShaderMaterial
 
-enum States{STRAFE, BASIC_ATTACK, BURGER_ATTACK}
+enum States{STRAFE, BASIC_ATTACK, BURGER_ATTACK, MOVIE_STAR_ATTACK}
 
 var strafe_distance := 750.0
 var strafe_margin := 50.0
@@ -73,7 +73,7 @@ func basic_attack_cycle():
 	match current_state:
 		States.STRAFE:
 			attack_cycle_tween.tween_interval(randf_range(1.0,2.0))
-			if randf() < 0.7:
+			if randf() < 0.5:
 				next_state(States.BASIC_ATTACK)
 		States.BASIC_ATTACK:
 			attack_cycle_tween.tween_interval(1.9)
@@ -117,4 +117,23 @@ func burger_attack() -> void:
 		HitboxArea.add_child(projectile)
 
 func movie_star_attack_cycle():
-	pass
+	match current_state:
+		States.STRAFE:
+			attack_cycle_tween.tween_interval(randf_range(1.0,3.0))
+			if randf() < 0.5:
+				next_state(States.MOVIE_STAR_ATTACK)
+		States.MOVIE_STAR_ATTACK:
+			attack_cycle_tween.tween_interval(1.05)
+			attack_cycle_tween.tween_callback(movie_star_attack)
+			attack_cycle_tween.tween_interval(0.45)
+			next_state(States.STRAFE)
+			play("MOVIE_STAR")
+
+func movie_star_attack():
+	var dir_vector: Vector2 = global_position.direction_to(PlayerNode.global_position)
+	var diff = (2 * PI) / 10.0
+	for i in range(10):
+		dir_vector = dir_vector.rotated(diff)
+		var projectile: Projectile = ProjectileScene.instantiate()
+		projectile.init(preload("uid://x1fvd6yb6f7r"), dir_vector, 1500, attack_damage, "Player") 
+		HitboxArea.add_child(projectile)
