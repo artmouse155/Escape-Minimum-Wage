@@ -66,6 +66,7 @@ ResumeScene = ExtResource("7_i842q")
 zoom = Vector2(0.4, 0.4)
 
 [node name="SpawnPath" type="Path2D" parent="Player"]
+scale = Vector2(0.2, 0.2)
 curve = SubResource("Curve2D_v7yag")
 
 [node name="Follow" type="PathFollow2D" parent="Player/SpawnPath"]

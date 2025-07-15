@@ -36,7 +36,7 @@ func init_reg(data : RegularEnemyResource, _position: Vector2, _player: Player):
 func die(rewards: bool = true):
 	if rewards:
 		regular_enemy_dead.emit(raise_amt, title)
-	super.die()
+	queue_free()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:

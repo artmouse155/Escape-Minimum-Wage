@@ -23,3 +23,8 @@ func damage_player(dmg: float) -> void:
 func die():
 	enemy_dead.emit(title)
 	super.die()
+
+func _process(delta: float) -> void:
+	var is_player_on_left_side = (global_position.direction_to(PlayerNode.global_position).x < 0)
+	Sprite.flip_h = is_player_on_left_side
+	super._process(delta)

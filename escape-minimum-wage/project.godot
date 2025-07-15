@@ -24,7 +24,8 @@ project/assembly_name="Escape Minimum Wage"
 folder_colors={
 "res://Game/UI/": "green",
 "res://Game/UI/Shop/": "pink",
-"res://Game/World/": "blue"
+"res://Game/World/": "blue",
+"res://Game/World/Enemy/Bosses/": "purple"
 }
 
 [global_group]

@@ -54,7 +54,7 @@ func get_enemy_count() -> int:
 func kill_all_enemies(kill_boss : bool = false):
 	var enemies : Array[Node] = get_tree().get_nodes_in_group("Enemy")
 	for enemy in enemies:
-		if enemy is RegularEnemy and (kill_boss or not enemy.is_in_group("Boss")):
+		if (not kill_boss) or enemy.is_in_group("Boss"):
 			enemy.die(false)
 
 func on_playerdata_updated(playerdata : PlayerResource):
@@ -71,7 +71,7 @@ func on_boss_dead(_title: String):
 func summon_boss():
 	print("Summoning Boss")
 	kill_all_enemies()
-	var bossdata = BossResource.new(BossResource.BossType.BASIC)
+	var bossdata = BossResource.new(BossResource.BossType.BURGER)
 	var boss : Boss = BossScene.instantiate()
 	Follow.progress_ratio = randf()
 	boss.init_boss(bossdata, Follow.global_position, PlayerNode)

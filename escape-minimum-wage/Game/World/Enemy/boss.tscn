@@ -1,9 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsa77ue62e0hp"]
+[gd_scene load_steps=21 format=3 uid="uid://dsa77ue62e0hp"]
 
 [ext_resource type="Script" uid="uid://bmdl54tilgxa8" path="res://Game/World/Enemy/boss.gd" id="1_ynynf"]
+[ext_resource type="PackedScene" uid="uid://detvmwgrdvv5y" path="res://Game/World/Player/Projectiles/Resume/projectile.tscn" id="2_1smju"]
 [ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="3_u56ul"]
 [ext_resource type="Texture2D" uid="uid://b7vcdssu76l3e" path="res://Game/World/Enemy/enemy.png" id="3_ynynf"]
 [ext_resource type="Script" uid="uid://c1sflh56qncek" path="res://Game/World/hitbox.gd" id="4_ndk53"]
+[ext_resource type="Texture2D" uid="uid://bb0higa8kyxho" path="res://Game/World/Enemy/Bosses/Burger Flipper/sprites/old_man-1.png" id="5_yystx"]
+[ext_resource type="Texture2D" uid="uid://dxm18ntvcjc8k" path="res://Game/World/Enemy/Bosses/Burger Flipper/sprites/old_man-2.png" id="6_1smju"]
+[ext_resource type="Texture2D" uid="uid://d25dxf06wauqb" path="res://Game/World/Enemy/Bosses/Burger Flipper/sprites/old_man-3.png" id="7_nd28w"]
+[ext_resource type="Texture2D" uid="uid://bkxhup66oyn30" path="res://Game/World/Enemy/Bosses/Burger Flipper/sprites/old_man-4.png" id="8_h5133"]
+[ext_resource type="Texture2D" uid="uid://bvdr6mysjx0ce" path="res://Game/World/Enemy/Bosses/Burger Flipper/sprites/old_man-5.png" id="9_yt7ak"]
+[ext_resource type="Texture2D" uid="uid://cf48ah68sb2ov" path="res://Game/World/Enemy/Bosses/Burger Flipper/sprites/old_man-6.png" id="10_mgy7n"]
+[ext_resource type="Texture2D" uid="uid://g6qyo6l2a4kq" path="res://Game/World/Enemy/Bosses/Burger Flipper/sprites/old_man-7.png" id="11_gmopy"]
+[ext_resource type="Texture2D" uid="uid://bqe7lmxhwts6n" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-1.png" id="13_nd28w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ynynf"]
 radius = 80.0
@@ -12,9 +21,75 @@ radius = 80.0
 font_size = 48
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u56ul"]
-size = Vector2(100, 300)
+size = Vector2(200, 300)
 
-[node name="Boss" type="RigidBody2D" node_paths=PackedStringArray("NameLabel", "TopAnchor", "HealthBar", "Sprite", "HitboxArea")]
+[sub_resource type="Animation" id="Animation_bs3l2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_ynynf")]
+}
+
+[sub_resource type="Animation" id="Animation_o87ps"]
+resource_name = "BURGER"
+length = 1.16667
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.416667, 0.458333, 0.875, 0.916667, 1, 1.08333, 1.16667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_yystx"), ExtResource("6_1smju"), ExtResource("7_nd28w"), ExtResource("8_h5133"), ExtResource("9_yt7ak"), ExtResource("10_mgy7n"), ExtResource("11_gmopy"), ExtResource("5_yystx")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_h5133"]
+resource_name = "BASIC"
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_nd28w")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1pwa0"]
+_data = {
+&"BASIC": SubResource("Animation_h5133"),
+&"BURGER": SubResource("Animation_o87ps"),
+&"RESET": SubResource("Animation_bs3l2")
+}
+
+[node name="Boss" type="RigidBody2D" node_paths=PackedStringArray("AnimPlayer", "NameLabel", "TopAnchor", "HealthBar", "Sprite", "HitboxArea")]
 collision_layer = 3
 gravity_scale = 0.0
 lock_rotation = true
@@ -23,6 +98,8 @@ contact_monitor = true
 max_contacts_reported = 10
 linear_damp = 10.0
 script = ExtResource("1_ynynf")
+ProjectileScene = ExtResource("2_1smju")
+AnimPlayer = NodePath("AnimationPlayer")
 NameLabel = NodePath("NameLabelAnchor/NameLabel")
 TopAnchor = NodePath("TopAnchor")
 HealthBar = NodePath("TopAnchor/HealthBar")
@@ -35,7 +112,7 @@ position = Vector2(0, 0.5)
 shape = SubResource("CircleShape2D_ynynf")
 
 [node name="TopAnchor" type="Node2D" parent="."]
-position = Vector2(0, -320)
+position = Vector2(0, -420)
 
 [node name="HealthBar" type="ProgressBar" parent="TopAnchor"]
 anchors_preset = 8
@@ -80,8 +157,7 @@ vertical_alignment = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("3_ynynf")
-centered = false
-offset = Vector2(-50, -300)
+offset = Vector2(0, -240)
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("Parent")]
 position = Vector2(0, -150)
@@ -91,3 +167,8 @@ metadata/_custom_type_script = "uid://c1sflh56qncek"
 
 [node name="Hitbox" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_u56ul")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1pwa0")
+}
