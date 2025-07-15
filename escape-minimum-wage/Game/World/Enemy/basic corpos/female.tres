@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b1kxnnhkq7jdm"]
+
+[ext_resource type="Texture2D" uid="uid://duwvc7eaasn7a" path="res://Game/World/Enemy/basic corpos/all-9.png" id="1_gcxc2"]
+
+[resource]
+atlas = ExtResource("1_gcxc2")
+region = Rect2(46, 20, 200, 500)

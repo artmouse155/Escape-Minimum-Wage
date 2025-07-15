@@ -5,6 +5,13 @@ const MAX_LEVEL : int = 30
 
 const INITIAL_HEALTH : float = 100.0
 
+const textures : Dictionary[int, Texture] = {
+	9 : preload("uid://w0lk825wuycu"),
+	19 : preload("uid://rlg3g2t4a1a6"),
+	29 : preload("uid://bx65pr03ig4mk"),
+	999 : preload("uid://b1cuac0jjv7n1"),
+}
+
 @export var regen_rate := 2.0 # Regen per second
 @export var regen_cooldown := 5.0 # After x seconds of not being hit, start regenning
 
@@ -49,7 +56,10 @@ const LevelDataTypes := {
 		AMT_PER_RAISE = "amt_per_raise",
 		MIN_PAY = "min_pay",
 		MAX_PAY = "max_pay",
-		BOSS_LEVEL = "boss_level"
+		SPAWN_RATE = "spawn_rate",
+		HEALTH = "health",
+		MAX_AMOUNT = "max_amount",
+		BOSS_LEVEL = "boss_level",
 	}
 
 const levels : Array[Dictionary] = [
@@ -61,6 +71,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 0.15,
 	"min_pay": 0.105,
 	"max_pay": 0.195,
+	"spawn_rate": 1,
+	"health": 60,
+	"max_amount": 5,
 	"boss_level": false
   },
   {
@@ -71,6 +84,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 0.1666666667,
 	"min_pay": 0.1166666667,
 	"max_pay": 0.2166666667,
+	"spawn_rate": 0.85316785,
+	"health": 60.298315,
+	"max_amount": 5.3413395,
 	"boss_level": false
   },
   {
@@ -81,6 +97,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 0.25,
 	"min_pay": 0.175,
 	"max_pay": 0.325,
+	"spawn_rate": 0.72789538,
+	"health": 60.685623,
+	"max_amount": 5.7991916,
 	"boss_level": false
   },
   {
@@ -91,7 +110,10 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 0.3571428571,
 	"min_pay": 0.25,
 	"max_pay": 0.4642857143,
-	"boss_level": true
+	"spawn_rate": 0.62101694,
+	"health": 61.18847,
+	"max_amount": 6.4133267,
+	"boss_level": false
   },
   {
 	"level": 5,
@@ -101,6 +123,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 0.5714285714,
 	"min_pay": 0.4,
 	"max_pay": 0.7428571429,
+	"spawn_rate": 0.52983169,
+	"health": 61.841324,
+	"max_amount": 7.2370903,
 	"boss_level": false
   },
   {
@@ -111,6 +136,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 1,
 	"min_pay": 0.7,
 	"max_pay": 1.3,
+	"spawn_rate": 0.45203537,
+	"health": 62.688935,
+	"max_amount": 8.342037,
 	"boss_level": false
   },
   {
@@ -121,6 +149,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 1.111111111,
 	"min_pay": 0.7777777778,
 	"max_pay": 1.444444444,
+	"spawn_rate": 0.38566204,
+	"health": 63.7894,
+	"max_amount": 9.8241456,
 	"boss_level": false
   },
   {
@@ -131,6 +162,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 1.5,
 	"min_pay": 1.05,
 	"max_pay": 1.95,
+	"spawn_rate": 0.32903446,
+	"health": 65.218152,
+	"max_amount": 11.812156,
 	"boss_level": false
   },
   {
@@ -141,6 +175,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 2.727272727,
 	"min_pay": 1.909090909,
 	"max_pay": 3.545454545,
+	"spawn_rate": 0.28072162,
+	"health": 67.073122,
+	"max_amount": 14.478754,
 	"boss_level": true
   },
   {
@@ -151,6 +188,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 3.076923077,
 	"min_pay": 2.153846154,
 	"max_pay": 4,
+	"spawn_rate": 0.23950266,
+	"health": 69.481458,
+	"max_amount": 18.055566,
 	"boss_level": false
   },
   {
@@ -161,6 +201,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 5.333333333,
 	"min_pay": 3.733333333,
 	"max_pay": 6.933333333,
+	"spawn_rate": 0.20433597,
+	"health": 72.608238,
+	"max_amount": 22.853286,
 	"boss_level": false
   },
   {
@@ -171,6 +214,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 6.944444444,
 	"min_pay": 4.861111111,
 	"max_pay": 9.027777778,
+	"spawn_rate": 0.17433288,
+	"health": 76.667785,
+	"max_amount": 29.288656,
 	"boss_level": false
   },
   {
@@ -181,6 +227,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 7.954545455,
 	"min_pay": 5.568181818,
 	"max_pay": 10.34090909,
+	"spawn_rate": 0.14873521,
+	"health": 81.938356,
+	"max_amount": 37.920672,
 	"boss_level": false
   },
   {
@@ -191,7 +240,10 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 11.11111111,
 	"min_pay": 7.777777778,
 	"max_pay": 14.44444444,
-	"boss_level": true
+	"spawn_rate": 0.1268961,
+	"health": 88.78122,
+	"max_amount": 49.499137,
+	"boss_level": false
   },
   {
 	"level": 15,
@@ -201,6 +253,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 12.12121212,
 	"min_pay": 8.484848485,
 	"max_pay": 15.75757576,
+	"spawn_rate": 0.10826367,
+	"health": 97.665415,
+	"max_amount": 65.029788,
 	"boss_level": false
   },
   {
@@ -211,6 +266,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 20,
 	"min_pay": 14,
 	"max_pay": 26,
+	"spawn_rate": 0.092367086,
+	"health": 109.1999,
+	"max_amount": 85.861664,
 	"boss_level": false
   },
   {
@@ -221,6 +279,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 24,
 	"min_pay": 16.8,
 	"max_pay": 31.2,
+	"spawn_rate": 0.078804628,
+	"health": 124.1753,
+	"max_amount": 113.80428,
 	"boss_level": false
   },
   {
@@ -231,6 +292,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 32.25806452,
 	"min_pay": 22.58064516,
 	"max_pay": 41.93548387,
+	"spawn_rate": 0.067233575,
+	"health": 143.6181,
+	"max_amount": 151.28482,
 	"boss_level": false
   },
   {
@@ -241,6 +305,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 42.85714286,
 	"min_pay": 30,
 	"max_pay": 55.71428571,
+	"spawn_rate": 0.057361525,
+	"health": 168.86097,
+	"max_amount": 201.55894,
 	"boss_level": true
   },
   {
@@ -251,6 +318,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 56.70103093,
 	"min_pay": 39.69072165,
 	"max_pay": 73.71134021,
+	"spawn_rate": 0.048939009,
+	"health": 201.63419,
+	"max_amount": 268.9936,
 	"boss_level": false
   },
   {
@@ -261,6 +331,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 66.11570248,
 	"min_pay": 46.28099174,
 	"max_pay": 85.95041322,
+	"spawn_rate": 0.041753189,
+	"health": 244.18415,
+	"max_amount": 359.44637,
 	"boss_level": false
   },
   {
@@ -271,6 +344,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 84.96732026,
 	"min_pay": 59.47712418,
 	"max_pay": 110.4575163,
+	"spawn_rate": 0.035622479,
+	"health": 299.42743,
+	"max_amount": 480.77425,
 	"boss_level": false
   },
   {
@@ -281,6 +357,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 119.1709845,
 	"min_pay": 83.41968912,
 	"max_pay": 154.9222798,
+	"spawn_rate": 0.030391954,
+	"health": 371.15062,
+	"max_amount": 643.51612,
 	"boss_level": false
   },
   {
@@ -291,7 +370,10 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 172.8395062,
 	"min_pay": 120.9876543,
 	"max_pay": 224.691358,
-	"boss_level": true
+	"spawn_rate": 0.025929438,
+	"health": 464.26994,
+	"max_amount": 861.80822,
+	"boss_level": false
   },
   {
 	"level": 25,
@@ -301,6 +383,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 162.8664495,
 	"min_pay": 114.0065147,
 	"max_pay": 211.7263844,
+	"spawn_rate": 0.022122163,
+	"health": 585.16818,
+	"max_amount": 1154.612,
 	"boss_level": false
   },
   {
@@ -311,6 +396,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 231.3624679,
 	"min_pay": 161.9537275,
 	"max_pay": 300.7712082,
+	"spawn_rate": 0.018873918,
+	"health": 742.13222,
+	"max_amount": 1547.3613,
 	"boss_level": false
   },
   {
@@ -321,6 +409,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 284.5528455,
 	"min_pay": 199.1869919,
 	"max_pay": 369.9186992,
+	"spawn_rate": 0.01610262,
+	"health": 945.92105,
+	"max_amount": 2074.1715,
 	"boss_level": false
   },
   {
@@ -331,6 +422,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 385.2327448,
 	"min_pay": 269.6629213,
 	"max_pay": 500.8025682,
+	"spawn_rate": 0.013738238,
+	"health": 1210.5032,
+	"max_amount": 2780.8027,
 	"boss_level": false
   },
   {
@@ -341,6 +435,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 481.0126582,
 	"min_pay": 336.7088608,
 	"max_pay": 625.3164557,
+	"spawn_rate": 0.011721023,
+	"health": 1554.0143,
+	"max_amount": 3728.635,
 	"boss_level": true
   },
   {
@@ -351,6 +448,9 @@ const levels : Array[Dictionary] = [
 	"amt_per_raise": 0,
 	"min_pay": 0,
 	"max_pay": 0,
+	"spawn_rate": 0.01,
+	"health": 2000,
+	"max_amount": 5000,
 	"boss_level": false
   }
 ]

@@ -165,7 +165,7 @@ func set_pause(_pause_mode : PauseMode = PauseMode.PAUSE_SCREEN, revive: bool = 
 	dead_tween.tween_callback(YouDied.show if (pause_mode == PauseMode.YOU_DIED) else YouDied.hide)
 
 func _process(delta: float) -> void:
-	background_tiles.set_shader_parameter("offset", WorldNode.PlayerNode.position)
+	background_tiles.set_shader_parameter("offset", WorldNode.PlayerNode.position + (WorldNode.Camera.offset))
 	background_tiles.set_shader_parameter("zoom", WorldNode.Camera.zoom)
 	
 	if not get_tree().paused:

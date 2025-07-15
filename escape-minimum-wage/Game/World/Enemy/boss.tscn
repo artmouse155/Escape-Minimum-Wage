@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://dsa77ue62e0hp"]
+[gd_scene load_steps=30 format=3 uid="uid://dsa77ue62e0hp"]
 
 [ext_resource type="Script" uid="uid://bmdl54tilgxa8" path="res://Game/World/Enemy/boss.gd" id="1_ynynf"]
 [ext_resource type="PackedScene" uid="uid://detvmwgrdvv5y" path="res://Game/World/Player/Projectiles/Resume/projectile.tscn" id="2_1smju"]
+[ext_resource type="Shader" uid="uid://hpjmweq1nydb" path="res://Game/World/Enemy/ground_pound.gdshader" id="3_n0awn"]
 [ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="3_u56ul"]
 [ext_resource type="Texture2D" uid="uid://b7vcdssu76l3e" path="res://Game/World/Enemy/enemy.png" id="3_ynynf"]
 [ext_resource type="Script" uid="uid://c1sflh56qncek" path="res://Game/World/hitbox.gd" id="4_ndk53"]
@@ -13,6 +14,20 @@
 [ext_resource type="Texture2D" uid="uid://cf48ah68sb2ov" path="res://Game/World/Enemy/Bosses/Burger Flipper/sprites/old_man-6.png" id="10_mgy7n"]
 [ext_resource type="Texture2D" uid="uid://g6qyo6l2a4kq" path="res://Game/World/Enemy/Bosses/Burger Flipper/sprites/old_man-7.png" id="11_gmopy"]
 [ext_resource type="Texture2D" uid="uid://bqe7lmxhwts6n" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-1.png" id="13_nd28w"]
+[ext_resource type="Texture2D" uid="uid://dth060446urvs" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-2.png" id="14_1pwa0"]
+[ext_resource type="Texture2D" uid="uid://cbjdp58c5rrjk" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-3.png" id="15_n0awn"]
+[ext_resource type="Texture2D" uid="uid://c2a8qkop0p6sw" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-4.png" id="16_5rnit"]
+[ext_resource type="Texture2D" uid="uid://bxkhpimbt5515" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-6.png" id="17_0rw7n"]
+[ext_resource type="Texture2D" uid="uid://d22ibm3iopab1" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-7.png" id="18_sact8"]
+[ext_resource type="Texture2D" uid="uid://bis6t7ygl5qr5" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-8.png" id="19_i14pp"]
+[ext_resource type="Texture2D" uid="uid://2ca3xwoxrjmb" path="res://Game/World/Enemy/Bosses/Basic/basic boss/business_boss-9.png" id="20_v5vim"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5rnit"]
+shader = ExtResource("3_n0awn")
+shader_parameter/color = Color(0.07, 0.0365167, 0.0126, 1)
+shader_parameter/radius = 0.8
+shader_parameter/thickness = 0.1
+shader_parameter/opacity = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ynynf"]
 radius = 80.0
@@ -21,7 +36,7 @@ radius = 80.0
 font_size = 48
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u56ul"]
-size = Vector2(200, 300)
+size = Vector2(280, 520)
 
 [sub_resource type="Animation" id="Animation_bs3l2"]
 length = 0.001
@@ -68,6 +83,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_h5133"]
 resource_name = "BASIC"
+length = 2.66667
 step = 0.0416667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -76,10 +92,10 @@ tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.416667, 0.833333, 0.916667, 1.33333, 1.91667, 2, 2.54167, 2.66667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [ExtResource("13_nd28w")]
+"values": [ExtResource("13_nd28w"), ExtResource("14_1pwa0"), ExtResource("15_n0awn"), ExtResource("16_5rnit"), ExtResource("17_0rw7n"), ExtResource("18_sact8"), ExtResource("19_i14pp"), ExtResource("20_v5vim"), ExtResource("13_nd28w")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1pwa0"]
@@ -92,6 +108,7 @@ _data = {
 [node name="Boss" type="RigidBody2D" node_paths=PackedStringArray("AnimPlayer", "NameLabel", "TopAnchor", "HealthBar", "Sprite", "HitboxArea")]
 collision_layer = 3
 gravity_scale = 0.0
+can_sleep = false
 lock_rotation = true
 continuous_cd = 1
 contact_monitor = true
@@ -100,6 +117,7 @@ linear_damp = 10.0
 script = ExtResource("1_ynynf")
 ProjectileScene = ExtResource("2_1smju")
 AnimPlayer = NodePath("AnimationPlayer")
+AreaEffectShader = SubResource("ShaderMaterial_5rnit")
 NameLabel = NodePath("NameLabelAnchor/NameLabel")
 TopAnchor = NodePath("TopAnchor")
 HealthBar = NodePath("TopAnchor/HealthBar")
@@ -107,12 +125,27 @@ Sprite = NodePath("Sprite")
 HitboxArea = NodePath("Hitbox")
 metadata/_custom_type_script = "uid://bmdl54tilgxa8"
 
+[node name="BasicAttack" type="ColorRect" parent="."]
+z_index = -1
+material = SubResource("ShaderMaterial_5rnit")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 1000.0
+offset_bottom = 1000.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.540789, 0.558844, 0.26204, 1)
+
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
 shape = SubResource("CircleShape2D_ynynf")
 
 [node name="TopAnchor" type="Node2D" parent="."]
-position = Vector2(0, -420)
+position = Vector2(0, -570)
 
 [node name="HealthBar" type="ProgressBar" parent="TopAnchor"]
 anchors_preset = 8
@@ -157,12 +190,13 @@ vertical_alignment = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("3_ynynf")
-offset = Vector2(0, -240)
+offset = Vector2(0, -270)
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("Parent")]
-position = Vector2(0, -150)
+position = Vector2(0, -260)
 script = ExtResource("4_ndk53")
 Parent = NodePath("..")
+Rect = SubResource("RectangleShape2D_u56ul")
 metadata/_custom_type_script = "uid://c1sflh56qncek"
 
 [node name="Hitbox" type="CollisionShape2D" parent="Hitbox"]

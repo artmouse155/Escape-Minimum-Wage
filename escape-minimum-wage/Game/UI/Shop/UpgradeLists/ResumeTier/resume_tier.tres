@@ -29,7 +29,7 @@ resource_name = "Paper"
 script = ExtResource("2_2fmcl")
 icon = ExtResource("4_v27yt")
 name = "Paper"
-cost = 0.0
+cost = 50.0
 values = Dictionary[String, String]({
 "impact": "15"
 })
@@ -40,7 +40,7 @@ resource_name = "Scented Paper"
 script = ExtResource("2_2fmcl")
 icon = ExtResource("5_q71a1")
 name = "Scented Paper"
-cost = 0.0
+cost = 100.0
 values = Dictionary[String, String]({
 "impact": "25"
 })
@@ -51,7 +51,7 @@ resource_name = "Textured Paper"
 script = ExtResource("2_2fmcl")
 icon = ExtResource("6_v1dm5")
 name = "Textured Paper"
-cost = 0.0
+cost = 900.0
 values = Dictionary[String, String]({
 "impact": "40"
 })
@@ -62,7 +62,7 @@ resource_name = "Cardstock"
 script = ExtResource("2_2fmcl")
 icon = ExtResource("7_ufgeg")
 name = "Cardstock"
-cost = 0.0
+cost = 5000.0
 values = Dictionary[String, String]({
 "impact": "75"
 })
@@ -73,9 +73,9 @@ resource_name = "Laminated Cardstock"
 script = ExtResource("2_2fmcl")
 icon = ExtResource("8_3cvev")
 name = "Laminated Cardstock"
-cost = 0.0
+cost = 20000.0
 values = Dictionary[String, String]({
-"Impact": "100"
+"impact": "100"
 })
 metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 
@@ -84,7 +84,7 @@ resource_name = "Bronze"
 script = ExtResource("2_2fmcl")
 icon = ExtResource("9_ng8ln")
 name = "Bronze"
-cost = 0.0
+cost = 80000.0
 values = Dictionary[String, String]({
 "impact": "200"
 })
@@ -95,7 +95,7 @@ resource_name = "Silver"
 script = ExtResource("2_2fmcl")
 icon = ExtResource("10_fgt8u")
 name = "Silver"
-cost = 0.0
+cost = 400000.0
 values = Dictionary[String, String]({
 "impact": "350"
 })
@@ -106,7 +106,7 @@ resource_name = "Gold"
 script = ExtResource("2_2fmcl")
 icon = ExtResource("11_ly7l6")
 name = "Gold"
-cost = 0.0
+cost = 1e+06
 values = Dictionary[String, String]({
 "impact": "500"
 })
@@ -117,7 +117,7 @@ resource_name = "Diamond"
 script = ExtResource("2_2fmcl")
 icon = ExtResource("12_y4po4")
 name = "Diamond"
-cost = 0.0
+cost = 1e+07
 values = Dictionary[String, String]({
 "impact": "750"
 })

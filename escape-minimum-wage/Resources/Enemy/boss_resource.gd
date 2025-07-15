@@ -1,29 +1,47 @@
 class_name BossResource extends EnemyResource
 
-enum BossType {BASIC, BURGER, LIFEGUARD, MOVIE_STAR}
+enum BossType {BASIC, BURGER, MOVIE_STAR}
 
 const LevelToBoss : Dictionary[int, BossType] = {
-	4 : BossType.BASIC,
-	9 : BossType.BURGER,
-	14 : BossType.LIFEGUARD,
-	19 : BossType.MOVIE_STAR,
+	9 : BossType.BASIC,
+	19 : BossType.BURGER,
+	29 : BossType.MOVIE_STAR,
 }
 
 const BossDict : Dictionary[BossType, Dictionary] = {
 	BossType.BASIC : {
-		name = "Big Man",
-		title = "Executive",
-		health = 100.0,
+		name = "Big Frank",
+		title = "Assembly Line Manager",
+		texture = preload("uid://bqe7lmxhwts6n"),
+		health = 5000.0,
+		move_force = 5000,
+		offset = Vector2(0,-240),
+		rect_size = Vector2(320,460),
+		anchor_y = -2000,
+		attack_damage = 45
 	},
 	BossType.BURGER : {
 		name = "Flip R. Burger",
 		title = "Burger Flipper",
 		texture = preload("uid://bb0higa8kyxho"),
-		health = 150.0,
+		health = 32000.0,
 		move_force = 4000,
 		offset = Vector2(0,-190),
+		rect_size = Vector2(200,300),
 		anchor_y = -420,
-	}
+		attack_damage = 20
+	},
+	BossType.MOVIE_STAR : {
+		name = "Ricky Smooth",
+		title = "Director",
+		texture = preload("uid://bclxbqe2b17tg"),
+		health = 500000.0,
+		move_force = 4000,
+		offset = Vector2(0,-270),
+		rect_size = Vector2(280,520),
+		anchor_y = -570,
+		attack_damage = 49
+	},
 }
 
 var boss_type : BossType

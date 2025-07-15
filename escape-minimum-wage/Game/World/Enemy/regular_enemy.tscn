@@ -2,18 +2,19 @@
 
 [ext_resource type="Script" uid="uid://02racc3ut2pn" path="res://Game/World/Enemy/regular_enemy.gd" id="1_kp5df"]
 [ext_resource type="PackedScene" uid="uid://detvmwgrdvv5y" path="res://Game/World/Player/Projectiles/Resume/projectile.tscn" id="2_ngk3y"]
-[ext_resource type="Texture2D" uid="uid://b7vcdssu76l3e" path="res://Game/World/Enemy/enemy.png" id="3_gi8gx"]
+[ext_resource type="Texture2D" uid="uid://r0tp8g118dg4" path="res://Game/World/Enemy/basic corpos/male.tres" id="3_g44ih"]
 [ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="3_ngk3y"]
 [ext_resource type="Script" uid="uid://c1sflh56qncek" path="res://Game/World/hitbox.gd" id="4_ngk3y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3va78"]
-size = Vector2(100, 300)
+size = Vector2(185, 470)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kp5df"]
 radius = 80.0
 
 [node name="RegularEnemy" type="RigidBody2D" node_paths=PackedStringArray("RaiseLabel", "NameLabel", "TopAnchor", "HealthBar", "Sprite", "HitboxArea") groups=["Enemy"]]
 gravity_scale = 0.0
+can_sleep = false
 lock_rotation = true
 continuous_cd = 1
 contact_monitor = true
@@ -30,12 +31,11 @@ HitboxArea = NodePath("Hitbox")
 metadata/_custom_type_script = "uid://02racc3ut2pn"
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("3_gi8gx")
-centered = false
-offset = Vector2(-50, -300)
+texture = ExtResource("3_g44ih")
+offset = Vector2(0, -220)
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("Parent")]
-position = Vector2(0, -150)
+position = Vector2(0, -235)
 script = ExtResource("4_ngk3y")
 Parent = NodePath("..")
 metadata/_custom_type_script = "uid://c1sflh56qncek"
@@ -44,11 +44,10 @@ metadata/_custom_type_script = "uid://c1sflh56qncek"
 shape = SubResource("RectangleShape2D_3va78")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
 shape = SubResource("CircleShape2D_kp5df")
 
 [node name="TopAnchor" type="Node2D" parent="."]
-position = Vector2(0, -320)
+position = Vector2(0, -490)
 
 [node name="HealthBar" type="ProgressBar" parent="TopAnchor"]
 anchors_preset = 8

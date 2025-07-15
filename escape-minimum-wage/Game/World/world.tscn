@@ -5,9 +5,9 @@
 [ext_resource type="Script" uid="uid://c3v2io5647yh3" path="res://Game/World/Enemy/enemy_spawner.gd" id="1_yyydc"]
 [ext_resource type="PackedScene" uid="uid://ywfs1lsjairk" path="res://Game/World/Enemy/regular_enemy.tscn" id="4_qcky7"]
 [ext_resource type="PackedScene" uid="uid://dsa77ue62e0hp" path="res://Game/World/Enemy/boss.tscn" id="5_vrgoe"]
+[ext_resource type="Texture2D" uid="uid://w0lk825wuycu" path="res://Game/World/Player/main character/all.png" id="6_jaene"]
 [ext_resource type="Script" uid="uid://bvdcfn0q13bj1" path="res://Game/World/Player/resume_spawner.gd" id="6_ltd38"]
 [ext_resource type="PackedScene" uid="uid://detvmwgrdvv5y" path="res://Game/World/Player/Projectiles/Resume/projectile.tscn" id="7_i842q"]
-[ext_resource type="Texture2D" uid="uid://daggv03oy4sv4" path="res://Game/World/Player/player.png" id="7_jaene"]
 [ext_resource type="Theme" uid="uid://d1gbsuhluo4pk" path="res://Resources/Theme/main_theme.tres" id="8_qcky7"]
 [ext_resource type="Script" uid="uid://c1sflh56qncek" path="res://Game/World/hitbox.gd" id="10_jaene"]
 
@@ -42,6 +42,7 @@ PlayerNode = NodePath("../Player")
 [node name="Player" type="RigidBody2D" parent="." node_paths=PackedStringArray("ResumeSpawnerNode", "TopAnchor", "HealthBar", "Sprite", "HitboxArea") groups=["Player"]]
 mass = 10.0
 gravity_scale = 0.0
+can_sleep = false
 lock_rotation = true
 linear_damp = 10.0
 script = ExtResource("1_eof05")
@@ -53,9 +54,8 @@ HitboxArea = NodePath("Hitbox")
 metadata/_custom_type_script = "uid://ckkjnd206unei"
 
 [node name="Sprite" type="Sprite2D" parent="Player"]
-texture = ExtResource("7_jaene")
-centered = false
-offset = Vector2(-50, -300)
+texture = ExtResource("6_jaene")
+offset = Vector2(0, -210)
 
 [node name="ResumeSpawner" type="Node2D" parent="Player"]
 position = Vector2(0, -150)
@@ -66,7 +66,6 @@ ResumeScene = ExtResource("7_i842q")
 zoom = Vector2(0.4, 0.4)
 
 [node name="SpawnPath" type="Path2D" parent="Player"]
-scale = Vector2(0.2, 0.2)
 curve = SubResource("Curve2D_v7yag")
 
 [node name="Follow" type="PathFollow2D" parent="Player/SpawnPath"]
@@ -74,7 +73,7 @@ position = Vector2(-1140.94, 2000)
 progress = 4859.06
 
 [node name="TopAnchor" type="Node2D" parent="Player"]
-position = Vector2(0, -320)
+position = Vector2(0, -450)
 
 [node name="HealthBar" type="ProgressBar" parent="Player/TopAnchor"]
 anchors_preset = 8
@@ -95,7 +94,6 @@ value = 1.0
 show_percentage = false
 
 [node name="Hurtbox" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 0.5)
 shape = SubResource("CircleShape2D_jaene")
 
 [node name="Hitbox" type="Area2D" parent="Player" node_paths=PackedStringArray("Parent")]

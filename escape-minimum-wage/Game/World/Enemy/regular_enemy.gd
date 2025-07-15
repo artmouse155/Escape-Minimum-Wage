@@ -30,6 +30,7 @@ signal regular_enemy_dead(_raise_amt: float, _title: String)
 func init_reg(data : RegularEnemyResource, _position: Vector2, _player: Player):
 	raise_amt = data.raise_amt
 	level = data.level
+	Sprite.texture = data.texture
 	NameLabel.text = data.get_name_label()
 	init_enemy(data, regular_attack_cycle, _position, _player)
 

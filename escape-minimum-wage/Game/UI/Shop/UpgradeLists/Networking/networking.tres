@@ -1,15 +1,19 @@
-[gd_resource type="Resource" script_class="UpgradeList" load_steps=9 format=3 uid="uid://ch6p1mtjx3tyx"]
+[gd_resource type="Resource" script_class="UpgradeList" load_steps=13 format=3 uid="uid://ch6p1mtjx3tyx"]
 
 [ext_resource type="Script" uid="uid://cnq0rt0uj1ssv" path="res://Game/UI/Shop/Resources/UpgradeList.gd" id="1_31u5c"]
 [ext_resource type="Script" uid="uid://dqx3ejmxj4yoj" path="res://Game/UI/Shop/Resources/upgrade.gd" id="2_uove2"]
-[ext_resource type="Texture2D" uid="uid://do0tm22vapp61" path="res://Game/UI/Shop/UpgradeLists/OTHER/temp.png" id="3_uove2"]
+[ext_resource type="Texture2D" uid="uid://b11aq3jki8qwq" path="res://Game/UI/Shop/UpgradeLists/Networking/networking/Untitled_Artwork-1.png" id="3_y5cai"]
+[ext_resource type="Texture2D" uid="uid://bmrkdyrmmph8r" path="res://Game/UI/Shop/UpgradeLists/Networking/networking/Untitled_Artwork-2.png" id="4_2rli3"]
+[ext_resource type="Texture2D" uid="uid://cjoh7ml5a4i6" path="res://Game/UI/Shop/UpgradeLists/Networking/networking/Untitled_Artwork-3.png" id="5_0vjva"]
+[ext_resource type="Texture2D" uid="uid://otiwbqeg48m3" path="res://Game/UI/Shop/UpgradeLists/Networking/networking/Untitled_Artwork-4.png" id="6_b3gs4"]
+[ext_resource type="Texture2D" uid="uid://dlpvsn7a74dg4" path="res://Game/UI/Shop/UpgradeLists/Networking/networking/Untitled_Artwork-5.png" id="7_2hgar"]
 
 [sub_resource type="Resource" id="Resource_pybhl"]
 resource_name = "Lone Ranger"
 script = ExtResource("2_uove2")
-icon = ExtResource("3_uove2")
+icon = ExtResource("3_y5cai")
 name = "Lone Ranger"
-cost = 0.0
+cost = 1000.0
 values = Dictionary[String, String]({
 "thrown_resumes": "1"
 })
@@ -18,9 +22,9 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_sv4n4"]
 resource_name = "Side Hustler"
 script = ExtResource("2_uove2")
-icon = ExtResource("3_uove2")
+icon = ExtResource("4_2rli3")
 name = "Side Hustler"
-cost = 0.0
+cost = 80000.0
 values = Dictionary[String, String]({
 "thrown_resumes": "2"
 })
@@ -29,9 +33,9 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_8cs21"]
 resource_name = "Job Juggler"
 script = ExtResource("2_uove2")
-icon = ExtResource("3_uove2")
+icon = ExtResource("5_0vjva")
 name = "Job Juggler"
-cost = 0.0
+cost = 1.5e+06
 values = Dictionary[String, String]({
 "thrown_resumes": "3"
 })
@@ -40,9 +44,9 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_y5cai"]
 resource_name = "Career Spreader"
 script = ExtResource("2_uove2")
-icon = ExtResource("3_uove2")
+icon = ExtResource("6_b3gs4")
 name = "Career Spreader"
-cost = 0.0
+cost = 600000.0
 values = Dictionary[String, String]({
 "thrown_resumes": "5"
 })
@@ -51,9 +55,9 @@ metadata/_custom_type_script = "uid://dqx3ejmxj4yoj"
 [sub_resource type="Resource" id="Resource_2rli3"]
 resource_name = "Manifolder"
 script = ExtResource("2_uove2")
-icon = ExtResource("3_uove2")
+icon = ExtResource("7_2hgar")
 name = "Manifolder"
-cost = 0.0
+cost = 1e+07
 values = Dictionary[String, String]({
 "thrown_resumes": "10"
 })

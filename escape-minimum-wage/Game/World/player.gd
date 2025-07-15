@@ -43,6 +43,10 @@ func on_playerdata_updated(playerdata : PlayerResource):
 	regen_cooldown = playerdata.regen_cooldown
 	regen_rate = playerdata.regen_rate
 	init(playerdata.INITIAL_HEALTH, playerdata.speed)
+	for key in PlayerResource.textures.keys():
+		if playerdata.level <= key:
+			Sprite.texture = PlayerResource.textures[key]
+			break
 	ResumeSpawnerNode.on_playerdata_updated(playerdata)
 
 func reset_position_and_health_and_projectiles():
