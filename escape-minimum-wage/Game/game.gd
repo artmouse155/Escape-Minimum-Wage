@@ -27,6 +27,7 @@ class_name Game extends Control
 @export var PauseScreen: ColorRect
 @export var PauseScreenText: RichTextLabel
 @export var TitleNode: Title
+@export var SettingsScreen: Control
 
 @export_group("Labels")
 @export var TitleLabel: Label
@@ -71,7 +72,7 @@ var is_boss_level : bool = false
 # Pausing
 var pause_tween : Tween
 const PAUSE_ANIM : float = 0.25
-var pause_mode : PauseMode
+var pause_mode : PauseMode = PauseMode.SETTINGS
 
 # Pause Label
 var pause_label_tween : Tween
@@ -81,6 +82,9 @@ var shop_tween : Tween
 
 # You dead
 var dead_tween : Tween
+
+# Settings
+var settings_tween : Tween
 
 func _ready() -> void:
 	assert(background_tiles, "Background Tiles not connected")
@@ -95,6 +99,7 @@ func _ready() -> void:
 	ShopNode.shop_purchase.connect(on_shop_purchase)
 	update_playerdata(PlayerResource.new())
 	LevelLabel.text = str(playerdata.level)
+	set_pause(PauseMode.SETTINGS)
 
 
 func _input(_event: InputEvent) -> void:
@@ -163,6 +168,13 @@ func set_pause(_pause_mode : PauseMode = PauseMode.PAUSE_SCREEN, revive: bool = 
 	YouDied.show()
 	dead_tween.tween_property(YouDied, "modulate:a", 1.0 if (pause_mode == PauseMode.YOU_DIED) else 0.0, PAUSE_ANIM)
 	dead_tween.tween_callback(YouDied.show if (pause_mode == PauseMode.YOU_DIED) else YouDied.hide)
+	
+	if settings_tween:
+		settings_tween.kill()
+	settings_tween = create_tween()
+	SettingsScreen.show()
+	settings_tween.tween_property(SettingsScreen, "modulate:a", 1.0 if (pause_mode == PauseMode.SETTINGS) else 0.0, PAUSE_ANIM)
+	settings_tween.tween_callback(SettingsScreen.show if (pause_mode == PauseMode.SETTINGS) else SettingsScreen.hide)
 
 func _process(delta: float) -> void:
 	background_tiles.set_shader_parameter("offset", WorldNode.PlayerNode.position + (WorldNode.Camera.offset))
@@ -273,3 +285,7 @@ func _on_reapply_pressed() -> void:
 		playerdata.salary = current_wage_threshold
 		visual_salary = current_wage_threshold
 	set_pause(PauseMode.NONE, true)
+
+
+func _on_settings_pressed() -> void:
+	set_pause(PauseMode.SETTINGS if (pause_mode == PauseMode.NONE) else PauseMode.NONE)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cw712jj3h78q6"]
+[gd_scene load_steps=28 format=3 uid="uid://cw712jj3h78q6"]
 
 [ext_resource type="Shader" uid="uid://dh5ck4i2ivrue" path="res://Game/tiles.gdshader" id="1_1r4le"]
 [ext_resource type="PackedScene" uid="uid://b25h3roe75kgy" path="res://Game/World/world.tscn" id="1_bk3v5"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://3qwp5parw6tj" path="res://Game/title.gd" id="10_7gi1t"]
 [ext_resource type="Script" uid="uid://bdmgwks0kuafh" path="res://Game/tween_button.gd" id="13_4lqr4"]
 [ext_resource type="PackedScene" uid="uid://di5fus4hd3do6" path="res://Game/UI/Shop/shop.tscn" id="13_qlwvw"]
+[ext_resource type="Texture2D" uid="uid://cns8v7if0ln5i" path="res://Screenshot 2025-07-14 235712.png" id="14_rpdke"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7raqb"]
 shader = ExtResource("1_1r4le")
@@ -78,7 +79,7 @@ _data = {
 }
 point_count = 2
 
-[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "XPBar", "Skull", "Pause", "Settings", "PauseScreen", "PauseScreenText", "TitleNode", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel", "ShopNode", "ShopFollow", "ResumeButton", "YouDied")]
+[node name="Game" type="Control" node_paths=PackedStringArray("WorldNode", "XPBar", "Skull", "Pause", "Settings", "PauseScreen", "PauseScreenText", "TitleNode", "SettingsScreen", "TitleLabel", "SalaryLabel", "MoneyLabel", "RateLabel", "LevelLabel", "XPBarLabel", "ShopNode", "ShopFollow", "ResumeButton", "YouDied")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -102,6 +103,7 @@ Settings = NodePath("PauseAndSettings/SettingsControl/Settings")
 PauseScreen = NodePath("PauseScreen")
 PauseScreenText = NodePath("PausedLabel")
 TitleNode = NodePath("Title")
+SettingsScreen = NodePath("SettingsScreen")
 TitleLabel = NodePath("MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Position")
 SalaryLabel = NodePath("MarginContainer/InGameUI/Control/Resume/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Salary")
 MoneyLabel = NodePath("MarginContainer/InGameUI/Wallet/MarginContainer/VBoxContainer/Money/MarginContainer/MoneyLabel")
@@ -528,6 +530,29 @@ text = "Reapply"
 script = ExtResource("13_4lqr4")
 metadata/_custom_type_script = "uid://bdmgwks0kuafh"
 
+[node name="SettingsScreen" type="VBoxContainer" parent="."]
+z_index = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -409.5
+offset_top = -199.0
+offset_right = 409.5
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="SettingsScreen"]
+layout_mode = 2
+texture = ExtResource("14_rpdke")
+
+[node name="Label" type="Label" parent="SettingsScreen"]
+layout_mode = 2
+text = "Created by Artmouse155 and Smorey"
+
 [node name="PauseAndSettings" type="HBoxContainer" parent="."]
 z_index = 2
 layout_mode = 1
@@ -592,3 +617,4 @@ metadata/_custom_type_script = "uid://bdmgwks0kuafh"
 
 [connection signal="pressed" from="YouDiedScreen/VBoxContainer/Control/Reapply" to="." method="_on_reapply_pressed"]
 [connection signal="pressed" from="PauseAndSettings/PauseControl/Pause" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="PauseAndSettings/SettingsControl/Settings" to="." method="_on_settings_pressed"]
